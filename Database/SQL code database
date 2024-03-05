@@ -1,3 +1,6 @@
+-- Drop the database if it exists
+DROP DATABASE IF EXISTS recipe_app_database;
+
 -- Create the database
 CREATE DATABASE recipe_app_database;
 

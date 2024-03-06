@@ -2,7 +2,7 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Update the database for newly registered user.
-        $Username = $_POST["Name"];
+        $Username = $_POST["Username"];
         $Password = $_POST["Password"];
         $Email = $_POST["Email"];
 

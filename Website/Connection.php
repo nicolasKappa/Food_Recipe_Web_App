@@ -1,6 +1,7 @@
 <?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
         // Update the database for newly registered user.
-        $UserID = $_POST["UserID"];
         $Username = $_POST["Name"];
         $Password = $_POST["Password"];
         $Email = $_POST["Email"];
@@ -21,9 +22,10 @@
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }else{
+            
             $stmt = $conn->prepare("Insert into Users(Username,Password,Email)
                 values(?,?,?)");
-            $stmt->bind_param("sss",$Usename,$Password,$Email);
+            $stmt->bind_param("sss",$Username,$Password,$Email);
             
             
         // Behaviour during execution
@@ -38,6 +40,7 @@
             $conn->close();
 
         }
+}
  
         
     

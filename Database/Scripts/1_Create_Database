@@ -20,9 +20,9 @@ CREATE TABLE recipes (
     recipe_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL,
     description TEXT,
-    preparation_time TIME,
-    cooking_time TIME,
-    nr_served TEXT,
+    preparation_time varchar(50),
+    cooking_time varchar (50),
+    nr_served varchar(50),
     picture_url TEXT
 );
 

@@ -104,7 +104,7 @@ CREATE TABLE recipe_steps (
 
 -- Create recipe_tips table
 CREATE TABLE recipe_tips (
-    recipe_tip_id INT,
+    recipe_tip_id INT PRIMARY KEY AUTO_INCREMENT,
     recipe_id INT,
     tip_nr INT,
     description TEXT,

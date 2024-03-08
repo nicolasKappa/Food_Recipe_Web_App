@@ -6,11 +6,7 @@
     <title>Recipe App</title>
     <!--link to style sheet-->
     <link rel="stylesheet" href="StylesheetRecipeRegisterLogin.css">
-    <!--link to import google font-->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Laila:wght@300;500&family=Merriweather:ital@0;1&family=Work+Sans:wght@400;500;800&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Protest+Revolution&display=swap" rel="stylesheet">
+
 </head>
 <!--body of webpage-->
 
@@ -32,11 +28,21 @@
 
     <nav>
       <ul>
-        <li><a href="">All Recipes</a></li>
-        <li id="sign-in"><a href=""><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fc7%2Fab%2Fcd%2Fc7abcd3ce378191a3dddfa4cdb2be46f.png&f=1&nofb=1&ipt=d8b23f1da9f1d7ba3c771eb78352f8ba9e9ea31b91444421128809f2b02b2b5b&ipo=images"
-                         alt="authorization icon" width="30"></a></li>
-      </ul>
+        <li><a href="#">All Recipes</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">
+                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fc7%2Fab%2Fcd%2Fc7abcd3ce378191a3dddfa4cdb2be46f.png&f=1&nofb=1" alt="authorization icon" width="30">
+            </a>
+            <div class="dropdown-content" id="myDropdown">
+                <a href="#">Your Profile</a>
+                <a href="login.html">Log in</a>
+                <a href="register.html">Register</a>
+            </div>
+        </li>
+    </ul>
     </nav>
+    <div class="dropdown">
+
   </header>
   <div class="container">
       <div class="main">
@@ -52,7 +58,7 @@
                   <p>Add to favourites</p>
                 </div>
                 <h5 class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </h5>
-                <h4 class="categories">MAIN / MEAT / HEALTHY</h4>
+                <h5 class="categories">MAIN / MEAT / HEALTHY</h5>
                 <div class="time-people">
                   <div class="time">
                     <img src="images/clock.png" alt="clock icon">
@@ -62,6 +68,15 @@
                     <img src="images/man.png" alt="man icon">
                     <p class="num-people">4 people</p>
                   </div>
+                </div>
+                <div class="rating">
+                  <p class="star-rating">
+                    <i class="my-star-2 star-1" data-star="1"></i>
+                    <i class="my-star-2 star-2" data-star="2"></i>
+                    <i class="my-star-2 star-3" data-star="3"></i>
+                    <i class="my-star-2 star-4" data-star="4"></i>
+                    <i class="my-star-2 star-5" data-star="5"></i>
+                </p>
                 </div>
               </div>
 
@@ -102,13 +117,23 @@
 
               <div class="rating-box">
                 <h2>Rate this recipe!</h2>
-                <select class= "rating" name="rating" id="rating">
+                <!-- <select class= "rating" name="rating" id="rating">
                   <option value="1">1 star</option>
                   <option value="2">2 stars</option>
                   <option value="3">3 stars</option>
                   <option value="4">4 stars</option>
                   <option value="5">5 stars</option>
-                </select>
+                </select> -->
+
+                <p class="star-rating">
+                  <i class="my-star star-1" data-star="1"></i>
+                  <i class="my-star star-2" data-star="2"></i>
+                  <i class="my-star star-3" data-star="3"></i>
+                  <i class="my-star star-4" data-star="4"></i>
+                  <i class="my-star star-5" data-star="5"></i>
+              </p>
+              <input type="number" readonly id="output">
+              <button type="submit">Rate!</button>
               </div>
 
               <div class="tips">
@@ -120,5 +145,7 @@
 
       </footer>
   </div>
+
+  <script src="main.js"></script>
 </body>
 </html>

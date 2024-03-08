@@ -439,11 +439,7 @@ footer p {
   flex-direction: column;
   height: 100vh;
 }
-nav, footer {
-  background-color: #ddd;
-  padding: 10px;
-  text-align: center;
-}
+
 .main {
   flex-grow: 1;
   display: flex;

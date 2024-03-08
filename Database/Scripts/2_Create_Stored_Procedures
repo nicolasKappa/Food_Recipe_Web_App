@@ -282,5 +282,3 @@ BEGIN
 END //
 
 DELIMITER ;
-
-

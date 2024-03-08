@@ -1,8 +1,8 @@
-/* header {
+header {
 	margin-top: 0;
 	padding: 3em 1 em 2 em 1 em;
 	border-bottom: 5px solid black;
-	display: flex;
+
 	align-items: center;
 }
 
@@ -224,15 +224,17 @@ h2 {
 	.landing-main-block {
 		display: block;
 	}
-} */
+}
 
 
-header {
+ header {
 	margin-top: 0;
 	padding: 3em 1 em 2 em 1 em;
 	text-align: center;
 	background: #FFA000;
+  display: flex;
 }
+
 
 html {
 	box-sizing: border-box;
@@ -335,7 +337,7 @@ p {
 body {
 		font-size: 100%;
 		font-style: normal;
-		background-color: #FFECB3;
+		background-color: white;
 		padding: 1em;
 		font-family: Tahoma, Verdana, sans-serif;
 		margin: 0;

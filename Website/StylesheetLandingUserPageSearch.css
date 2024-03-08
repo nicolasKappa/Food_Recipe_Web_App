@@ -2,7 +2,7 @@ header {
 	margin-top: 0;
 	padding: 3em 1 em 2 em 1 em;
 	border-bottom: 5px solid black;
-
+  display: flex;
 	align-items: center;
 }
 

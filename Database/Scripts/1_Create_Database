@@ -26,9 +26,9 @@ CREATE TABLE recipes (
     picture_url TEXT
 );
 
--- Create favorites table
-CREATE TABLE favorites (
-    favorite_id INT PRIMARY KEY AUTO_INCREMENT,
+-- Create favourites table
+CREATE TABLE favourites (
+    favourite_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     recipe_id INT,
     FOREIGN KEY (user_id) REFERENCES users(user_id),

@@ -279,6 +279,20 @@ p, ul, ol, li{
   color: #fb8900;
 }
 
+.my-star-2::before{
+  content:"\002605";
+}
+/*remove the default style (italic) of the star*/
+.my-star-2{
+  font-style: unset !important;
+}
+/*set active star color*/
+.is-active{
+  color:#fb8900;
+}
+
+
+
 .tips{
   background-color: #FED5B2;
   margin: 5px;

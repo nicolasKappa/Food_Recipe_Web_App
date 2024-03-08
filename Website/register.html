@@ -26,11 +26,19 @@
 	</div>
 
 	<nav>
-		<ul>
-			<li><a href="">All Recipes</a></li>
-			<li id="sign-in"><a href=""><img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fc7%2Fab%2Fcd%2Fc7abcd3ce378191a3dddfa4cdb2be46f.png&f=1&nofb=1&ipt=d8b23f1da9f1d7ba3c771eb78352f8ba9e9ea31b91444421128809f2b02b2b5b&ipo=images"
-											 alt="authorization icon" width="30"></a></li>
-		</ul>
+    <ul>
+      <li><a href="#">All Recipes</a></li>
+      <li class="dropdown">
+          <a href="javascript:void(0)" class="dropbtn">
+              <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fc7%2Fab%2Fcd%2Fc7abcd3ce378191a3dddfa4cdb2be46f.png&f=1&nofb=1" alt="authorization icon" width="30">
+          </a>
+          <div class="dropdown-content" id="myDropdown">
+              <a href="#">Your Profile</a>
+              <a href="login.html">Log in</a>
+              <a href="register.html">register</a>
+          </div>
+      </li>
+  </ul>
 	</nav>
 </header>
 
@@ -71,7 +79,7 @@
 
 </footer>
 
-
+<script src="main.js"></script>
 </body>
 
 </html>

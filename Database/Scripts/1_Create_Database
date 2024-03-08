@@ -48,7 +48,7 @@ CREATE TABLE user_rating (
 -- Create lkp_categories table
 CREATE TABLE lkp_categories (
     category_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50) UNIQUE NOT NULL
 );
 
 -- Create recipe_category table
@@ -63,13 +63,13 @@ CREATE TABLE recipe_category (
 -- Create lkp_ingredients table
 CREATE TABLE lkp_ingredients (
     ingredient_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50) UNIQUE NOT NULL
 );
 
 -- Create lkp_unit_of_measure table
 CREATE TABLE lkp_unit_of_measure (
     uom_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50) UNIQUE NOT NULL
 );
 
 -- Create lkp_method table

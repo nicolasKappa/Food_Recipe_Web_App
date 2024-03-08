@@ -1,4 +1,4 @@
-header {
+/* header {
 	margin-top: 0;
 	padding: 3em 1 em 2 em 1 em;
 	border-bottom: 5px solid black;
@@ -224,7 +224,7 @@ h2 {
 	.landing-main-block {
 		display: block;
 	}
-}
+} */
 
 
 header {
@@ -513,7 +513,7 @@ footer p {
 
 
 .ingredients {
-  background-color: pink;
+  background-color: #FED5B2;
   margin: 5px;
   padding: 50px;
   height:500px;
@@ -547,7 +547,7 @@ footer p {
 }
 
 .tips{
-  background-color: pink;
+  background-color: #FED5B2;
   margin: 5px;
   padding: 50px;
   height:500px;

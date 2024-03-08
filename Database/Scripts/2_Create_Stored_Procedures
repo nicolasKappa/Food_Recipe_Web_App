@@ -1,0 +1,218 @@
+-- Drop existing stored procedures if they exist
+DROP PROCEDURE IF EXISTS sp_login;
+DROP PROCEDURE IF EXISTS sp_register_user;
+DROP PROCEDURE IF EXISTS sp_add_to_favourites;
+DROP PROCEDURE IF EXISTS sp_remove_from_favourites;
+DROP PROCEDURE IF EXISTS sp_add_rating;
+DROP PROCEDURE IF EXISTS sp_get_categories; 
+DROP PROCEDURE IF EXISTS sp_get_recipes;
+DROP PROCEDURE IF EXISTS sp_get_recipe_details;
+DROP PROCEDURE IF EXISTS sp_search_recipes;
+DROP PROCEDURE IF EXISTS sp_get_user_favourite_recipes;
+
+
+-- Login
+DELIMITER //
+
+CREATE PROCEDURE sp_login(
+	IN p_email VARCHAR(100), 
+    IN p_password VARCHAR(100)
+)
+BEGIN
+    SELECT user_id FROM users 
+    WHERE email = p_email AND password = p_password
+    LIMIT 1;
+END //
+
+DELIMITER ;
+
+-- User Registration and check if the user already registered
+DELIMITER //
+
+CREATE PROCEDURE sp_register_user(
+	IN p_full_name VARCHAR(50), 
+	IN p_password VARCHAR(100), 
+    IN p_email VARCHAR(100)
+)
+BEGIN
+    IF NOT EXISTS (SELECT email FROM users WHERE email = p_email) THEN
+        INSERT INTO users (full_name, password, email) 
+        VALUES (p_username, p_password, p_email);
+    ELSE
+        SELECT 'User already exists' AS ErrorMessage;
+    END IF;
+END //
+
+DELIMITER ;
+
+-- Add recipe to user's favourites
+
+DELIMITER //
+
+CREATE PROCEDURE sp_add_to_favourites(
+	IN p_user_id INT, 
+    IN p_recipe_id INT
+)
+BEGIN
+    INSERT INTO favorites (user_id, recipe_id) 
+    VALUES (p_user_id, p_recipe_id);
+END //
+
+DELIMITER ;
+
+-- Remove recipe from user's favourties
+
+DELIMITER //
+
+CREATE PROCEDURE sp_remove_from_favourites(
+	IN p_user_id INT, 
+	IN p_recipe_id INT
+)
+BEGIN
+    DELETE FROM favorites 
+    WHERE user_id = p_user_id AND recipe_id = p_recipe_id;
+END //
+
+DELIMITER ;
+
+-- Add user rating or update existing rating
+DELIMITER //
+
+CREATE PROCEDURE sp_add_rating(
+	IN p_user_id INT, 
+    IN p_recipe_id INT, IN p_rating INT
+)
+BEGIN
+    IF EXISTS (SELECT * FROM user_rating WHERE user_id = p_user_id AND recipe_id = p_recipe_id) THEN
+        UPDATE user_rating 
+        SET rating = p_rating 
+        WHERE user_id = p_user_id AND recipe_id = p_recipe_id;
+    ELSE
+        INSERT INTO user_rating (user_id, recipe_id, rating) 
+        VALUES (p_user_id, p_recipe_id, p_rating);
+    END IF;
+END //
+
+DELIMITER ;
+
+-- Get Categories for the front end drop down menus
+DELIMITER //
+
+CREATE PROCEDURE sp_get_categories()
+BEGIN
+    SELECT 
+        category_id, 
+        name 
+    FROM lkp_categories;
+END //
+
+DELIMITER ;
+
+-- Get Recipes
+DELIMITER //
+
+CREATE PROCEDURE sp_get_recipes()
+BEGIN
+    SELECT 
+        r.recipe_id, 
+        r.title, 
+        r.description, 
+        r.preparation_time, 
+        r.cooking_time, 
+        r.nr_served, 
+        r.picture_url, 
+        c.name AS category_name, 
+        i.name AS ingredient_name, 
+        uom.name AS unit_of_measure, 
+        m.description AS method_description
+    FROM recipes r
+    LEFT JOIN recipe_category rc ON r.recipe_id = rc.recipe_id
+    LEFT JOIN lkp_categories c ON rc.category_id = c.category_id
+    LEFT JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id
+    LEFT JOIN lkp_ingredients i ON ri.ingredient_id = i.ingredient_id
+    LEFT JOIN lkp_unit_of_measure uom ON ri.uom_id = uom.uom_id
+    LEFT JOIN lkp_method m ON ri.method_id = m.method_id;
+END //
+
+DELIMITER ;
+
+-- Get Recipe Details
+DELIMITER //
+
+CREATE PROCEDURE sp_get_recipe_details(
+	IN p_recipe_id INT
+)
+BEGIN
+    SELECT 
+        r.recipe_id, 
+        r.title, 
+        r.description, 
+        r.preparation_time, 
+        r.cooking_time, 
+        r.nr_served, 
+        r.picture_url, 
+        c.name AS category_name, 
+        i.name AS ingredient_name, 
+        uom.name AS unit_of_measure, 
+        m.description AS method_description,
+        rs.step_nr,
+        rs.description AS step_description,
+        rs.minutes_needed
+    FROM recipes r
+    LEFT JOIN recipe_category rc ON r.recipe_id = rc.recipe_id
+    LEFT JOIN lkp_categories c ON rc.category_id = c.category_id
+    LEFT JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id
+    LEFT JOIN lkp_ingredients i ON ri.ingredient_id = i.ingredient_id
+    LEFT JOIN lkp_unit_of_measure uom ON ri.uom_id = uom.uom_id
+    LEFT JOIN lkp_method m ON ri.method_id = m.method_id
+    LEFT JOIN recipe_steps rs ON r.recipe_id = rs.recipe_id
+    WHERE r.recipe_id = p_recipe_id;
+END //
+
+DELIMITER ;
+
+-- Search Recipe based on text in recipe discription, based on category or both of these
+DELIMITER //
+
+CREATE PROCEDURE sp_search_recipes(
+	IN p_description VARCHAR(100), 
+    IN p_category_id INT
+)
+BEGIN
+    SELECT 
+        r.recipe_id, 
+        r.title, 
+        r.description, 
+        c.name AS category_name
+    FROM recipes r
+    INNER JOIN recipe_category rc ON r.recipe_id = rc.recipe_id
+    INNER JOIN lkp_categories c ON rc.category_id = c.category_id
+    WHERE (r.description LIKE CONCAT('%', p_description, '%') OR p_description IS NULL)
+      AND (c.category_id = p_category_id OR p_category_id IS NULL);
+END //
+
+DELIMITER ;
+
+-- Get User Favourite Recipes
+DELIMITER //
+
+CREATE PROCEDURE sp_get_user_favourite_recipes(
+	IN p_user_id INT
+)
+BEGIN
+    SELECT 
+        r.recipe_id, 
+        r.title, 
+        r.description, 
+        r.picture_url, 
+        c.name AS category_name
+    FROM favorites f
+    INNER JOIN recipes r ON f.recipe_id = r.recipe_id
+    LEFT JOIN recipe_category rc ON r.recipe_id = rc.recipe_id
+    LEFT JOIN lkp_categories c ON rc.category_id = c.category_id
+    WHERE f.user_id = p_user_id;
+END //
+
+DELIMITER ;
+
+

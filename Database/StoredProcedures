@@ -1,0 +1,57 @@
+DELIMITER //
+CREATE PROCEDURE RegisterUser(
+    IN p_name VARCHAR(50),
+    IN p_password VARCHAR(100),
+    IN p_email VARCHAR(100)
+)
+BEGIN
+    INSERT INTO Users (Name, Password, Email)
+    VALUES (p_username, p_password, p_email);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE AddFavorite(
+    IN p_userID INT,
+    IN p_recipeID INT
+)
+BEGIN
+    INSERT INTO Favorites (UserID, RecipeID)
+    VALUES (p_userID, p_recipeID);
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE RemoveFavorite(
+    IN p_userID INT,
+    IN p_recipeID INT
+)
+BEGIN
+    DELETE FROM Favorites
+    WHERE UserID = p_userID AND RecipeID = p_recipeID;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE AddOrUpdateRating(
+    IN p_userID INT,
+    IN p_recipeID INT,
+    IN p_rating INT
+)
+BEGIN
+    IF EXISTS (SELECT * FROM UserRating WHERE UserID = p_userID AND RecipeID = p_recipeID) THEN
+        UPDATE UserRating SET Rating = p_rating
+        WHERE UserID = p_userID AND RecipeID = p_recipeID;
+    ELSE
+        INSERT INTO UserRating (UserID, RecipeID, Rating)
+        VALUES (p_userID, p_recipeID, p_rating);
+    END IF;
+END //
+DELIMITER ;
+
+DELIMITER //
+CREATE PROCEDURE GetCategories()
+BEGIN
+    SELECT * FROM lkpCategories;
+END //
+DELIMITER ;

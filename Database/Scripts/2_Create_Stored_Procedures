@@ -10,6 +10,10 @@ DROP PROCEDURE IF EXISTS sp_add_rating;
 DROP PROCEDURE IF EXISTS sp_get_categories; 
 DROP PROCEDURE IF EXISTS sp_get_recipes;
 DROP PROCEDURE IF EXISTS sp_get_recipe_details;
+DROP PROCEDURE IF EXISTS sp_get_recipe_categories;
+DROP PROCEDURE IF EXISTS sp_get_recipe_ingredients;
+DROP PROCEDURE IF EXISTS sp_get_recipe_steps;
+DROP PROCEDURE IF EXISTS sp_get_recipe_tips;
 DROP PROCEDURE IF EXISTS sp_search_recipes;
 DROP PROCEDURE IF EXISTS sp_get_user_favourite_recipes;
 
@@ -133,7 +137,7 @@ END //
 
 DELIMITER ;
 
--- Get Recipe Details
+-- Get Recipe Details for a specific recipe
 DELIMITER //
 
 CREATE PROCEDURE sp_get_recipe_details(
@@ -147,24 +151,85 @@ BEGIN
         r.preparation_time, 
         r.cooking_time, 
         r.nr_served, 
-        r.picture_url, 
-        c.name AS category_name, 
-        ri.section as ingredient_section,
-        i.name AS ingredient_name, 
-        uom.name AS unit_of_measure, 
-        m.description AS method_description,
-        rs.step_nr,
-        rs.description AS step_description,
-        rs.minutes_needed
+        r.picture_url
+    FROM recipes r
+    WHERE r.recipe_id = p_recipe_id;
+END //
+
+
+-- Get Recipe Categories
+DELIMITER //
+
+CREATE PROCEDURE sp_get_recipe_categories(
+	IN p_recipe_id INT
+)
+BEGIN
+    SELECT 
+        r.recipe_id, 
+        r.title, 
+        c.name AS category_name
     FROM recipes r
     LEFT JOIN recipe_category rc ON r.recipe_id = rc.recipe_id
     LEFT JOIN lkp_categories c ON rc.category_id = c.category_id
-    LEFT JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id
+    WHERE r.recipe_id = p_recipe_id;
+END //
+
+DELIMITER ;
+
+-- Get Recipe Details - Ingredients
+
+DELIMITER //
+
+CREATE PROCEDURE sp_get_recipe_ingredients(
+    IN p_recipe_id INT
+)
+BEGIN
+    SELECT 
+        ri.section AS ingredient_section,
+        ri.quantity,
+        COALESCE(uom.name, ' ') AS unit_of_measure,
+        i.name AS ingredient_name,
+        COALESCE(m.description, ' ') AS preparation_method
+    FROM recipe_ingredient ri
     LEFT JOIN lkp_ingredients i ON ri.ingredient_id = i.ingredient_id
     LEFT JOIN lkp_unit_of_measure uom ON ri.uom_id = uom.uom_id
     LEFT JOIN lkp_method m ON ri.method_id = m.method_id
-    LEFT JOIN recipe_steps rs ON r.recipe_id = rs.recipe_id
-    WHERE r.recipe_id = p_recipe_id;
+    WHERE ri.recipe_id = p_recipe_id;
+END //
+
+DELIMITER ;
+
+-- Get Recipe Details - Steps (method)
+DELIMITER //
+
+CREATE PROCEDURE sp_get_recipe_steps(
+    IN p_recipe_id INT
+)
+BEGIN
+    SELECT 
+        step_nr,
+        description AS step_description,
+        minutes_needed
+    FROM recipe_steps
+    WHERE recipe_id = p_recipe_id
+    ORDER BY step_nr;
+END //
+
+DELIMITER ;
+
+-- Get Recipe Details - Tips
+DELIMITER //
+
+CREATE PROCEDURE sp_get_recipe_tips(
+    IN p_recipe_id INT
+)
+BEGIN
+    SELECT 
+        tip_nr,
+        description AS tip_description
+    FROM recipe_tips
+    WHERE recipe_id = p_recipe_id
+    ORDER BY tip_nr;
 END //
 
 DELIMITER ;

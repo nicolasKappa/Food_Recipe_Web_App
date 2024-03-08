@@ -1,0 +1,144 @@
+﻿-- Use the flavour_finds database
+USE flavour_finds;
+
+INSERT INTO lkp_categories (name) VALUES
+('lunch'),
+('dinner'),
+('breakfast'),
+('dessert'),
+('vegan'),
+('vegetarian');
+
+INSERT INTO lkp_method (description) VALUES
+('for frying'),
+('plus extra for drizzling'),
+('to serve'),
+('to serve (optional)'),
+('finely chopped'),
+('seeds removed and thinly sliced'),
+('cut into 1cm/½in slices'),
+('cut into thin wedges'),
+('plus extra for serving'),
+('whipping'),
+('plus extra for dusting');
+
+INSERT INTO lkp_unit_of_measure (name) VALUES
+('tbsp'),
+('tsp'),
+('oz'),
+('g'),
+('kg'),
+('cup'),
+('pinch'),
+('freshly ground'),
+('fresh');
+
+INSERT INTO lkp_ingredients (name) VALUES
+('self-raising brown flour'),
+('self-raising wholemeal flour'),
+('fine sea salt'),
+('full-fat plain yoghurt'),
+('yellow pepper'),
+('orange pepper'),
+('courgette'),
+('red onion'),
+('extra virgin olive oil'),
+('dried chilli flakes'),
+('ready-grated mozzarella'),
+('ready-grated cheddar cheese'),
+('goats’ cheese'),
+('mozzarella ball'),
+('black pepper'),
+('basil leaves'),
+('passata sauce'),
+('dried oregano'),
+('caster sugar'),
+('soya milk'),
+('almond milk'),
+('vanilla extract'),
+('self-raising flour'),
+('baking powder'),
+('sea salt'),
+('sunflower oil');
+
+-- ********************* Healthy Pizza *********************
+INSERT INTO recipes (title, description, preparation_time, cooking_time, nr_served, picture_url) VALUES
+('Healthy Pizza', 'No yeast required for this easy, healthy pizza, topped with colourful vegetables that\'s ready in 30 minutes. This is a great recipe if you want to feed the kids in a hurry!', 'less than 30 mins', '10 to 30 mins', 'Serves 2', NULL);
+
+SET @recipe_id = (SELECT MAX(recipe_id) FROM recipes);
+
+INSERT INTO recipe_category (recipe_id, category_id) VALUES
+(@recipe_id, 6);
+
+-- Insert for base ingredients
+INSERT INTO recipe_ingredient (recipe_id, ingredient_id, quantity, uom_id, method_id, section) VALUES
+(@recipe_id, 1, 125, 4, 11, 'For the Base'), -- self-raising brown flour
+(@recipe_id, 3, 1, 7, NULL, 'For the Base'), -- fine sea salt
+(@recipe_id, 4, 125, 4, NULL, 'For the Base'); -- full-fat plain yoghurt
+
+-- Insert for topping ingredients
+INSERT INTO recipe_ingredient (recipe_id, ingredient_id, quantity, uom_id, method_id, section) VALUES
+(@recipe_id, 5, 1, NULL, 6, 'For the topping'), -- yellow pepper
+(@recipe_id, 7, 1, NULL, 7, 'For the topping'), -- courgette
+(@recipe_id, 8, 1, NULL, 8, 'For the topping'), -- red onion
+(@recipe_id, 9, 1, 1, 2, 'For the topping'), -- extra virgin olive oil
+(@recipe_id, 10, '½', 2, NULL, 'For the topping'), -- dried chilli flakes
+(@recipe_id, 11, 50, 4, NULL, 'For the topping'), -- ready-grated mozzarella
+(@recipe_id, 15, '', 8, NULL, 'For the topping'), -- freshly ground black pepper
+(@recipe_id, 16, '', 9, NULL, 'For the topping'); -- fresh basil leaves, to serve (optional)
+-- Insert for tomato sauce ingredients
+INSERT INTO recipe_ingredient (recipe_id, ingredient_id, quantity, uom_id, method_id, section) VALUES
+(@recipe_id, 17, 6, 1, NULL, 'For the tomato sauce'), -- passata sauce
+(@recipe_id, 18, 1, 2, NULL, 'For the tomato sauce'); -- dried oregano
+
+-- Insert steps for the "Healthy Pizza" recipe
+INSERT INTO recipe_steps (recipe_id, step_nr, description, minutes_needed) VALUES
+(@recipe_id, 1, 'Preheat the oven to 220C/200C Fan/Gas 7.', NULL),
+(@recipe_id, 2, 'To prepare the topping, put the pepper, courgette, red onion and oil in a bowl, season with lots of black pepper and mix together. Scatter the vegetables over a large baking tray and roast for 15 minutes.', 15),
+(@recipe_id, 3, 'Meanwhile, make the pizza base. Mix the flour and salt in a large bowl. Add the yoghurt and 1 tablespoon of cold water and mix with a spoon, then use your hands to form a soft, spongy dough. Turn out onto a lightly floured surface and knead for about 1 minute.', NULL),
+(@recipe_id, 4, 'Using a floured rolling pin, roll the dough into a roughly oval shape, approx. 3mm/⅛in thick, turning regularly. (Ideally, the pizza should be around 30cm/12in long and 20cm/8in wide, but it doesn’t matter if the shape is uneven, it just needs to fit onto the same baking tray that the vegetables were cooked on.)', NULL),
+(@recipe_id, 5, 'Transfer the roasted vegetables to a bowl. Slide the pizza dough onto the baking tray and bake for 5 minutes. Take the tray out of the oven and turn the dough over.', 5),
+(@recipe_id, 6, 'For the tomato sauce, mix the passata with the oregano and spread over the dough. Top with the roasted vegetables, sprinkle with the chilli flakes and then the cheese. Bake the pizza for a further 8–10 minutes, or until the dough is cooked through and the cheese beginning to brown.', 10),
+(@recipe_id, 7, 'Season with black pepper, drizzle with a slurp of olive oil and, if you like, scatter fresh basil leaves on top just before serving.', NULL);
+
+-- Insert tips for the "Healthy Pizza" recipe
+INSERT INTO recipe_tips (recipe_id, tip_nr, description) VALUES
+(@recipe_id, 1, 'When you don\'t have yellow peppers available, orange peppers can be a great alternative, offering a similar sweet flavor and vibrant color to your dishes.'),
+(@recipe_id, 2, 'Feel free to use any cheese you like for this pizza – mozzarella, cheddar, or goats’ cheese are all excellent choices. It\'s also a great way to use up a mix of odds and ends from the fridge.'),
+(@recipe_id, 3, 'Make two pizzas instead of one large pizza if you like.'),
+(@recipe_id, 4, 'If you don’t have self-raising wholemeal flour, use plain wholemeal flour and add 1 teaspoon of baking powder and an extra tablespoon of water if needed.'),
+(@recipe_id, 5, 'Extra virgin olive oil adds a fantastic flavor, but if you need an alternative, any high-quality vegetable oil or a light olive oil will work well for both cooking and drizzling.'),
+(@recipe_id, 6, 'Any leftover passata can be used for pasta sauces, stews, or curries. It freezes well for up to 4 months. Instead of passata, you can also use strained tinned tomatoes or a store-bought pizza topping if you\'re in a pinch.');
+
+-- ********************* Vegan Pancakes *********************
+INSERT INTO recipes (title, description, preparation_time, cooking_time, nr_served, picture_url) VALUES
+('Vegan Pancakes', 'Try this vegan fluffy American pancake recipe for a perfect start to the day. Serve these pancakes with fresh berries, maple syrup or chocolate sauce for a really luxurious start to the day.', 'less than 30 mins', '10 to 30 mins', 'Serves 2', NULL);
+
+SET @recipe_id = LAST_INSERT_ID();
+
+INSERT INTO recipe_category (recipe_id, category_id) VALUES
+(@recipe_id, 5), -- For vegan
+(@recipe_id, 6); -- For vegetarian 
+
+-- Adjust ingredient_id based on actual entries
+INSERT INTO recipe_ingredient (recipe_id, ingredient_id, quantity, uom_id, method_id, section) VALUES
+(@recipe_id, 23, 125, 4, NULL, ''), -- self-raising flour, 125g
+(@recipe_id, 19, 2, 1, NULL, ''), -- caster sugar, 2 tbsp
+(@recipe_id, 24, 1, 2, NULL, ''), -- baking powder, 1 tsp
+(@recipe_id, 25, 1, 7, NULL, ''), -- fine sea salt, good pinch
+(@recipe_id, 20, 150, 5, NULL, ''), -- soya milk (first option when "or" is present), 150ml
+(@recipe_id, 22, 0.25, 2, NULL, ''), -- vanilla extract, ¼ tsp
+(@recipe_id, 26, 4, 1, 1, ''); -- sunflower oil, for frying, 4 tsp
+
+-- Insert method steps
+INSERT INTO recipe_steps (recipe_id, step_nr, description, minutes_needed) VALUES
+(@recipe_id, 1, 'Put the flour, sugar, baking powder and salt in a bowl and mix thoroughly. Add the milk and vanilla extract and mix with a whisk until smooth.', NULL),
+(@recipe_id, 2, 'Place a large non-stick frying pan over a medium heat. Add 2 teaspoons of the oil and wipe around the pan with a heatproof brush or carefully using a thick wad of kitchen paper.', NULL),
+(@recipe_id, 3, 'Once the pan is hot, pour a small ladleful of the batter into one side of the pan and spread with the back of the spoon until around 10cm/4in in diameter. Make a second pancake in exactly the same way, greasing the pan with the remaining oil before adding the batter.', NULL),
+(@recipe_id, 4, 'Cook for about a minute, or until bubbles are popping on the surface and just the edges look dry and slightly shiny. Quickly and carefully flip over and cook on the other side for a further minute, or until light, fluffy and pale golden brown.', 2),
+(@recipe_id, 5, 'Transfer to a plate and keep warm in a single layer on a baking tray in a low oven while the rest of the pancakes are cooked in exactly the same way. Serve with your preferred toppings.', NULL);
+-- Insert recipe tips
+INSERT INTO recipe_tips (recipe_id, tip_nr, description) VALUES
+(@recipe_id, 1, 'While the recipe uses soya milk for its base, feel free to substitute it with almond milk depending on your preference or availability.'),
+(@recipe_id, 1, 'Whipped coconut cream is good with these too, but it must be well chilled before whipping.'),
+(@recipe_id, 2, 'You can keep the pancakes warm in a low oven while you make the full batch.');

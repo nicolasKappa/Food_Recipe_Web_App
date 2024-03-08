@@ -124,17 +124,11 @@ BEGIN
         r.cooking_time, 
         r.nr_served, 
         r.picture_url, 
-        c.name AS category_name, 
-        i.name AS ingredient_name, 
-        uom.name AS unit_of_measure, 
-        m.description AS method_description
+        c.name AS category_name
     FROM recipes r
     LEFT JOIN recipe_category rc ON r.recipe_id = rc.recipe_id
     LEFT JOIN lkp_categories c ON rc.category_id = c.category_id
-    LEFT JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id
-    LEFT JOIN lkp_ingredients i ON ri.ingredient_id = i.ingredient_id
-    LEFT JOIN lkp_unit_of_measure uom ON ri.uom_id = uom.uom_id
-    LEFT JOIN lkp_method m ON ri.method_id = m.method_id;
+    LEFT JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id;
 END //
 
 DELIMITER ;
@@ -155,6 +149,7 @@ BEGIN
         r.nr_served, 
         r.picture_url, 
         c.name AS category_name, 
+        i.section as ingredient_section,
         i.name AS ingredient_name, 
         uom.name AS unit_of_measure, 
         m.description AS method_description,

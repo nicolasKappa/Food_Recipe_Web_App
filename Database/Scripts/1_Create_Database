@@ -82,8 +82,9 @@ CREATE TABLE lkp_method (
 CREATE TABLE recipe_ingredient (
     recipe_ingredient_id INT PRIMARY KEY AUTO_INCREMENT,
     recipe_id INT,
+    section varchar(50),
     ingredient_id INT,
-    quantity INT,
+    quantity varchar(50),
     uom_id INT,
     method_id INT, 
     FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id),

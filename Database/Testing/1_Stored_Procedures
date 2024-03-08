@@ -1,0 +1,4 @@
+CALL `flavour_finds`.`sp_get_recipe_details`(1);
+CALL `flavour_finds`.`sp_get_recipe_ingredients`(1);
+CALL `flavour_finds`.`sp_get_recipe_steps`(1);
+CALL `flavour_finds`.`sp_get_recipe_tips`(1);

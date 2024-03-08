@@ -20,15 +20,15 @@ CREATE TABLE recipes (
     recipe_id INT PRIMARY KEY AUTO_INCREMENT,
     title VARCHAR(100) NOT NULL,
     description TEXT,
-    preparation_time TIME,
-    cooking_time TIME,
-    nr_served TEXT,
+    preparation_time varchar(50),
+    cooking_time varchar (50),
+    nr_served varchar(50),
     picture_url TEXT
 );
 
--- Create favorites table
-CREATE TABLE favorites (
-    favorite_id INT PRIMARY KEY AUTO_INCREMENT,
+-- Create favourites table
+CREATE TABLE favourites (
+    favourite_id INT PRIMARY KEY AUTO_INCREMENT,
     user_id INT,
     recipe_id INT,
     FOREIGN KEY (user_id) REFERENCES users(user_id),
@@ -48,7 +48,7 @@ CREATE TABLE user_rating (
 -- Create lkp_categories table
 CREATE TABLE lkp_categories (
     category_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50) UNIQUE NOT NULL
 );
 
 -- Create recipe_category table
@@ -63,13 +63,13 @@ CREATE TABLE recipe_category (
 -- Create lkp_ingredients table
 CREATE TABLE lkp_ingredients (
     ingredient_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50) UNIQUE NOT NULL
 );
 
 -- Create lkp_unit_of_measure table
 CREATE TABLE lkp_unit_of_measure (
     uom_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(50) UNIQUE NOT NULL
 );
 
 -- Create lkp_method table
@@ -82,8 +82,9 @@ CREATE TABLE lkp_method (
 CREATE TABLE recipe_ingredient (
     recipe_ingredient_id INT PRIMARY KEY AUTO_INCREMENT,
     recipe_id INT,
+    section varchar(50),
     ingredient_id INT,
-    quantity INT,
+    quantity varchar(50),
     uom_id INT,
     method_id INT, 
     FOREIGN KEY (recipe_id) REFERENCES recipes(recipe_id),

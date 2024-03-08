@@ -98,6 +98,21 @@ nav ul {
     list-style: none;
 }
 
+.landing-image {
+  margin: 5px;
+  height:500px;
+  width: 49%;
+  margin-top: 20px;
+}
+
+.landing-image img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+}
+
+
+
 
 h2 {
   font-family: 'Trebuchet MS', sans-serif;
@@ -176,9 +191,10 @@ p, ul, ol, li{
 }
 
 .recipe-info {
-  height:500px;
+  min-height:500px;
   margin: 5px;
-  padding: 50px;
+  padding: 25px;
+  padding-left: 50px;
   width: 49%;
 }
 .favourites {
@@ -228,7 +244,7 @@ p, ul, ol, li{
   background-color: #FED5B2;
   margin: 5px;
   padding: 50px;
-  height:500px;
+  min-height:500px;
   width: 49%;
 }
 
@@ -242,7 +258,7 @@ p, ul, ol, li{
 
   margin: 5px;
   padding: 50px;
-  height:500px;
+  min-height:500px;
   width: 49%;
 }
 
@@ -250,7 +266,7 @@ p, ul, ol, li{
 
   margin: 5px;
   padding: 50px;
-  height:500px;
+  min-height:500px;
   width: 49%;
 }
 
@@ -297,20 +313,37 @@ p, ul, ol, li{
   background-color: #FED5B2;
   margin: 5px;
   padding: 50px;
-  height:500px;
+  min-height:500px;
   width: 49%;
 }
 
 
-@media (max-width: 768px) { /* Adjusts for screens narrower than 768px */
-  .main {
-      flex-direction: column;
-  }
-  .recipe-image, .recipe-info, .ingredients, .method, .rating-box, .tips {
+@media (max-width: 1142px) {
+  .main, .recipe-image, .recipe-info, .ingredients, .method, .rating-box, .tips, .landing-image, .login-block {
     width: 100%;
+    margin: 0;
+    padding-top: 10px;
   }
 
+  .landing-image img {
+    width: 100%;  /* Ensure the image itself also takes full width */
+    height: auto; /* Adjust height to maintain aspect ratio */
+  }
 }
+
+@media (max-width: 768px) {
+  .main, .recipe-image, .recipe-info, .ingredients, .method, .rating-box, .tips, .landing-image, .login-block  {
+    width: 100%;
+    margin: 0;
+    padding-top: 10px;
+  }
+
+  .landing-image img {
+    width: 100%;  /* Ensure the image itself also takes full width */
+    height: auto; /* Adjust height to maintain aspect ratio */
+  }
+}
+
 
 
 
@@ -337,7 +370,7 @@ p, ul, ol, li{
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  width: 25em;
+  width: 15em;
 }
 
 .login-register-form button {

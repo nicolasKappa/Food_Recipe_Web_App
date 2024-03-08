@@ -149,7 +149,7 @@ BEGIN
         r.nr_served, 
         r.picture_url, 
         c.name AS category_name, 
-        i.section as ingredient_section,
+        ri.section as ingredient_section,
         i.name AS ingredient_name, 
         uom.name AS unit_of_measure, 
         m.description AS method_description,

@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Database connection parameters
     $servername = "localhost"; 
     $db_username = "root"; 
-    $db_password = ""; 
+    $db_password = "testcase"; 
     $dbname = "recipe_app_database"; 
 
         

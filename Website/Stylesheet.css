@@ -16,6 +16,9 @@ html {
 main {
 	float: left;
 	width: 60%;
+  flex-grow: 1;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 nav {
@@ -176,7 +179,6 @@ h2 {
 	text-transform: uppercase;
 	border-bottom: 1px, solid #57b1dc;
 	margin-top: 30px;
-	padding-left: 1em;
 }
 
 
@@ -348,7 +350,7 @@ h2 {
 	text-transform: uppercase;
 	border-bottom: 1px, solid #57b1dc;
 	margin-top: 30px;
-	padding-left: 1em;
+
 }
 
 article {
@@ -393,7 +395,7 @@ article h2 {
 
 footer {
 	background: #FFA000;
-	max-width: 1000px;
+	max-width: 100%;
 	margin: auto;
 	clear: both;
 	text-align: right;
@@ -434,11 +436,11 @@ footer p {
   box-sizing: border-box;
 }
 
-.container {
+/* .container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-}
+} */
 
 .main {
   flex-grow: 1;
@@ -446,17 +448,13 @@ footer p {
   flex-wrap: wrap;
 
 }
-.column {
-  flex-basis: 50%;
-  display: flex;
-  flex-direction: column;
-}
+
 
 .recipe-image {
   margin: 5px;
   height:500px;
-  width: 45%;
-  border: 1px solid #ccc;
+  width: 49%;
+
 }
 
 .recipe-image img {
@@ -468,61 +466,92 @@ footer p {
 .recipe-info {
   height:500px;
   margin: 5px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  width: 45%;
+  padding: 50px;
+  width: 49%;
 }
 .favourites {
   display:flex;
-  border: 1px solid #ccc;
+
+  align-items: center;
+  margin-left: 20px;
+}
+
+.favourites img {
+  width: 20px;
+  height: 20px;
+  margin-right: 20px;
+}
+
+.time {
+  text-align: center;
+}
+
+.time img {
+  width: 20px;
+  height: 20px;
+
+}
+
+.people img {
+  width: 20px;
+  height: 20px;
+
+
 }
 
 .time-people {
   display:flex;
-  border: 1px solid #ccc;
+
+  align-items:center;
 }
 
 .people {
-  display:flex;
-  border: 1px solid #ccc;}
+  margin-left: 15px;
+
+  text-align: center;
+}
 
 
 .ingredients {
-  border: 1px solid #ccc;
+  background-color: pink;
   margin: 5px;
-  padding: 10px;
+  padding: 50px;
   height:500px;
-  width: 45%;
+  width: 49%;
 }
 
 .ingredients-people {
-  border: 1px solid #ccc;
+
   display:flex;
   justify-content: space-between;
 }
 
 .method {
-  border: 1px solid #ccc;
+
   margin: 5px;
-  padding: 10px;
+  padding: 50px;
   height:500px;
-  width: 45%;
+  width: 49%;
 }
 
 .rating-box {
-  border: 1px solid #ccc;
+
   margin: 5px;
-  padding: 10px;
+  padding: 50px;
   height:500px;
-  width: 45%;
+  width: 49%;
+}
+
+.rating {
+  margin: 20px;
 }
 
 .tips{
-  border: 1px solid #ccc;
+  background-color: pink;
   margin: 5px;
-  padding: 10px;
+  padding: 50px;
   height:500px;
-  width: 45%;
+  width: 49%;
 }
 
 

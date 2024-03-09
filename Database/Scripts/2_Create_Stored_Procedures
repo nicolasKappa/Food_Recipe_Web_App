@@ -190,11 +190,16 @@ BEGIN
         COALESCE(uom.name, '') AS unit_of_measure,
         i.name AS ingredient_name,
         COALESCE(m.description, ' ') AS preparation_method,
-		CONCAT_WS(' ',
-            CONCAT(ri.quantity, COALESCE(uom.name, '')), -- This handles the case where uom.name might be an empty string.
-            i.name,
-            IF(m.description IS NOT NULL AND m.description <> '', CONCAT(', ', m.description), '')
-        ) AS full_sentence
+		Replace(
+			Replace(
+				CONCAT_WS(' ',
+				ri.quantity,
+				CASE WHEN uom.name IS NOT NULL AND uom.name <> '' THEN CONCAT(uom.name, ' ') ELSE '' END,
+				i.name,
+				IF(m.description IS NOT NULL AND m.description <> '', CONCAT(', ', m.description), '')
+				), 
+		 '  ', ' '), 
+			' , ', ', ') AS full_sentence
     FROM recipe_ingredient ri
     LEFT JOIN lkp_ingredients i ON ri.ingredient_id = i.ingredient_id
     LEFT JOIN lkp_unit_of_measure uom ON ri.uom_id = uom.uom_id

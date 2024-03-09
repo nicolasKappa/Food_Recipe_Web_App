@@ -307,6 +307,12 @@ p, ul, ol, li{
   color:#fb8900;
 }
 
+.star-rating img.star {
+	width: 25px;
+	height: auto;
+	display: inline-block;
+}
+
 
 
 .tips{

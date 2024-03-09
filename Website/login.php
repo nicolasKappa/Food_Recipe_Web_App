@@ -3,14 +3,13 @@
 session_start();
 
 // Include database connection configuration.
-require_once '../config/dbconfig.php';
+require_once "../config/dbconfig.php";
 
 // Check if the form has been submitted via POST.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
     // Sanitize the input to protect against potential threats.
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $password = filter_input(INPUT_POST, 'psw', FILTER_SANITIZE_STRING);
+    $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
+    $password = filter_input(INPUT_POST, "psw", FILTER_SANITIZE_STRING);
 
     // Establish a database connection using the provided credentials.
     $conn = getConnection();
@@ -30,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $result = $stmt->get_result();
 
         // Check if the result set contains any rows, indicating successful authentication.
-        if ($result && $row = $result->fetch_assoc()) {
+        if ($result && ($row = $result->fetch_assoc())) {
             // User authenticated; store user ID and email in session variables.
             $_SESSION["user_id"] = $row["user_id"];
             $_SESSION["email"] = $email;
@@ -38,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Redirect the user to the main recipe page.
             header("Location: recipe.html");
             // Terminate script execution.
-            exit;
+            exit();
         } else {
             // Authentication failed; notify the user.
             echo "Login failed. Email or password is incorrect.";
@@ -54,6 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     // Redirect to the login page if the form is not submitted via POST.
     header("Location: login.html");
-    exit;
+    exit();
 }
 ?>

@@ -1,6 +1,8 @@
 ﻿-- Use the flavour_finds database
 USE flavour_finds;
 
+-- Create Categories
+
 INSERT INTO lkp_categories (name) VALUES
 ('lunch'), -- 1
 ('dinner'), -- 2
@@ -343,4 +345,55 @@ INSERT INTO recipe_steps (recipe_id, step_nr, description, minutes_needed) VALUE
 -- Insert Tips
 INSERT INTO recipe_tips (recipe_id, tip_nr, description) VALUES
 (@recipe_id, 1, 'Couscous salads are great to make ahead for easy entertaining or weekday lunches. It will keep well for a few days in the fridge.');
+
+
+-- Create Sample Users
+CALL `sp_register_user`('John Doe', 'Password1', 'john.doe@example.com');
+CALL `sp_register_user`('Jane Smith', 'Password2', 'jane.smith@example.com');
+CALL `sp_register_user`('Emily Johnson', 'Password3', 'emily.johnson@example.com');
+CALL `sp_register_user`('Michael Brown', 'Password4', 'michael.brown@example.com');
+CALL `sp_register_user`('Jessica Williams', 'Password5', 'jessica.williams@example.com');
+CALL `sp_register_user`('Daniel Miller', 'Password6', 'daniel.miller@example.com');
+CALL `sp_register_user`('Karen Wilson', 'Password7', 'karen.wilson@example.com');
+CALL `sp_register_user`('Brian Moore', 'Password8', 'brian.moore@example.com');
+CALL `sp_register_user`('Sophia Taylor', 'Password9', 'sophia.taylor@example.com');
+CALL `sp_register_user`('Edward Anderson', 'Password10', 'edward.anderson@example.com');
+
+-- Associate random ratings based on the sample users
+CALL `sp_add_rating`(1, 1, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(1, 2, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(1, 4, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(1, 5, ROUND(1 + RAND() * 4));
+
+CALL `sp_add_rating`(2, 1, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(2, 2, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(2, 3, ROUND(1 + RAND() * 4));
+
+CALL `sp_add_rating`(3, 1, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(3, 3, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(3, 4, ROUND(1 + RAND() * 4));
+
+CALL `sp_add_rating`(4, 2, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(4, 3, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(4, 5, ROUND(1 + RAND() * 4));
+
+CALL `sp_add_rating`(5, 1, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(5, 4, ROUND(1 + RAND() * 4));
+
+CALL `sp_add_rating`(6, 2, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(6, 3, ROUND(1 + RAND() * 4));
+
+CALL `sp_add_rating`(7, 1, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(7, 5, ROUND(1 + RAND() * 4));
+
+CALL `sp_add_rating`(8, 2, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(8, 4, ROUND(1 + RAND() * 4));
+
+CALL `sp_add_rating`(9, 3, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(9, 5, ROUND(1 + RAND() * 4));
+
+CALL `sp_add_rating`(10, 1, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(10, 2, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(10, 3, ROUND(1 + RAND() * 4));
+CALL `sp_add_rating`(10, 4, ROUND(1 + RAND() * 4));
 

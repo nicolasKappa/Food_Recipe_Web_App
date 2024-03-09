@@ -16,6 +16,7 @@ DROP PROCEDURE IF EXISTS sp_get_recipe_steps;
 DROP PROCEDURE IF EXISTS sp_get_recipe_tips;
 DROP PROCEDURE IF EXISTS sp_search_recipes;
 DROP PROCEDURE IF EXISTS sp_get_user_favourite_recipes;
+DROP PROCEDURE IF EXISTS sp_get_average_rating;
 
 
 -- Login
@@ -287,5 +288,18 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Get Average rating for a recipe
+DELIMITER //
+
+CREATE PROCEDURE sp_get_average_rating(IN p_recipe_id INT)
+BEGIN
+    SELECT IFNULL(AVG(rating), 0) as average_rating
+    FROM user_rating
+    WHERE recipe_id = p_recipe_id;
+END //
+
+DELIMITER ;
+
 
 

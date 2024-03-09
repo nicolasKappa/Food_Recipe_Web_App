@@ -79,6 +79,29 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
         $stmt->close();
     }
 
+    // For Recipe Average Rating
+    // Initialize variable to hold average rating
+    $averageRating = 0;
+
+    // SQL statement for execution to call the stored procedure for average rating
+    if (
+        $stmt = $conn->prepare(
+            "CALL `flavour_finds`.`sp_get_average_rating`(?)"
+        )
+    ) {
+        // Bind the parameter to the SQL statement
+        $stmt->bind_param("i", $recipeId);
+        // Execute the statement and retrieve the average rating
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($row = $result->fetch_assoc()) {
+            $averageRating = $row["average_rating"];
+        }
+        $stmt->close();
+    }
+    // Convert average to nearest half for star rating display
+    $averageRating = round($averageRating * 2) / 2;
+
     // Close database connection
     $conn->close();
 } else {
@@ -95,8 +118,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     <title>Recipe App</title>
     <!--link to style sheet-->
     <link rel="stylesheet" href="StylesheetRecipeRegisterLogin.css">
-
-</head>
+   </head>
 <body>
   <header>
 
@@ -171,26 +193,35 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
                         $recipeDetails["nr_served"] ?? "N/A"
                     ); ?> people</p>
                 </div>
-            </div>
-        </div>
+              </div>
 
               <div class="rating">
                   <p class="star-rating">
-                      <i class="my-star-2 star-1" data-star="1"></i>
-                      <i class="my-star-2 star-2" data-star="2"></i>
-                      <i class="my-star-2 star-3" data-star="3"></i>
-                      <i class="my-star-2 star-4" data-star="4"></i>
-                      <i class="my-star-2 star-5" data-star="5"></i>
+                        <?php
+                        // Display filled stars
+                        for ($i = 0; $i < floor($averageRating); $i++) {
+                            echo '<img class="star" src="images/star.png" alt="Full Star">'; 
+                        }
+                        // Display half star where applicable
+                        if (floor($averageRating) < $averageRating) {
+                            echo '<img class="star" src="images/halfstar.png" alt="Half Star">';
+                            $i++; // Increment to avoid an extra empty star
+                        }
+                        // Display empty stars
+                        for ($i; $i < 5; $i++) {
+                            echo '<img class="star" src="images/emptystar.png" alt="Empty Star">'; 
+                        }
+                        ?>
                   </p>
               </div>
-          </div>
+            </div>
             <div class="ingredients">
             <h2>Ingredients</h2>
             <?php
             // Organizing the ingredients by section.
             $ingredientsBySection = [];
             foreach ($ingredients as $ingredient) {
-                $section = $ingredient["ingredient_section"] ?: "Main"; // Default to 'Main' if no section is provided
+                $section = $ingredient["ingredient_section"] ?: "Main"; // Default to 'Main' if no ingredient section is available in db
                 $ingredientsBySection[$section][] = $ingredient;
             }
 
@@ -233,7 +264,8 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
             </ol>
         </div>
 
-          <div class="rating-box">
+
+   <div class="rating-box">
               <h2>Rate this recipe!</h2>
               <!-- <select class= "rating" name="rating" id="rating">
           <option value="1">1 star</option>
@@ -253,6 +285,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
               <input type="number" readonly id="output">
               <button type="submit">Rate!</button>
           </div>
+
 
         <div class="tips">
             <h2>Tips</h2>

@@ -44,7 +44,7 @@ CREATE PROCEDURE sp_register_user(
 BEGIN
     IF NOT EXISTS (SELECT email FROM users WHERE email = p_email) THEN
         INSERT INTO users (full_name, password, email) 
-        VALUES (p_username, p_password, p_email);
+        VALUES (p_full_name, p_password, p_email);
     ELSE
         SELECT 'User already exists' AS ErrorMessage;
     END IF;
@@ -287,3 +287,5 @@ BEGIN
 END //
 
 DELIMITER ;
+
+

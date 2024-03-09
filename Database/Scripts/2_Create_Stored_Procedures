@@ -16,6 +16,7 @@ DROP PROCEDURE IF EXISTS sp_get_recipe_steps;
 DROP PROCEDURE IF EXISTS sp_get_recipe_tips;
 DROP PROCEDURE IF EXISTS sp_search_recipes;
 DROP PROCEDURE IF EXISTS sp_get_user_favourite_recipes;
+DROP PROCEDURE IF EXISTS sp_get_user_favourite_recipe;
 DROP PROCEDURE IF EXISTS sp_get_average_rating;
 DROP PROCEDURE IF EXISTS sp_get_user_rating;
 

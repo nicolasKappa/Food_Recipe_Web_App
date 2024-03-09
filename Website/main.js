@@ -42,37 +42,75 @@ function toggleFavourite(user_id, recipe_id, isFavourite) {
     xhr.send("action=" + action + "&user_id=" + user_id + "&recipe_id=" + recipe_id);
 }
 
+// Function to update user rating on star click
+function updateUserRating(userId, recipeId, rating) {
+    // AJAX request to update user rating
+    fetch('rating_action.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `userId=${userId}&recipeId=${recipeId}&rating=${rating}`
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                console.log("Rating updated successfully");
+            } else {
+                console.error("Failed to update rating");
+            }
+        })
+        .catch(error => console.error('Error updating rating:', error));
+}
 
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Functionality for my-star (user interaction for setting a rating)
-  (function() {
-      let sr = document.querySelectorAll('.my-star');
-      sr.forEach(star => {
-          star.addEventListener('click', function() {
-              let cs = parseInt(this.getAttribute("data-star"));
-              document.querySelector('#output').value = cs;
+document.addEventListener('DOMContentLoaded', function () {
+    // Fetch user and recipe ID attributes 
+    const userId = document.body.getAttribute('data-user-id');
+    const recipeId = document.body.getAttribute('data-recipe-id');
 
-              sr.forEach((s, index) => {
-                  if (index < cs) {
-                      s.classList.add('is-active');
-                  } else {
-                      s.classList.remove('is-active');
-                  }
-              });
-          });
-      });
-  })();
+    // Handler for user rating
+    document.querySelectorAll('.rating-box .star').forEach(star => {
+        star.addEventListener('click', function () {
+            const rating = parseInt(this.getAttribute('data-star'));
 
-    let ratingFromDatabase = 3; 
-    let sr2 = document.querySelectorAll('.my-star-2');
-    sr2.forEach((star, index) => {
-        if (index < ratingFromDatabase) {
-            star.classList.add('is-active');
-        }
+            // Update stars visually to reflect the current rating
+            updateUserRatingVisuals(rating);
+
+            // Update the user rating in the database
+            updateUserRating(userId, recipeId, rating);
+        });
     });
 
-    // Initialize favourite functionality if favouriteIcon is present
+    // Function to visually update user rating stars
+    function updateUserRatingVisuals(rating) {
+        document.querySelectorAll('.rating-box .star').forEach((s, idx) => {
+            if (idx < rating) {
+                s.src = 'images/star.png';
+            } else {
+                s.src = 'images/emptystar.png';
+            }
+        });
+    }
+
+    // Function to make AJAX call to rating_action.php
+    function updateUserRating(userId, recipeId, rating) {
+        fetch('rating_action.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `userId=${userId}&recipeId=${recipeId}&rating=${rating}`
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    console.log("Rating updated successfully");
+                } else {
+                    console.error("Failed to update rating: ", data.error);
+                }
+            })
+            .catch(error => console.error('Error updating rating:', error));
+    }
+
+
+    // Initialize favourite functionality if favouriteIcon is present on screen
     var favouriteIcon = document.getElementById("favouriteIcon");
     if (favouriteIcon) {
         var user_id = favouriteIcon.getAttribute("data-user-id");

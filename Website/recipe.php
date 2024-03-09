@@ -129,6 +129,21 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     // Convert average to nearest half for star rating display
     $averageRating = round($averageRating * 2) / 2;
 
+
+    $currentRating = 0; // Default to 0, meaning no rating for current user
+    if ($user_id && $recipeId) {
+        if ($stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_user_rating`(?, ?)")) {
+            $stmt->bind_param("ii", $user_id, $recipeId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($row = $result->fetch_assoc()) {
+                $currentRating = $row['rating'];
+            }
+            $stmt->close();
+        }
+    }
+
+
     // Close database connection
     $conn->close();
 } else {
@@ -146,7 +161,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     <!--link to style sheet-->
     <link rel="stylesheet" href="StylesheetRecipeRegisterLogin.css">
    </head>
-<body>
+<body data-user-id="<?= $user_id ?>" data-recipe-id="<?= $recipeId ?>">
   <header>
 
     <div id="logo">
@@ -221,7 +236,8 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
                 </div>
               </div>
 
-              <div class="rating">
+              <div class="average-rating">
+                <h2>Average Rating</h2>
                   <p class="star-rating">
                         <?php
                         // Display filled stars
@@ -290,28 +306,14 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
             </ol>
         </div>
 
-
-   <div class="rating-box">
-              <h2>Rate this recipe!</h2>
-              <!-- <select class= "rating" name="rating" id="rating">
-          <option value="1">1 star</option>
-          <option value="2">2 stars</option>
-          <option value="3">3 stars</option>
-          <option value="4">4 stars</option>
-          <option value="5">5 stars</option>
-        </select> -->
-
-              <p class="star-rating">
-                  <i class="my-star star-1" data-star="1"></i>
-                  <i class="my-star star-2" data-star="2"></i>
-                  <i class="my-star star-3" data-star="3"></i>
-                  <i class="my-star star-4" data-star="4"></i>
-                  <i class="my-star star-5" data-star="5"></i>
-              </p>
-              <input type="number" readonly id="output">
-              <button type="submit">Rate!</button>
-          </div>
-
+        <div class="rating-box">
+            <h2>Rate this recipe!</h2>
+            <p class="star-rating" id="userRating">
+                <?php for($i = 1; $i <= 5; $i++): ?>
+                    <img src="images/<?= $i <= $currentRating ? 'star' : 'emptystar'; ?>.png" class="star" data-star="<?= $i ?>" alt="<?= $i ?> Star" style="cursor:pointer;">
+                <?php endfor; ?>
+            </p>
+        </div>
 
         <div class="tips">
             <h2>Tips</h2>

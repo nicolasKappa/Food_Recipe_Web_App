@@ -47,85 +47,69 @@
   <div class="container">
       <div class="main">
 
-              <div class="recipe-image">
-                <img class="image-link" src="https://images.unsplash.com/photo-1622973536968-3ead9e780960?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Bolognaise">
-              </div>
+          <div class="recipe-image">
+              <img class="image-link" src="https://images.unsplash.com/photo-1622973536968-3ead9e780960?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Bolognaise">
+          </div>
 
-              <div class="recipe-info">
-                <h2 class="title">SINGAPORE BEEF</h2>
-                <div class="favourites">
+          <div class="recipe-info">
+              <h2 class="title">SINGAPORE BEEF</h2>
+              <div class="favourites">
                   <img src="images/heart.png" alt="heart icon">
                   <p>Add to favourites</p>
-                </div>
-                <h5 class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </h5>
-                <h5 class="categories">MAIN / MEAT / HEALTHY</h5>
-                <div class="time-people">
+              </div>
+              <h5 class="description">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </h5>
+              <h5 class="categories">MAIN / MEAT / HEALTHY</h5>
+              <div class="time-people">
                   <div class="time">
-                    <img src="images/clock.png" alt="clock icon">
-                  <p class="num-minutes">65 mins</p>
+                      <img src="images/clock.png" alt="clock icon">
+                      <p class="num-minutes">65 mins</p>
                   </div>
                   <div class="people">
-                    <img src="images/man.png" alt="man icon">
-                    <p class="num-people">4 people</p>
+                      <img src="images/man.png" alt="man icon">
+                      <p class="num-people">4 people</p>
                   </div>
-                </div>
-                <div class="rating">
+              </div>
+              <div class="rating">
                   <p class="star-rating">
-                    <i class="my-star-2 star-1" data-star="1"></i>
-                    <i class="my-star-2 star-2" data-star="2"></i>
-                    <i class="my-star-2 star-3" data-star="3"></i>
-                    <i class="my-star-2 star-4" data-star="4"></i>
-                    <i class="my-star-2 star-5" data-star="5"></i>
-                </p>
-                </div>
+                      <i class="my-star-2 star-1" data-star="1"></i>
+                      <i class="my-star-2 star-2" data-star="2"></i>
+                      <i class="my-star-2 star-3" data-star="3"></i>
+                      <i class="my-star-2 star-4" data-star="4"></i>
+                      <i class="my-star-2 star-5" data-star="5"></i>
+                  </p>
               </div>
-
-              <div class="ingredients">
-                <div class="ingredients-people">
-                  <h2>Ingredients</h2>
-                  <div class="people">
-                    <img src="images/man.png" alt="man icon">
-                    <p class="num-people">4 people</p>
-                  </div>
-                </div>
-                <ul>
-                  <li>1 tbsp olive oil</li>
-                  <li>1 onion, finely chopped</li>
-                  <li>1 carrot, finely chopped</li>
-                  <li>2 garlic cloves, crushed</li>
-                  <li>500g beef mince</li>
-                  <li>400g can chopped tomatoes</li>
-                  <li>2 tbsp tomato puree</li>
-                  <li>1 beef stock cube</li>
-                  <li>1 tsp dried oregano</li>
-                  <li>2 bay leaves</li>
-                  <li>400g spaghetti</li>
-                  <li>grated parmesan, to serve</li>
-                </ul>
-              </div>
+          </div>
+          <div class="ingredients">
+              <h2>Ingredients</h2>
+              <ul>
+                  <?php foreach ($ingredients as $ingredient): ?>
+                  <li><?php echo htmlspecialchars($ingredient['full_sentence']); ?></li>
+                  <?php endforeach; ?>
+              </ul>
+          </div>
 
 
 
-              <div class="method">
-                <h2>Method</h2>
-                <ol class="steps">
+          <div class="method">
+              <h2>Method</h2>
+              <ol class="steps">
                   <li>Heat the oil in a large, heavy-based saucepan with a lid and fry the onion and carrot for 5 mins. Add the garlic and cook for a further min.</li>
                   <li>Add the beef and cook on a high heat until browned all over. Stir in the tomatoes, tomato puree, stock cube, oregano, bay leaves and 200ml water. Bring to a simmer and then reduce the heat. Partly cover with a lid and cook for 1 hr, stirring occasionally.</li>
                   <li>Meanwhile, cook the spaghetti following pack instructions. Serve with the bolognese and some grated parmesan.</li>
-                </ol>
-              </div>
+              </ol>
+          </div>
 
-              <div class="rating-box">
-                <h2>Rate this recipe!</h2>
-                <!-- <select class= "rating" name="rating" id="rating">
-                  <option value="1">1 star</option>
-                  <option value="2">2 stars</option>
-                  <option value="3">3 stars</option>
-                  <option value="4">4 stars</option>
-                  <option value="5">5 stars</option>
-                </select> -->
+          <div class="rating-box">
+              <h2>Rate this recipe!</h2>
+              <!-- <select class= "rating" name="rating" id="rating">
+          <option value="1">1 star</option>
+          <option value="2">2 stars</option>
+          <option value="3">3 stars</option>
+          <option value="4">4 stars</option>
+          <option value="5">5 stars</option>
+        </select> -->
 
-                <p class="star-rating">
+              <p class="star-rating">
                   <i class="my-star star-1" data-star="1"></i>
                   <i class="my-star star-2" data-star="2"></i>
                   <i class="my-star star-3" data-star="3"></i>
@@ -134,12 +118,12 @@
               </p>
               <input type="number" readonly id="output">
               <button type="submit">Rate!</button>
-              </div>
+          </div>
 
-              <div class="tips">
-                <h2>Tips</h2>
-                <p class="tips-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-              </div>
+          <div class="tips">
+              <h2>Tips</h2>
+              <p class="tips-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+          </div>
       </div>
       <footer class="landing-footer">
 

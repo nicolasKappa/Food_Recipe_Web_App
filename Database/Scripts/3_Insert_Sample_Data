@@ -5,7 +5,7 @@ INSERT INTO lkp_categories (name) VALUES
 ('lunch'), -- 1
 ('dinner'), -- 2
 ('breakfast'), -- 3
-('dessert'), -- 4
+('dessert'), -- 4users
 ('vegan'), -- 5
 ('vegetarian'); -- 6
 
@@ -124,7 +124,7 @@ INSERT INTO lkp_ingredients (name) VALUES
 
 -- ********************* Healthy Pizza *********************
 INSERT INTO recipes (title, description, preparation_time, cooking_time, nr_served, picture_url) VALUES
-('Healthy Pizza', 'No yeast required for this easy, healthy pizza, topped with colourful vegetables that\'s ready in 30 minutes. This is a great recipe if you want to feed the kids in a hurry!', 'less than 30 mins', '10 to 30 mins', 'Serves 2', NULL);
+('Healthy Pizza', 'No yeast required for this easy, healthy pizza, topped with colourful vegetables that\'s ready in 30 minutes. This is a great recipe if you want to feed the kids in a hurry!', 'less than 30 mins', '10 to 30 mins', 'Serves 2', '\\images\\recipes\\healthy_pizza_55143_16x9.jpg');
 
 SET @recipe_id = (SELECT MAX(recipe_id) FROM recipes);
 
@@ -173,7 +173,7 @@ INSERT INTO recipe_tips (recipe_id, tip_nr, description) VALUES
 
 -- ********************* Vegan Pancakes *********************
 INSERT INTO recipes (title, description, preparation_time, cooking_time, nr_served, picture_url) VALUES
-('Vegan Pancakes', 'Try this vegan fluffy American pancake recipe for a perfect start to the day. Serve these pancakes with fresh berries, maple syrup or chocolate sauce for a really luxurious start to the day.', 'less than 30 mins', '10 to 30 mins', 'Serves 2', NULL);
+('Vegan Pancakes', 'Try this vegan fluffy American pancake recipe for a perfect start to the day. Serve these pancakes with fresh berries, maple syrup or chocolate sauce for a really luxurious start to the day.', 'less than 30 mins', '10 to 30 mins', 'Serves 2', '\\images\\recipes\\vegan_american_pancakes_76094_16x9.jpg');
 
 SET @recipe_id = LAST_INSERT_ID();
 
@@ -208,7 +208,7 @@ INSERT INTO recipe_tips (recipe_id, tip_nr, description) VALUES
 -- **************************** Mushroom Doner *****************************
 -- Insert for the Mushroom doner recipe (parent)
 INSERT INTO recipes (title, description, preparation_time, cooking_time, nr_served, picture_url) VALUES
-('Mushroom Doner', 'A meat-free mushroom ‘doner’ kebab packed with two types of sauces, pickles and veg. A mighty delicious vegetarian dish.', 'less than 30 mins', '10 to 30 mins', 'Serves 4', NULL);
+('Mushroom Doner', 'A meat-free mushroom ‘doner’ kebab packed with two types of sauces, pickles and veg. A mighty delicious vegetarian dish.', 'less than 30 mins', '10 to 30 mins', 'Serves 4', '\\images\\recipes\\mushroom_doner_22676_16x9.jpg');
 
 SET @recipe_id = LAST_INSERT_ID();
 
@@ -269,7 +269,7 @@ INSERT INTO recipe_steps (recipe_id, step_nr, description, minutes_needed) VALUE
 
 -- *************************** Mango Pie *****************************************
 INSERT INTO recipes (title, description, preparation_time, cooking_time, nr_served, picture_url) VALUES
-('Mango Pie', 'This mouthwatering mango dessert is an Indian take on a traditional Thanksgiving pie. For this recipe, you will need two 23cm/9in metal pie tins.', '30 mins to 1 hour', '30 mins to 1 hour', 'Serves 16', NULL);
+('Mango Pie', 'This mouthwatering mango dessert is an Indian take on a traditional Thanksgiving pie. For this recipe, you will need two 23cm/9in metal pie tins.', '30 mins to 1 hour', '30 mins to 1 hour', 'Serves 16', '\\images\\recipes\\mango_pie_18053_16x9.jpg');
 
 SET @recipe_id = LAST_INSERT_ID();
 
@@ -313,7 +313,7 @@ INSERT INTO recipe_tips (recipe_id, tip_nr, description) VALUES
 -- *********************** Couscous salad ***********************************
 -- Insert Recipe Details
 INSERT INTO recipes (title, description, preparation_time, cooking_time, nr_served, picture_url) VALUES
-('Couscous Salad', 'A nutritious and satisfying vegan couscous salad packed with colour, flavour and texture, from dried cranberries, pistachios and pine nuts.', 'less than 30 mins', 'less than 10 mins', 'Serves 6', NULL);
+('Couscous Salad', 'A nutritious and satisfying vegan couscous salad packed with colour, flavour and texture, from dried cranberries, pistachios and pine nuts.', 'less than 30 mins', 'less than 10 mins', 'Serves 6', '\\images\\recipes\\couscous_salad_18053_16x9.jpg');
 
 SET @recipe_id = LAST_INSERT_ID();
 

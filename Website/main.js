@@ -27,11 +27,11 @@ function toggleFavourite(user_id, recipe_id, isFavourite) {
             if (action === 'add') {
                 favouriteIcon.src = "images/heart.png";
                 favouriteText.innerText = "Remove from favourites";
-                isFavourite = true; // Update the isFavourite status
+                isFavourite = true; // Update the isFavourite status to true
             } else {
                 favouriteIcon.src = "images/whiteheart.png";
                 favouriteText.innerText = "Add to favourites";
-                isFavourite = false; // Update the isFavourite status
+                isFavourite = false; // Update the isFavourite status to false
             }
             // Update the onclick function to reflect the new isFavourite status
             favouriteIcon.onclick = function () { toggleFavourite(user_id, recipe_id, isFavourite); };

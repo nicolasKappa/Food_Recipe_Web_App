@@ -5,6 +5,13 @@ session_start();
 // Import the database connection settings
 require_once "../config/dbconfig.php";
 
+// Check if the user is not logged in
+if (!isset($_SESSION['user_id'])) { // The 'user_id' is set in the session upon successful login
+    // Redirect to the login page
+    header('Location: login.html');
+    exit(); // Make sure no further code is executed
+}
+
 // Initialize an empty array to hold recipe details
 $recipeDetails = [];
 $ingredients = [];

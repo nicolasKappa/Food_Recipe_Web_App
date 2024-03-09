@@ -264,6 +264,10 @@ h2 {
 		float: none;
 		width: 100%;
 	}
+	
+	#logo {
+    margin-right: 15px;
+}
 
 	.navigation li {
 		display: block;

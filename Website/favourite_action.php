@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../config/dbconfig.php"; 
+require_once "../config/dbconfig.php"; // Path to Config File
 
 if(isset($_POST['user_id'], $_POST['recipe_id'], $_POST['action'])) {
     $user_id = $_POST['user_id'];

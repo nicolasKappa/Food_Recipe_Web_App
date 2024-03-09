@@ -103,6 +103,22 @@ END //
 
 DELIMITER ;
 
+-- Get user rating
+DELIMITER //
+
+CREATE PROCEDURE sp_get_user_rating(
+    IN p_user_id INT,
+    IN p_recipe_id INT
+)
+BEGIN
+    SELECT rating
+    FROM user_rating
+    WHERE user_id = p_user_id AND recipe_id = p_recipe_id;
+END //
+
+DELIMITER ;
+
+
 -- Get Categories for the front end drop down menus
 DELIMITER //
 

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../config/dbconfig.php"; // Adjust the path as needed
+require_once "../config/dbconfig.php"; 
 
 if(isset($_POST['user_id'], $_POST['recipe_id'], $_POST['action'])) {
     $user_id = $_POST['user_id'];

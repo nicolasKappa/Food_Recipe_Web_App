@@ -17,6 +17,7 @@ DROP PROCEDURE IF EXISTS sp_get_recipe_tips;
 DROP PROCEDURE IF EXISTS sp_search_recipes;
 DROP PROCEDURE IF EXISTS sp_get_user_favourite_recipes;
 DROP PROCEDURE IF EXISTS sp_get_average_rating;
+DROP PROCEDURE IF EXISTS sp_get_user_rating;
 
 
 -- Login
@@ -304,6 +305,24 @@ BEGIN
 END //
 
 DELIMITER ;
+
+-- Get User Favourite Recipe if applicable
+DELIMITER //
+
+CREATE PROCEDURE sp_get_user_favourite_recipe(
+    IN p_user_id INT,
+    IN p_recipe_id INT
+)
+BEGIN
+    SELECT 
+        f.recipe_id
+    FROM favourites f
+    WHERE f.user_id = p_user_id AND f.recipe_id = p_recipe_id
+    LIMIT 1;
+END //
+
+DELIMITER ;
+
 
 -- Get Average rating for a recipe
 DELIMITER //

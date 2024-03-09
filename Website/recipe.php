@@ -5,11 +5,14 @@ session_start();
 // Import the database connection settings
 require_once "../config/dbconfig.php";
 
-// Check if the user is not logged in
-if (!isset($_SESSION['user_id'])) { // The 'user_id' is set in the session upon successful login
-    // Redirect to the login page
+// Check if the user is logged in, using the session variable set during login
+if(isset($_SESSION['user_id'])) {
+    // Retrieve user ID from the session
+    $user_id = $_SESSION['user_id'];
+} else {
+    // If the session variable is not set, redirect to the login page
     header('Location: login.html');
-    exit(); // Make sure no further code is executed
+    exit;
 }
 
 // Initialize an empty array to hold recipe details
@@ -84,6 +87,23 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
             $tips[] = $row;
         }
         $stmt->close();
+    }
+
+    // Prepare the statement for the stored procedure call
+    $isFavourite = false;
+
+    if ($user_id && $recipeId) {
+        if (
+            $stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_user_favourite_recipe`(?, ?)")
+        ) {
+            $stmt->bind_param("ii", $user_id, $recipeId);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result->num_rows > 0) {
+                $isFavourite = true;
+            }
+            $stmt->close();
+        }
     }
 
     // For Recipe Average Rating
@@ -174,9 +194,9 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
             <h2 class="title"><?php echo htmlspecialchars(
                 $recipeDetails["title"] ?? "Recipe Title"
             ); ?></h2>
-            <div class="favourites">
-                <img src="images/heart.png" alt="heart icon">
-                <p>Add to favourites</p>
+            <div class="favourites" id="favouritesDiv">
+                <img src="images/<?php echo $isFavourite ? 'heart' : 'whiteheart'; ?>.png" alt="heart icon" id="favouriteIcon" data-user-id="<?php echo $_SESSION['user_id']; ?>" data-recipe-id="<?php echo $recipeId; ?>" style="cursor:pointer;">
+                <p id="favouritesText"><?php echo $isFavourite ? 'Remove from favourites' : 'Add to favourites'; ?></p>
             </div>
             <h5 class="description"><?php echo htmlspecialchars(
                 $recipeDetails["description"] ??

@@ -1,6 +1,6 @@
 <?php
 // dbconfig.php
-define('DB_SERVER', 'localhost');
+define('DB_SERVER', '127.0.0.1');
 define('DB_USERNAME', 'flavourfinds');
 define('DB_PASSWORD', 'flavourfindsPassword(123)');
 define('DB_DATABASE', 'flavour_finds');

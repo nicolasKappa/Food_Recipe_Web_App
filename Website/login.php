@@ -1,51 +1,59 @@
 <?php
+// Initialize the session to manage user state throughout the application.
 session_start();
 
-// Check if the form is submitted
+// Include database connection configuration.
+require_once '../config/dbconfig.php';
+
+// Check if the form has been submitted via POST.
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    // Database connection parameters
-    $servername = "localhost"; 
-    $db_username = "root"; 
-    $db_password = "testcase"; 
-    $dbname = "recipe_app_database"; 
+    // Sanitize the input to protect against potential threats.
+    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    $password = filter_input(INPUT_POST, 'psw', FILTER_SANITIZE_STRING);
 
-    // Create connection
-    $conn = new mysqli($servername, $db_username, $db_password, $dbname);
+    // Establish a database connection using the provided credentials.
+    $conn = getConnection();
 
-    // Check connection
+    // Check the database connection status.
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
-    } else {
-        // Prepare and execute SQL statement to retrieve user information
-        $stmt = $conn->prepare("SELECT * FROM Users WHERE Username = ?");
-        $stmt->bind_param("s", $_POST["username"]);
+    }
+
+    // Prepare an SQL statement to execute the stored procedure for user authentication.
+    if ($stmt = $conn->prepare("CALL sp_login(?, ?)")) {
+        // Bind parameters to the prepared statement.
+        $stmt->bind_param("ss", $email, $password);
+        // Execute the statement.
         $stmt->execute();
+        // Obtain the result set from the statement.
         $result = $stmt->get_result();
 
-        // Check if user exists
-        if ($result->num_rows == 1) {
-            // User found, now check if password is correct
-            $row = $result->fetch_assoc();
-            if (password_verify($_POST["password"], $row["Password"])) {
-                // Password is correct, set session variables or perform login action
-                $_SESSION["username"] = $_POST["username"];
-                echo "Login successful. Redirecting...";
-                // Redirect to a logged-in page
-                // header("Location: dashboard.php");
-                // exit();
-            } else {
-                // Password is incorrect
-                echo "Incorrect password.";
-            }
-        } else {
-            // User not found
-            echo "User not found.";
-        }
+        // Check if the result set contains any rows, indicating successful authentication.
+        if ($result && $row = $result->fetch_assoc()) {
+            // User authenticated; store user ID and email in session variables.
+            $_SESSION["user_id"] = $row["user_id"];
+            $_SESSION["email"] = $email;
 
-        // Close statement and connection
+            // Redirect the user to the main recipe page.
+            header("Location: recipe.html");
+            // Terminate script execution.
+            exit;
+        } else {
+            // Authentication failed; notify the user.
+            echo "Login failed. Email or password is incorrect.";
+        }
+        // Release the prepared statement.
         $stmt->close();
-        $conn->close();
+    } else {
+        // Handle errors in statement preparation.
+        echo "Failed to prepare the login statement.";
     }
+    // Close the database connection.
+    $conn->close();
+} else {
+    // Redirect to the login page if the form is not submitted via POST.
+    header("Location: login.html");
+    exit;
 }
 ?>

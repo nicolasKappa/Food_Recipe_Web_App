@@ -59,8 +59,8 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
 		<p class="landing-text">Leveraging motion graphics in your digital food advertisement is a great way to catch the eye of your scrolling audience.
 			What makes the ad so great is it not only used visual storytelling to its maximum but also touched on a subject people care about,
 			demonstrating an understanding of its audience and beyond.
-			Further, it showed the brand’s personality, and also gave Chipotle an excellent opportunity to display the brand\’s ethics – a selling point
-			that’s grown in importance to customers over the years.
+			Further, it showed the brand's personality, and also gave Chipotle an excellent opportunity to display the brand's ethics - a selling point
+			that's grown in importance to customers over the years.
 			Anyone can take the Chipotle approach in their food ads: use visual storytelling, engage an audience, and create a compelling narrative.
 			Then ensure you put the ad on the right channels to get it noticed.
 		</p>

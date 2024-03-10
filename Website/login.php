@@ -95,14 +95,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <span class="psw"><a href="register.html">Register here</a></span>
             </form>
         </div>
-        <section class="landing-image">
-            <!-- Image section -->
-        </section>
-    </div>
+    <section class="landing-image">
+      <img src="https://www2.deloitte.com/content/dam/Deloitte/global/Images/inline_images/gx-wc-food-600x375.jpg" alt="a neatly served table"
+        srcset="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.amazonaws.com%2Frpower-marketing-assets%2FPublic%2Frpower-blog-photos%2Fkitchen-display-cooking-min.jpeg&f=1&nofb=1&ipt=5f333142f8bd93c8743176babc3c9b63e45f10c4424f9468f7c3ee7c2f3a775a&ipo=images 2x,
+      https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fs3.amazonaws.com%2Frpower-marketing-assets%2FPublic%2Frpower-blog-photos%2Fkitchen-display-cooking-min.jpeg&f=1&nofb=1&ipt=5f333142f8bd93c8743176babc3c9b63e45f10c4424f9468f7c3ee7c2f3a775a&ipo=images 3x">
+    </section>
+
+  </div>
 </div>
+
 <footer class="landing-footer">
-    <!-- Footer content -->
+
 </footer>
+
 <script src="main.js"></script>
 </body>
+
 </html>

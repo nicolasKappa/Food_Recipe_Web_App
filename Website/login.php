@@ -4,7 +4,7 @@ require_once "../config/dbconfig.php";
 
 // Redirect to results.php if the user is already logged in
 if (isset($_SESSION["user_id"])) {
-    header("Location: results.php");
+    header("Location: search_result.php");
     exit;
 }
 
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result && ($row = $result->fetch_assoc())) {
             $_SESSION["user_id"] = $row["user_id"];
             $_SESSION["email"] = $email;
-            header("Location: results.php");
+            header("Location: search_results.php");
             exit;
         } else {
             $error = "Login failed. Email or password is incorrect.";
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <header>
     <div id="logo">
-        <a href="index.html"><img src="images/logo/logo.png" width="50" height="50"></a>
+        <a href="index.php"><img src="images/logo/logo.png" width="50" height="50"></a>
     </div>
     <div class="simpleSearch">
         <form action="search_results.php" method="get">

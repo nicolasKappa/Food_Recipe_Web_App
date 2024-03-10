@@ -4,7 +4,7 @@ require_once "../config/dbconfig.php";
 
 // Redirect to results.php if the user is already logged in
 if (isset($_SESSION["user_id"])) {
-    header("Location: results.php");
+    header("Location: search_result.php");
     exit;
 }
 
@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($result && ($row = $result->fetch_assoc())) {
             $_SESSION["user_id"] = $row["user_id"];
             $_SESSION["email"] = $email;
-            header("Location: results.php");
+            header("Location: search_results.php");
             exit;
         } else {
             $error = "Login failed. Email or password is incorrect.";
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
 <header>
     <div id="logo">
-        <a href="index.html"><img src="images/logo/logo.png" width="50" height="50"></a>
+        <a href="index.php"><img src="images/logo/logo.png" width="50" height="50"></a>
     </div>
     <div class="simpleSearch">
         <form action="search_results.php" method="get">
@@ -66,12 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li><a href="#">All Recipes</a></li>
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">
-                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fc7%2Fab%2Fcd%2Fc7abcd3ce378191a3dddfa4cdb2be46f.png&f=1&nofb=1" alt="authorization icon" width="30">
+                    <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
                 </a>
                 <div class="dropdown-content" id="myDropdown">
                     <a href="#">Your Profile</a>
                     <a href="login.php">Log in</a>
-                    <a href="register.html">Register</a>
+                    <a href="register.php">Register</a>
                 </div>
             </li>
         </ul>
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Login</button>
                 <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
                 <br> 
-                <span class="psw"><a href="register.html">Register here</a></span>
+                <span class="psw"><a href="register.php">Register here</a></span>
             </form>
         </div>
     <section class="landing-image">

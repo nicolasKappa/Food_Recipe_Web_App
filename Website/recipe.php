@@ -15,6 +15,8 @@ if(isset($_SESSION['user_id'])) {
     exit;
 }
 
+$userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, used to control header data
+
 // Initialize an empty array to hold recipe details
 $recipeDetails = [];
 $ingredients = [];
@@ -158,42 +160,41 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe App</title>
-    <!--link to style sheet-->
     <link rel="stylesheet" href="StylesheetRecipeRegisterLogin.css">
    </head>
 <body data-user-id="<?= $user_id ?>" data-recipe-id="<?= $recipeId ?>">
-  <header>
+    <header>
+      <div id="logo">
+        <a href="index.php"><img src="images/logo/logo.png" width="50" height="50"></a>
+      </div>
 
-    <div id="logo">
-      <a href="index.html"><img src="images/logo/logo.png" width="50" height="50">
-    </a>
-    </div>
+      <div class="simpleSearch">
+        <form action="search_results.php" method="get">
+          <input type="text" placeholder="What do you want to eat today?" name="search">
+          <button type="submit">Go</button>
+        </form>
+      </div>
 
-    <div class="simpleSearch">
-      <form action="/action_page.php">
-        <input type="text" placeholder="What do you want to eat today?" name="search";>
-        <button type="submit">Go</button>
-      </form>
-    </div>
-
-    <nav>
-      <ul>
-        <li><a href="#">All Recipes</a></li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">
-                <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fc7%2Fab%2Fcd%2Fc7abcd3ce378191a3dddfa4cdb2be46f.png&f=1&nofb=1" alt="authorization icon" width="30">
-            </a>
-            <div class="dropdown-content" id="myDropdown">
-                <a href="#">Your Profile</a>
-                <a href="login.php">Log in</a>
-                <a href="register.html">Register</a>
-            </div>
-        </li>
-    </ul>
-    </nav>
-    <div class="dropdown">
-
-  </header>
+      <nav>
+        <ul>
+          <?php if (isset($_SESSION['user_id'])): ?>
+            <li><a href="search_results.php">All Recipes</a></li>
+            <li class="dropdown">
+              <a href="javascript:void(0)" class="dropbtn">
+                <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
+              </a>
+              <div class="dropdown-content" id="myDropdown">
+                <a href="user_page.php">Your Profile</a>
+                <a href="logout.php">Log Out</a>
+              </div>
+            </li>
+          <?php else: ?>
+            <li><a href="login.php">Log in</a></li>
+            <li><a href="register.php">Register</a></li>
+          <?php endif; ?>
+        </ul>
+      </nav>
+    </header>
   <div class="container">
       <div class="main">
 
@@ -201,9 +202,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
             <img class="image-link" src="<?php echo "/flavourfinds/Website" .
                 htmlspecialchars(
                     $recipeDetails["picture_url"]
-                ); ?>" alt="<?php echo htmlspecialchars(
-    $recipeDetails["title"]
-); ?>">
+                ); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
         </div>
          <div class="recipe-info">
             <h2 class="title"><?php echo htmlspecialchars(

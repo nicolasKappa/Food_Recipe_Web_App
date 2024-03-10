@@ -66,12 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <li><a href="#">All Recipes</a></li>
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">
-                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fc7%2Fab%2Fcd%2Fc7abcd3ce378191a3dddfa4cdb2be46f.png&f=1&nofb=1" alt="authorization icon" width="30">
+                    <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
                 </a>
                 <div class="dropdown-content" id="myDropdown">
                     <a href="#">Your Profile</a>
                     <a href="login.php">Log in</a>
-                    <a href="register.html">Register</a>
+                    <a href="register.php">Register</a>
                 </div>
             </li>
         </ul>
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <button type="submit">Login</button>
                 <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
                 <br> 
-                <span class="psw"><a href="register.html">Register here</a></span>
+                <span class="psw"><a href="register.php">Register here</a></span>
             </form>
         </div>
     <section class="landing-image">

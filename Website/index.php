@@ -47,7 +47,7 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
             </li>
           <?php else: ?>
             <li><a href="login.php">Log in</a></li>
-            <li><a href="register.html">Register</a></li>
+            <li><a href="register.php">Register</a></li>
           <?php endif; ?>
         </ul>
       </nav>

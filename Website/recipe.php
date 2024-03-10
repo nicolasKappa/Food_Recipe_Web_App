@@ -190,7 +190,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
             </li>
           <?php else: ?>
             <li><a href="login.php">Log in</a></li>
-            <li><a href="register.html">Register</a></li>
+            <li><a href="register.php">Register</a></li>
           <?php endif; ?>
         </ul>
       </nav>

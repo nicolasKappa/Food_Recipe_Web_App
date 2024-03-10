@@ -1,58 +1,108 @@
 <?php
-// Initialize the session to manage user state throughout the application.
 session_start();
-
-// Include database connection configuration.
 require_once "../config/dbconfig.php";
 
-// Check if the form has been submitted via POST.
+// Redirect to results.php if the user is already logged in
+if (isset($_SESSION["user_id"])) {
+    header("Location: results.php");
+    exit;
+}
+
+$error = '';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Sanitize the input to protect against potential threats.
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, "psw", FILTER_SANITIZE_STRING);
 
-    // Establish a database connection using the provided credentials.
     $conn = getConnection();
 
-    // Check the database connection status.
     if ($conn->connect_error) {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Prepare an SQL statement to execute the stored procedure for user authentication.
     if ($stmt = $conn->prepare("CALL sp_login(?, ?)")) {
-        // Bind parameters to the prepared statement.
         $stmt->bind_param("ss", $email, $password);
-        // Execute the statement.
         $stmt->execute();
-        // Obtain the result set from the statement.
         $result = $stmt->get_result();
 
-        // Check if the result set contains any rows, indicating successful authentication.
         if ($result && ($row = $result->fetch_assoc())) {
-            // User authenticated; store user ID and email in session variables.
             $_SESSION["user_id"] = $row["user_id"];
             $_SESSION["email"] = $email;
-
-            // Redirect the user to the main recipe page.
-            header("Location: recipe.html");
-            // Terminate script execution.
-            exit();
+            header("Location: results.php");
+            exit;
         } else {
-            // Authentication failed; notify the user.
-            echo "Login failed. Email or password is incorrect.";
+            $error = "Login failed. Email or password is incorrect.";
         }
-        // Release the prepared statement.
         $stmt->close();
     } else {
-        // Handle errors in statement preparation.
-        echo "Failed to prepare the login statement.";
+        $error = "Failed to prepare the login statement.";
     }
-    // Close the database connection.
     $conn->close();
-} else {
-    // Redirect to the login page if the form is not submitted via POST.
-    header("Location: login.html");
-    exit();
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best recipes ever</title>
+    <style>
+        @import url("StylesheetRecipeRegisterLogin.css");
+    </style>
+</head>
+<body>
+<header>
+    <div id="logo">
+        <a href="index.html"><img src="images/logo/logo.png" width="50" height="50"></a>
+    </div>
+    <div class="simpleSearch">
+        <form action="search_results.php" method="get">
+            <input type="text" placeholder="What do you want to eat today?" name="search">
+            <button type="submit">Go</button>
+        </form>
+    </div>
+    <nav>
+        <ul>
+            <li><a href="#">All Recipes</a></li>
+            <li class="dropdown">
+                <a href="javascript:void(0)" class="dropbtn">
+                    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fc7%2Fab%2Fcd%2Fc7abcd3ce378191a3dddfa4cdb2be46f.png&f=1&nofb=1" alt="authorization icon" width="30">
+                </a>
+                <div class="dropdown-content" id="myDropdown">
+                    <a href="#">Your Profile</a>
+                    <a href="login.php">Log in</a>
+                    <a href="register.html">Register</a>
+                </div>
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="container">
+    <div class="main">
+        <div class="login-block">
+            <h2>Log in to your account</h2>
+            <?php if ($error): ?>
+            <p class="error"><?php echo $error; ?></p>
+            <?php endif; ?>
+            <form class="login-register-form" method="post">
+                <label class="label" for="email"><b>Email</b></label>
+                <input class="input" type="text" placeholder="Enter email" name="email" required>
+                <label for="psw"><b>Password</b></label>
+                <input class="input" type="password" placeholder="Enter Password" name="psw" required>
+                <button type="submit">Login</button>
+                <span class="psw">Forgot <a href="#">password?</a></span>
+                <br>
+                <span class="psw"><a href="register.html">Register here</a></span>
+            </form>
+        </div>
+        <section class="landing-image">
+            <!-- Image section -->
+        </section>
+    </div>
+</div>
+<footer class="landing-footer">
+    <!-- Footer content -->
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

@@ -9,4 +9,4 @@
 3. Run Databaes/Scripts 1,2,3,4
 4.  Create User Account for testing via DB:   CALL `flavour_finds`.`sp_register_user`('John Doe', 'Password1', 'john.doe@gmail.com');
 4. Start the Apache server via XAMPP control panel
-5. http://localhost/flavourfinds/website/login.html 
+5. http://localhost/flavourfinds/website/login.php

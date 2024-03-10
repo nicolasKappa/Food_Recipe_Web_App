@@ -108,7 +108,7 @@ select {
     max-width: 200px;
     width: 100%;
     appearance: none;
-    background-image: url('./icons/triangle-icon.svg');
+    background-image: url('images/user-page/triangle-icon.svg');
     background-size: 15px;
     background-repeat: no-repeat;
     background-position-x: calc(100% - 12px);

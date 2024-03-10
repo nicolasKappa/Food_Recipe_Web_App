@@ -90,8 +90,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <label for="psw"><b>Password</b></label>
                 <input class="input" type="password" placeholder="Enter Password" name="psw" required>
                 <button type="submit">Login</button>
-                <span class="psw">Forgot <a href="#">password?</a></span>
-                <br>
+                <!-- <span class="psw">Forgot <a href="#">password?</a></span> -->
+                <br> 
                 <span class="psw"><a href="register.html">Register here</a></span>
             </form>
         </div>

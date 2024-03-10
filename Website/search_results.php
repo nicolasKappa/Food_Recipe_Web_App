@@ -1,38 +1,42 @@
 ﻿<?php
-// Start or continue user session once logged in
 session_start();
 
 // Import the database connection settings
 require_once "../config/dbconfig.php";
 
-// Check if the user is logged in, using the session variable set during login
-if(isset($_SESSION['user_id'])) {
-    // Retrieve user ID from the session
-    $user_id = $_SESSION['user_id'];
-} else {
-    // If the session variable is not set, redirect to the login page
+// Redirect user to login page if not logged in
+if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
 
+$conn = getConnection();
 
+// Get all recipes
+$recipes = [];
+if ($stmt = $conn->prepare("CALL sp_get_recipes()")) {
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = $result->fetch_assoc()) {
+        // Append the relative path prefix to the picture URL
+        $row['picture_url'] = "/flavourfinds/Website" . $row['picture_url'];
+        $recipes[] = $row;
+    }
+    $stmt->close();
+}
+$conn->close();
 ?>
 
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Search page</title>
-	<style>
-		@import url('https://fonts.cdnfonts.com/css/trebuchet-ms-2');
-		@import url("user_page_search_results.css");
-	</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search page</title>
+    <link rel="stylesheet" href="user_page_search_results.css">
 </head>
-
 <body>
-   <header class="header">
+  <header class="header">
         <div class="container">
             <div class="header-content">
                 <div class="header-logo">
@@ -55,8 +59,8 @@ if(isset($_SESSION['user_id'])) {
                             <a href="javascript:void(0)" class="dropbtn" onclick="myFunction()">
                                 <img src="images/icons/auth-icon.png" alt="User Profile" width="30">
                             </a>
-                            <div class="dropdown-content" id="myDropdown">
-                                <a href="user_page.php">Your Profile</a>    
+                            <div class="dropdown-content" id="myDropdown"> 
+                                <a href="user_page.php">Your Profile</a>
                                 <a href="logout.php">Log Out</a>
                             </div>
                         </li>
@@ -67,110 +71,40 @@ if(isset($_SESSION['user_id'])) {
     </header>
 
 	<main>
-		<div class="container">
-			<section class="catalog">
-				<header class="catalog-header catalog-result-header">
-					<form action="" class="catalog-result-filter">
-						<input type="search" name="catalog-search-input" placeholder="Chicken"
-							id="catalog-search-input">
+        <div class="container">
+            <section class="catalog">
+                <!-- Catalog Header for searching -->
 
-						<select name="filter-by-input" id="filter-by-input">
-							<option disabled selected hidden>Filter by...</option>
-							<option>Тест 1</option>
-							<option>Тест 2</option>
-							<option>Тест 3</option>
-						</select>
-					</form>
-				</header>
+                <div class="catalog-content">
+                    <ul class="goods-list">
+                        <?php foreach ($recipes as $recipe): ?>
+                        <li class="goods-item">
+                            <div class="product">
+                                <div class="product-header">
+                                    <img src="<?php echo htmlspecialchars($recipe['picture_url']); ?>" alt="<?php echo htmlspecialchars($recipe['title']); ?>">
+                                </div>
 
-				<div class="catalog-content">
-					<ul class="goods-list">
-						<li class="goods-item">
-							<div class="product">
-								<div class="product-header">
-									<img src="images/user-page/product-1.jpg" alt="Fried chicken">
-								</div>
+                                <div class="product-content">
+                                    <a href="recipe.php?id=<?php echo $recipe['recipe_id']; ?>" class="product-title"><?php echo htmlspecialchars($recipe['title']); ?></a>
 
-								<div class="product-content">
-									<a href="#product-1" class="product-title">Fried chicken</a>
+                                    <div class="product-btns">
+                                        <div class="product-rating">
+                                            <span><?php echo htmlspecialchars(round($recipe['average_rating'] * 2) / 2); ?></span>
+                                            <img src="images/user-page/star-icon.svg" alt="Rating">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </section>
+        </div>
+    </main>
 
-									<div class="product-btns">
-										<div class="product-rating">
-											<span>4</span>
-											<img src="images/user-page/star-icon.svg" alt="4">
-										</div>
-									</div>
-								</div>
-							</div>
-						</li>
-
-						<li class="goods-item">
-							<div class="product">
-								<div class="product-header">
-									<img src="images/user-page/product-2.jpg" alt="Fried chicken">
-								</div>
-
-								<div class="product-content">
-									<a href="#product-2" class="product-title">Fried chicken</a>
-
-									<div class="product-btns">
-										<div class="product-rating">
-											<span>4</span>
-											<img src="images/user-page/star-icon.svg" alt="4">
-										</div>
-									</div>
-								</div>
-							</div>
-						</li>
-
-						<li class="goods-item">
-							<div class="product">
-								<div class="product-header">
-									<img src="images/user-page/product-3.jpg" alt="Fried chicken">
-								</div>
-
-								<div class="product-content">
-									<a href="#product-3" class="product-title">Fried chicken</a>
-
-									<div class="product-btns">
-										<div class="product-rating">
-											<span>2</span>
-											<img src="images/user-page/star-icon.svg" alt="2">
-										</div>
-									</div>
-								</div>
-							</div>
-						</li>
-
-						<li class="goods-item">
-							<div class="product">
-								<div class="product-header">
-									<img src="images/user-page/product-4.jpg" alt="Fried chicken">
-								</div>
-
-								<div class="product-content">
-									<a href="#product-4" class="product-title">Fried chicken</a>
-
-									<div class="product-btns">
-										<div class="product-rating">
-											<span>3</span>
-											<img src="images/user-page/star-icon.svg" alt="3">
-										</div>
-									</div>
-								</div>
-							</div>
-						</li>
-					</ul>
-				</div>
-			</section>
-		</div>
-	</main>
-
-	<footer class="footer">
-		<div class="container-fluid">
-			Footer
-		</div>
-	</footer>
+    <footer class="footer">
+        <div class="container-fluid">Footer</div>
+    </footer>
 </body>
-
 </html>

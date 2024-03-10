@@ -134,7 +134,6 @@ END //
 
 DELIMITER ;
 
--- Get Recipes
 DELIMITER //
 
 CREATE PROCEDURE sp_get_recipes()
@@ -146,15 +145,15 @@ BEGIN
         r.preparation_time, 
         r.cooking_time, 
         r.nr_served, 
-        r.picture_url, 
-        c.name AS category_name
+        r.picture_url,
+        COALESCE(AVG(ur.rating), 0) AS average_rating
     FROM recipes r
-    LEFT JOIN recipe_category rc ON r.recipe_id = rc.recipe_id
-    LEFT JOIN lkp_categories c ON rc.category_id = c.category_id
-    LEFT JOIN recipe_ingredient ri ON r.recipe_id = ri.recipe_id;
+    LEFT JOIN user_rating ur ON r.recipe_id = ur.recipe_id
+    GROUP BY r.recipe_id;
 END //
 
 DELIMITER ;
+
 
 -- Get Recipe Details for a specific recipe
 DELIMITER //

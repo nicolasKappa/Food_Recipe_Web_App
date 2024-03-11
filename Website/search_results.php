@@ -12,7 +12,9 @@ if (!isset($_SESSION['user_id'])) {
 
 $conn = getConnection();
 $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
-$base_url = ($_SERVER['HTTPS'] ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+$base_url = $protocol . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
+
 
 
 // Get all recipes

@@ -29,6 +29,9 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
 
     // Create a new database connection
     $conn = getConnection();
+    $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+    $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+    $base_url = $protocol . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
 
     // Verify that the database connection was successfully established
     if ($conn->connect_error) {
@@ -199,10 +202,9 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
       <div class="main">
 
         <div class="recipe-image">
-            <img class="image-link" src="<?php echo "/flavourfinds/Website" .
-                htmlspecialchars(
-                    $recipeDetails["picture_url"]
-                ); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
+            <img class="image-link" src="<?php echo $base_url .
+    htmlspecialchars($recipeDetails["picture_url"]); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
+
         </div>
          <div class="recipe-info">
             <h2 class="title"><?php echo htmlspecialchars(

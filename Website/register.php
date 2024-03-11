@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <header>
 
   <div id="logo">
-    <a href="index.php"><img src="images/logo/logo.png" width="50" height="50">
+    <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo">
     <span></span>
   </a>
   </div>

@@ -9,7 +9,7 @@ require_once "../config/dbconfig.php";
 if(isset($_SESSION['user_id'])) {
     // Retrieve user ID from the session
     $user_id = $_SESSION['user_id'];
-} 
+}
 
 $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, used to control header data
 
@@ -28,9 +28,10 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
 		@import url("landing_page.css");
 	</style>
 
+
     <header>
       <div id="logo">
-        <a href="index.php"><img src="images/logo/logo.png" width="50" height="50"></a>
+        <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
       </div>
       <nav>
         <ul>
@@ -40,7 +41,7 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
               <a href="javascript:void(0)" class="dropbtn">
                 <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
               </a>
-              <div class="dropdown-content" id="myDropdown">
+              <div class="dropdown-content" id="myDropdown" aria-label="User Menu">
                 <a href="user_page.php">Your Profile</a>
                 <a href="logout.php">Log Out</a>
               </div>
@@ -52,25 +53,14 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
         </ul>
       </nav>
     </header>
+    <main>
+    <section class="landing-main-block" >
+      <h1>WELCOME TO FLAVOURFINDS</h1>
+      <p class="landing-text">Welcome to FlavourFinds, your ultimate destination for discovering delicious recipes! Whether you're a seasoned chef or a curious beginner, our app is designed to inspire your culinary journey. Dive into a world of flavours with thousands of recipes at your fingertips. Search by ingredients or meal type to find the perfect dish for any occasion. From quick weeknight dinners to sumptuous feasts, FlavourFinds is here to guide you through every step of your cooking adventure. Let's embark on a flavourful journey together!
+      </p>
 
-<div class="landing-main-block">
-	<div class="landing-heading">
-		<h1>WELCOME TO FLAVOURFINDS</h1>
-		<p class="landing-text">Leveraging motion graphics in your digital food advertisement is a great way to catch the eye of your scrolling audience.
-			What makes the ad so great is it not only used visual storytelling to its maximum but also touched on a subject people care about,
-			demonstrating an understanding of its audience and beyond.
-			Further, it showed the brand's personality, and also gave Chipotle an excellent opportunity to display the brand's ethics - a selling point
-			that's grown in importance to customers over the years.
-			Anyone can take the Chipotle approach in their food ads: use visual storytelling, engage an audience, and create a compelling narrative.
-			Then ensure you put the ad on the right channels to get it noticed.
-		</p>
-	</div>
-	<section>
-		<img src="images/landing-dishes.png" alt="a neatly served table"  style="width:30em" srcset="images/landing-dishes.png 2x, images/landing-dishes.png 3x"
-		class="image-main-landing">
-	</section>
-</div>
-
+    </section>
+  </main>
 
 <footer class="landing-footer">
 

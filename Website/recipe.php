@@ -29,7 +29,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
 
     // Create a new database connection
     $conn = getConnection();
-    $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+$current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
     $base_url = $protocol . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
 
@@ -163,47 +163,49 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe App</title>
+    <!--link to style sheet-->
     <link rel="stylesheet" href="StylesheetRecipeRegisterLogin.css">
    </head>
 <body data-user-id="<?= $user_id ?>" data-recipe-id="<?= $recipeId ?>">
-    <header>
-      <div id="logo">
-        <a href="index.php"><img src="images/logo/logo.png" width="50" height="50"></a>
-      </div>
+  <header>
 
-      <div class="simpleSearch">
-        <form action="search_results.php" method="get">
-          <input type="text" placeholder="What do you want to eat today?" name="search">
-          <button type="submit">Go</button>
-        </form>
-      </div>
+    <div id="logo">
+      <a href="index.php"><img src="images/logo/logo.png" width="50" height="50"></a>
+    </div>
 
-      <nav>
-        <ul>
-          <?php if (isset($_SESSION['user_id'])): ?>
+    <div class="simpleSearch">
+      <form action="search_results.php" method="get">
+        <input type="text" placeholder="What do you want to eat today?" name="search">
+        <button type="submit">Go</button>
+      </form>
+    </div>
+
+    <nav>
+      <ul>
+        <?php if (isset($_SESSION['user_id'])): ?>
             <li><a href="search_results.php">All Recipes</a></li>
-            <li class="dropdown">
-              <a href="javascript:void(0)" class="dropbtn">
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">
                 <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
-              </a>
-              <div class="dropdown-content" id="myDropdown">
+            </a>
+            <div class="dropdown-content" id="myDropdown">
                 <a href="user_page.php">Your Profile</a>
                 <a href="logout.php">Log Out</a>
-              </div>
-            </li>
-          <?php else: ?>
+            </div>
+        </li>
+<?php else: ?>
             <li><a href="login.php">Log in</a></li>
             <li><a href="register.php">Register</a></li>
           <?php endif; ?>
-        </ul>
-      </nav>
-    </header>
+    </ul>
+    </nav>
+      </header>
   <div class="container">
       <div class="main">
 
         <div class="recipe-image">
-           <img class="image-link" src="<?php echo $base_url .
-    htmlspecialchars($recipeDetails["picture_url"]); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
+            <img class="image-link" src="<?php echo $base_url .
+                htmlspecialchars($recipeDetails["picture_url"]); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
 
         </div>
          <div class="recipe-info">
@@ -218,7 +220,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
                 $recipeDetails["description"] ??
                     "Recipe description not available."
             ); ?></h5>
-            
+
             <h5 class="categories"><?php echo htmlspecialchars(
                 implode(", ", $recipeDetails["categories"] ?? [])
             ); ?></h5>
@@ -238,12 +240,12 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
               </div>
 
               <div class="average-rating">
-                <h2>Average Rating</h2>
+                  <h2>Average Rating</h2>
                   <p class="star-rating">
                         <?php
                         // Display filled stars
                         for ($i = 0; $i < floor($averageRating); $i++) {
-                            echo '<img class="star" src="images/star.png" alt="Full Star">'; 
+                            echo '<img class="star" src="images/star.png" alt="Full Star">';
                         }
                         // Display half star where applicable
                         if (floor($averageRating) < $averageRating) {
@@ -252,12 +254,12 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
                         }
                         // Display empty stars
                         for ($i; $i < 5; $i++) {
-                            echo '<img class="star" src="images/emptystar.png" alt="Empty Star">'; 
+                            echo '<img class="star" src="images/emptystar.png" alt="Empty Star">';
                         }
                         ?>
                   </p>
               </div>
-            </div>
+                      </div>
             <div class="ingredients">
             <h2>Ingredients</h2>
             <?php
@@ -305,13 +307,13 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
                     </li>
                 <?php endforeach; ?>
             </ol>
-        </div>
+                          </div>
 
-        <div class="rating-box">
-            <h2>Rate this recipe!</h2>
-            <p class="star-rating" id="userRating">
-                <?php for($i = 1; $i <= 5; $i++): ?>
-                    <img src="images/<?= $i <= $currentRating ? 'star' : 'emptystar'; ?>.png" class="star" data-star="<?= $i ?>" alt="<?= $i ?> Star" style="cursor:pointer;">
+    <div class="rating-box">
+              <h2>Rate this recipe!</h2>
+              <p class="star-rating" id="userRating">
+          <?php for($i = 1; $i <= 5; $i++): ?>
+          <img src="images/<?= $i <= $currentRating ? 'star' : 'emptystar'; ?>.png" class="star" data-star="<?= $i ?>" alt="<?= $i ?> Star" style="cursor:pointer;">
                 <?php endfor; ?>
             </p>
         </div>
@@ -325,7 +327,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
                     ); ?></li>
                 <?php endforeach; ?>
             </ul>
-        </div>
+                  </div>
       </div>
       <footer class="landing-footer">
 

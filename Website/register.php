@@ -9,7 +9,7 @@ require_once "../config/dbconfig.php";
 if(isset($_SESSION['user_id'])) {
     // Retrieve user ID from the session
     $user_id = $_SESSION['user_id'];
-} 
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING);
@@ -23,13 +23,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $result = $stmt->get_result();
 
-        
+
         if ($result && $result->num_rows > 0) {
             $user = $result->fetch_assoc();
-            if (isset($user['ErrorMessage'])) { // Stored procedure will check if the user exists and return an error message. 
+            if (isset($user['ErrorMessage'])) { // Stored procedure will check if the user exists and return an error message.
                 echo "<script>alert('User already exists. Please try again or Log In'); window.location.href='register.php';</script>";
             } else {
-                $_SESSION["user_id"] = mysqli_insert_id($conn); 
+                $_SESSION["user_id"] = mysqli_insert_id($conn);
                 $_SESSION["email"] = $email;
                 header("Location: search_results.php");
                 exit;
@@ -66,8 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
 	<div class="simpleSearch">
-		<form action="/register.php">
-			<input type="text" placeholder="What do you want to eat today?" name="search";>
+		<form action="/register.php" role="search">
+			<input type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search";>
 			<button type="submit">Go</button>
 		</form>
 	</div>
@@ -79,7 +79,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           <a href="javascript:void(0)" class="dropbtn">
               <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2Fc7%2Fab%2Fcd%2Fc7abcd3ce378191a3dddfa4cdb2be46f.png&f=1&nofb=1" alt="authorization icon" width="30">
           </a>
-          <div class="dropdown-content" id="myDropdown">
+          <div class="dropdown-content" id="myDropdown" aria-label="User Menu">
               <a href="#">Your Profile</a>
               <a href="login.php">Log in</a>
               <a href="register.php">Register</a>
@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <div class ="main">
 
 
-  <div class="login-block">
+  <section class="login-block">
   <h2>Create an account</h2>
   <form class="login-register-form" action="" method="post">
 
@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
   </form>
-</div>
+</section>
 
 <section class= "landing-image">
   <img src="images/landing-dishes.png" alt="a neatly served table"  srcset="images/landing-dishes.png 2x, images/landing-dishes.png 3x"

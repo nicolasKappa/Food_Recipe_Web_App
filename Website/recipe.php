@@ -202,7 +202,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
       <div class="main">
 
         <div class="recipe-image">
-            <img class="image-link" src="<?php echo $base_url .
+           <img class="image-link" src="<?php echo $base_url .
     htmlspecialchars($recipeDetails["picture_url"]); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
 
         </div>

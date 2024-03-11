@@ -9,6 +9,9 @@ if (!isset($_SESSION['user_id'])) {
 
 require_once "../config/dbconfig.php";
 $conn = getConnection();
+$current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+$protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+$base_url = $protocol . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
 
 // Get user's favorite recipes
 $user_id = $_SESSION['user_id'];

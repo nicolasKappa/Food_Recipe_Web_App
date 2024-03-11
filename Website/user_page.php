@@ -24,7 +24,7 @@ if ($stmt = $conn->prepare("CALL sp_get_user_favourite_recipes(?)")) {
         // Round the average rating to the nearest whole number
         $row['average_rating'] = round($row['average_rating']);
         // Prepend the relative path prefix to the picture URL
-        $row['picture_url'] = "/flavourfinds/Website" . $row['picture_url'];
+        $row['picture_url'] = $base_url . ltrim($row['picture_url'], '/');
         $favoriteRecipes[] = $row;
     }
     $stmt->close();

@@ -11,6 +11,9 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $conn = getConnection();
+$current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+$base_url = ($_SERVER['HTTPS'] ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
+
 
 // Get all recipes
 $recipes = [];
@@ -19,7 +22,7 @@ if ($stmt = $conn->prepare("CALL sp_get_recipes()")) {
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
         // Append the relative path prefix to the picture URL
-        $row['picture_url'] = "/flavourfinds/Website" . $row['picture_url'];
+        $row['picture_url'] = $base_url . ltrim($row['picture_url'], '/');
         $recipes[] = $row;
     }
     $stmt->close();

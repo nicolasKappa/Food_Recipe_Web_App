@@ -1,14 +1,14 @@
 
-
+/* Background colour */
 body {
   background-color: white;
 }
-
+/* header styles */
 header {
 	margin-top: 0;
 	border-bottom: 2px solid black;
-  display: flex;
-	align-items: center;
+  display: flex; /* items will display next to eachother using flexbox */
+	align-items: center; /* items will be aligned in the center on the cross axis */
 }
 
 /* Dropdown Button */
@@ -20,6 +20,7 @@ header {
   cursor: pointer;
 }
 
+/* dropdown on header */
 .dropdown {
   position: relative;
   display: inline-block;
@@ -388,6 +389,12 @@ p, ul, ol, li{
   .landing-image img {
     width: 100%;  /* Ensure the image itself also takes full width */
     height: auto; /* Adjust height to maintain aspect ratio */
+  }
+
+  .login-register-form {
+    display: flex;
+    flex-direction: column;
+    margin-left: -30px;
   }
 }
 

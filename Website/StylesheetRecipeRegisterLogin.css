@@ -137,6 +137,10 @@ select {
   width: 500px;
 }
 
+#search-bar-mobile {
+  display:none;
+}
+
 
 select {
     position: relative;
@@ -382,7 +386,12 @@ p, ul, ol, li{
   }
 
   #search-bar {
-    width: 200px;
+    display: none;
+  }
+
+  #search-bar-mobile {
+    display: inline-block;
+    width: 100px;
   }
 
 

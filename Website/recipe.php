@@ -174,7 +174,8 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
     <!--search bar in header-->
     <div class="simpleSearch">
     <form id="search-form" action="search_results.php" role="search">
-			<input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search";>
+			<input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search">
+      <input id="search-bar-mobile" type="text" placeholder="Search" name="search" aria-label="Search";>
         <button type="submit">Go</button>
       </form>
     </div>

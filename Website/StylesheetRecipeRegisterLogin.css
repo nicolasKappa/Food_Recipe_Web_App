@@ -73,6 +73,7 @@ nav {
 	list-style-type: none;
 	flex-grow: 1;
 
+
 	ul {
 		margin: 0;
 		padding: 0;
@@ -99,19 +100,6 @@ nav ul {
     list-style: none;
 }
 
-
-.simpleSearch {
-	width: 250px;
-	height: 23px;
-	padding: 0 0 0 3px;
-	overflow: hidden;
-	display: flex;
-
-	input {
-		width: 195px;
-	}
-
-}
 .landing-image {
   margin: 5px;
   height:500px;
@@ -140,9 +128,14 @@ select {
     font-style: italic;
 }
 
-input {
-    width: 100%;
+#search-form {
+  display:flex;
 }
+
+#search-bar {
+  width: 500px;
+}
+
 
 select {
     position: relative;
@@ -155,7 +148,6 @@ select {
     background-position-x: calc(100% - 12px);
     background-position-y: center;
 }
-
 
 
 
@@ -368,6 +360,10 @@ p, ul, ol, li{
     width: 100%;  /* Ensure the image itself also takes full width */
     height: auto; /* Adjust height to maintain aspect ratio */
   }
+
+  #search-bar {
+    width: 300px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -375,7 +371,15 @@ p, ul, ol, li{
     width: 100%;
     margin: 0;
     padding-top: 10px;
+
+
   }
+
+  #search-bar {
+    width: 200px;
+  }
+
+
 
   .landing-image img {
     width: 100%;  /* Ensure the image itself also takes full width */

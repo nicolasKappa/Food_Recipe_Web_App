@@ -57,13 +57,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
     <nav>
         <ul>
-            <li><a href="#">All Recipes</a></li>
             <li class="dropdown">
                 <a href="javascript:void(0)" class="dropbtn">
                     <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
                 </a>
                 <div class="dropdown-content" id="myDropdown" aria-label="User Menu">
-                    <a href="#">Your Profile</a>
                     <a href="login.php">Log in</a>
                     <a href="register.php">Register</a>
                 </div>

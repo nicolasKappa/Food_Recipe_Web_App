@@ -170,7 +170,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
   <header>
 
     <div id="logo">
-      <a href="index.php"><img src="images/logo/logo.png" width="50" height="50"></a>
+      <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo">></a>
     </div>
 
     <div class="simpleSearch">
@@ -188,7 +188,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
             <a href="javascript:void(0)" class="dropbtn">
                 <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
             </a>
-            <div class="dropdown-content" id="myDropdown">
+            <div class="dropdown-content" id="myDropdown" aria-label="User Menu">
                 <a href="user_page.php">Your Profile</a>
                 <a href="logout.php">Log Out</a>
             </div>
@@ -204,16 +204,16 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
       <div class="main">
 
         <div class="recipe-image">
-            <img class="image-link" src="<?php echo $base_url .
+            <figure class="image-link" src="<?php echo $base_url .
                 htmlspecialchars($recipeDetails["picture_url"]); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
 
         </div>
-         <div class="recipe-info">
+         <section class="recipe-info">
             <h2 class="title"><?php echo htmlspecialchars(
                 $recipeDetails["title"] ?? "Recipe Title"
             ); ?></h2>
             <div class="favourites" id="favouritesDiv">
-                <img src="images/<?php echo $isFavourite ? 'heart' : 'whiteheart'; ?>.png" alt="heart icon" id="favouriteIcon" data-user-id="<?php echo $_SESSION['user_id']; ?>" data-recipe-id="<?php echo $recipeId; ?>" style="cursor:pointer;">
+                <img src="images/icons<?php echo $isFavourite ? 'heart' : 'whiteheart'; ?>.png" alt="heart icon" id="favouriteIcon" data-user-id="<?php echo $_SESSION['user_id']; ?>" data-recipe-id="<?php echo $recipeId; ?>" style="cursor:pointer;">
                 <p id="favouritesText"><?php echo $isFavourite ? 'Remove from favourites' : 'Add to favourites'; ?></p>
             </div>
             <h5 class="description"><?php echo htmlspecialchars(
@@ -226,13 +226,13 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
             ); ?></h5>
             <div class="time-people">
                 <div class="time">
-                    <img src="images/clock.png" alt="clock icon">
+                    <img src="images/icons/clock.png" alt="clock icon">
                     <p class="num-minutes"><?php echo htmlspecialchars(
                         $recipeDetails["preparation_time"] ?? "0"
                     ); ?> </p>
                 </div>
                 <div class="people">
-                    <img src="images/man.png" alt="man icon">
+                    <img src="images/icons/man.png" alt="man icon">
                     <p class="num-people"><?php echo htmlspecialchars(
                         $recipeDetails["nr_served"] ?? "N/A"
                     ); ?> people</p>
@@ -245,22 +245,22 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
                         <?php
                         // Display filled stars
                         for ($i = 0; $i < floor($averageRating); $i++) {
-                            echo '<img class="star" src="images/star.png" alt="Full Star">';
+                            echo '<img class="star" src="images/icons/star.png" alt="Full Star">';
                         }
                         // Display half star where applicable
                         if (floor($averageRating) < $averageRating) {
-                            echo '<img class="star" src="images/halfstar.png" alt="Half Star">';
+                            echo '<img class="star" src="images/icons/halfstar.png" alt="Half Star">';
                             $i++; // Increment to avoid an extra empty star
                         }
                         // Display empty stars
                         for ($i; $i < 5; $i++) {
-                            echo '<img class="star" src="images/emptystar.png" alt="Empty Star">';
+                            echo '<img class="star" src="images/icons/emptystar.png" alt="Empty Star">';
                         }
                         ?>
                   </p>
               </div>
-                      </div>
-            <div class="ingredients">
+                      </section>
+            <section class="ingredients">
             <h2>Ingredients</h2>
             <?php
             // Organizing the ingredients by section.
@@ -285,11 +285,11 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
                 echo "</ul>";
             }
             ?>
-        </div>
+        </section>
 
 
 
-         <div class="method">
+         <section class="method">
             <h2>Method</h2>
             <ol class="steps">
                 <?php foreach ($steps as $step): ?>
@@ -307,18 +307,18 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
                     </li>
                 <?php endforeach; ?>
             </ol>
-                          </div>
+                          </section>
 
-    <div class="rating-box">
+    <section class="rating-box">
               <h2>Rate this recipe!</h2>
               <p class="star-rating" id="userRating">
           <?php for($i = 1; $i <= 5; $i++): ?>
-          <img src="images/<?= $i <= $currentRating ? 'star' : 'emptystar'; ?>.png" class="star" data-star="<?= $i ?>" alt="<?= $i ?> Star" style="cursor:pointer;">
+          <img src="images/icons/<?= $i <= $currentRating ? 'star' : 'emptystar'; ?>.png" class="star" data-star="<?= $i ?>" alt="<?= $i ?> Star" style="cursor:pointer;">
                 <?php endfor; ?>
             </p>
-        </div>
+        </section>
 
-        <div class="tips">
+        <section class="tips">
             <h2>Tips</h2>
             <ul>
                 <?php foreach ($tips as $tip): ?>
@@ -327,7 +327,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
                     ); ?></li>
                 <?php endforeach; ?>
             </ul>
-                  </div>
+                  </section>
       </div>
       <footer class="landing-footer">
 

@@ -64,7 +64,7 @@ $conn->close();
                             <a href="javascript:void(0)" class="dropbtn" onclick="myFunction()">
                                 <img src="images/icons/auth-icon.png" alt="User Profile" width="30">
                             </a>
-                            <div class="dropdown-content" id="myDropdown">
+                            <div class="dropdown-content" id="myDropdown" aria label="user search">
                                 <a href="logout.php">Log Out</a>
                             </div>
                         </li>

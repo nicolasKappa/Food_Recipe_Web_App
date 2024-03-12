@@ -204,7 +204,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
       <div class="main">
 
         <div class="recipe-image">
-            <figure class="image-link" src="<?php echo $base_url .
+            <img class="image-link" src="<?php echo $base_url .
                 htmlspecialchars($recipeDetails["picture_url"]); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
 
         </div>

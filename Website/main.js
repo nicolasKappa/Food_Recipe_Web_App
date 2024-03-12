@@ -15,26 +15,26 @@ window.onclick = function (event) {
     }
 }
 
-function toggleFavourite(user_id, recipe_id, isFavourite) {
+function toggleFavourite(user_id, recipe_id) {
+    var favouriteIcon = document.getElementById("favouriteIcon");
+    var isFavourite = favouriteIcon.getAttribute("data-is-favourite") === "true";
+
     var action = isFavourite ? 'remove' : 'add';
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "favourite_action.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function () {
         if (this.status === 200) {
-            var favouriteIcon = document.getElementById("favouriteIcon");
             var favouriteText = document.getElementById("favouritesText");
             if (action === 'add') {
                 favouriteIcon.src = "images/icons/heart.png";
                 favouriteText.innerText = "Remove from favourites";
-                isFavourite = true; // Update the isFavourite status to true
+                favouriteIcon.setAttribute("data-is-favourite", "true");
             } else {
                 favouriteIcon.src = "images/icons/whiteheart.png";
                 favouriteText.innerText = "Add to favourites";
-                isFavourite = false; // Update the isFavourite status to false
+                favouriteIcon.setAttribute("data-is-favourite", "false");
             }
-            // Update the onclick function to reflect the new isFavourite status
-            favouriteIcon.onclick = function () { toggleFavourite(user_id, recipe_id, isFavourite); };
         } else {
             console.error("An error occurred during the AJAX request");
         }
@@ -66,6 +66,13 @@ document.addEventListener('DOMContentLoaded', function () {
     // Fetch user and recipe ID attributes 
     const userId = document.body.getAttribute('data-user-id');
     const recipeId = document.body.getAttribute('data-recipe-id');
+    var favouriteIcon = document.getElementById("favouriteIcon");
+
+    if (favouriteIcon) {
+        var user_id = favouriteIcon.getAttribute("data-user-id");
+        var recipe_id = favouriteIcon.getAttribute("data-recipe-id");
+        favouriteIcon.onclick = function () { toggleFavourite(user_id, recipe_id); };
+    }
 
     // Handler for user rating
     document.querySelectorAll('.rating-box .star').forEach(star => {

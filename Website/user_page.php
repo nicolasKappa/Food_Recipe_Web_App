@@ -29,6 +29,20 @@ if ($stmt = $conn->prepare("CALL sp_get_user_favourite_recipes(?)")) {
     }
     $stmt->close();
 }
+
+$userFullName = ''; // Initialize variable to store user's full name
+
+// Get user's full name
+if ($stmt = $conn->prepare("CALL sp_get_user_full_name(?)")) {
+    $stmt->bind_param("i", $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    if ($row = $result->fetch_assoc()) {
+        $userFullName = $row['full_name'];
+    }
+    $stmt->close();
+}
+
 $conn->close();
 ?>
 
@@ -80,7 +94,7 @@ $conn->close();
             <section class="catalog">
                 <header class="catalog-header">
                     <div class="catalog-title">
-                        <h1>Hi, <?php echo htmlspecialchars($_SESSION['email']); ?>!</h1>
+                        <h1>Hi, <?php echo htmlspecialchars($userFullName); ?>!</h1>
                         <h2>Your favorite recipes</h2>
                     </div>
                 </header>

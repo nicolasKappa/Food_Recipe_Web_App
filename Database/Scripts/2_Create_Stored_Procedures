@@ -4,6 +4,7 @@ USE flavour_finds;
 -- Drop existing stored procedures if they exist
 DROP PROCEDURE IF EXISTS sp_login;
 DROP PROCEDURE IF EXISTS sp_register_user;
+DROP PROCEDURE IF EXISTS sp_get_user_full_name;
 DROP PROCEDURE IF EXISTS sp_add_to_favourites;
 DROP PROCEDURE IF EXISTS sp_remove_from_favourites;
 DROP PROCEDURE IF EXISTS sp_add_rating;
@@ -54,6 +55,20 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_get_user_full_name(
+    IN p_user_id INT
+)
+BEGIN
+    SELECT full_name FROM users 
+    WHERE user_id = p_user_id
+    LIMIT 1;
+END //
+
+DELIMITER ;
+
 
 -- Add recipe to user's favourites
 

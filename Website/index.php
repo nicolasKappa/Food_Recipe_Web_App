@@ -56,7 +56,7 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
     <main>
     <section class="landing-main-block" >
       <h1>WELCOME TO FLAVOURFINDS</h1>
-      <p class="landing-text">Welcome to FlavourFinds, your ultimate destination for discovering delicious recipes! Whether you're a seasoned chef or a curious beginner, our app is designed to inspire your culinary journey. Dive into a world of flavours with thousands of recipes at your fingertips. Search by ingredients or meal type to find the perfect dish for any occasion. From quick weeknight dinners to sumptuous feasts, FlavourFinds is here to guide you through every step of your cooking adventure. Let's embark on a flavourful journey together!
+      <p class="landing-text">Welcome to FlavourFinds, your ultimate destination for discovering delicious recipes! Whether you're a seasoned chef or a curious beginner, our app is designed to inspire your culinary journey. Dive into a world of flavours with thousands of recipes at your fingertips. Search by meal type, meal description or category to find the perfect dish for any occasion. From quick weeknight dinners to sumptuous feasts, FlavourFinds is here to guide you through every step of your cooking adventure. Let's embark on a flavourful journey together!
       </p>
 
     </section>

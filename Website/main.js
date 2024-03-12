@@ -145,6 +145,30 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error updating rating:', error));
     }
 
+    // Event listener for the sort-by select element
+    document.getElementById('sort-by').addEventListener('change', function () {
+        // Get the selected sorting option
+        const sortBy = this.value;
+        // Get the form element
+        const form = document.querySelector('.header-form');
+        // Update the form's action URL to include the selected sorting option
+        form.action = updateQueryStringParameter(form.action, 'sort_by', sortBy);
+        // Submit the form
+        form.submit();
+    });
+
+    // Function to update query string parameters in URL
+    function updateQueryStringParameter(uri, key, value) {
+        const re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+        const separator = uri.indexOf('?') !== -1 ? "&" : "?";
+        if (uri.match(re)) {
+            return uri.replace(re, '$1' + key + "=" + value + '$2');
+        }
+        else {
+            return uri + separator + key + "=" + value;
+        }
+    }
+
 
     // Initialize favourite functionality if favouriteIcon is present on screen
     var favouriteIcon = document.getElementById("favouriteIcon");

@@ -180,6 +180,7 @@ INSERT INTO recipes (title, description, preparation_time, cooking_time, nr_serv
 SET @recipe_id = LAST_INSERT_ID();
 
 INSERT INTO recipe_category (recipe_id, category_id) VALUES
+(@recipe_id, 3), -- For Breakfast
 (@recipe_id, 5), -- For vegan
 (@recipe_id, 6); -- For vegetarian 
 
@@ -321,7 +322,9 @@ SET @recipe_id = LAST_INSERT_ID();
 
 INSERT INTO recipe_category (recipe_id, category_id) VALUES
 (@recipe_id, 5), -- Vegan
-(@recipe_id, 6); -- Vegetarian
+(@recipe_id, 6), -- Vegetarian
+(@recipe_id, 1), -- lunch
+(@recipe_id, 2); -- dinner
 
 -- Insert Ingredients
 INSERT INTO recipe_ingredient (recipe_id, ingredient_id, quantity, uom_id, method_id, section) VALUES

@@ -61,6 +61,22 @@ function updateUserRating(userId, recipeId, rating) {
         .catch(error => console.error('Error updating rating:', error));
 }
 
+function updateAverageRatingDisplay(averageRating) {
+    const averageRatingContainer = document.querySelector('.average-rating .star-rating');
+    averageRatingContainer.innerHTML = ''; // Clear current stars
+
+    // Add full, half, and empty stars based on the new average rating
+    for (let i = 1; i <= 5; i++) {
+        if (i <= Math.floor(averageRating)) {
+            averageRatingContainer.innerHTML += '<img class="star" src="images/icons/star.png" alt="Full Star">';
+        } else if (i - 0.5 === averageRating) {
+            averageRatingContainer.innerHTML += '<img class="star" src="images/icons/halfstar.png" alt="Half Star">';
+        } else {
+            averageRatingContainer.innerHTML += '<img class="star" src="images/icons/emptystar.png" alt="Empty Star">';
+        }
+    }
+}
+
 
 document.addEventListener('DOMContentLoaded', function () {
     // Fetch user and recipe ID attributes 
@@ -109,6 +125,19 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(data => {
                 if (data.success) {
                     console.log("Rating updated successfully");
+                    // Get the new average rating
+                    fetch('get_average_rating.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        body: `recipeId=${recipeId}`
+                    })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                // Update the average rating display after user added/updated a rating
+                                updateAverageRatingDisplay(data.averageRating);
+                            }
+                        });
                 } else {
                     console.error("Failed to update rating: ", data.error);
                 }

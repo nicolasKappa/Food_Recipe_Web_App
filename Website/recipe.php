@@ -147,8 +147,6 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
             $stmt->close();
         }
     }
-
-
     // Close database connection
     $conn->close();
 } else {

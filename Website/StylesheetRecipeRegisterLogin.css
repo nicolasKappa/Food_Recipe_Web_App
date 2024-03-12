@@ -376,6 +376,7 @@ p, ul, ol, li{
     width: 100%;
     margin: 0;
     padding-top: 10px;
+    min-height: 50px;
 
 
   }

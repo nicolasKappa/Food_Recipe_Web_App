@@ -212,7 +212,6 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
             ); ?></h2>
             <div class="favourites" id="favouritesDiv">
                 <img src="images/icons/<?php echo $isFavourite ? 'heart' : 'whiteheart'; ?>.png" alt="heart icon" id="favouriteIcon" data-user-id="<?php echo $_SESSION['user_id']; ?>" data-recipe-id="<?php echo $recipeId; ?>" data-is-favourite="<?php echo $isFavourite ? 'true' : 'false'; ?>" style="cursor:pointer;">
-
                 <p id="favouritesText"><?php echo $isFavourite ? 'Remove from favourites' : 'Add to favourites'; ?></p>
             </div>
             <h5 class="description"><?php echo htmlspecialchars(

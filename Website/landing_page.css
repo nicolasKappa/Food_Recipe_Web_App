@@ -107,43 +107,7 @@ nav ul {
 	}
 
 }
-/*
-.landing-main-block {
-	list-style-type: none;
-	display: flex;
-  flex-direction: column;
-	align-items: center;
-  justify-content:center;
-	padding-bottom: 7em;
-	height: 100%;
-  background-image: url("images/landing-dishes.png");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  width: 100%;
 
-
-}
-
-h1 {
-  font-family: 'Trebuchet MS', sans-serif;
-  font-size: 3em;
-  text-shadow: 1px 1px 2px black;
-  color:white;
-  background-color: white 0.5;
-}
-
-p {
-  vertical-align: middle;
-  margin-right: 35px;
-  color: white;
-  font-family: 'Trebuchet MS', sans-serif;
-  font-size: 1em;
-  text-shadow: 1px 1px 2px black;
-  background-color: black 0.5;
-  max-width: 50%;
-  text-align:center;
-} */
 
 main {
   display: flex;
@@ -151,7 +115,7 @@ main {
   /* justify-content: center; */
   align-items: center;
   height: 100vh; /* Viewport height */
-  background: url('images/landing-dishes-3.png') no-repeat center center; /* Replace with your actual background image path */
+  background: url('images/landing-images/landing-dishes-3.png') no-repeat center center; /* Replace with your actual background image path */
   background-size: cover;
 }
 
@@ -243,13 +207,17 @@ body {
 } */
 
 @media screen and (max-width: 600px) {
-	.landing-main-block h1, .landing-main-block p {
-		max-width: 100%; /* Ensure they don't overflow on smaller screens */
-		/* font-size: 2em; Adjust font size for smaller screens if necessary */
+	.landing-main-block {
+		max-width: 90%; /* Ensure they don't overflow on smaller screens */
+	}
 
-	}
-	.simpleSearch {
-		height: auto; /* Adjust search bar height on smaller screens */
-		flex-direction: column; /* Stack search elements on top of each other */
-	}
+  .landing-main-block h1 {
+    margin: 10 0 20px 0;
+    font-size: 2em;
+    font-family: 'Trebuchet MS', sans-serif;
+    color: black;
+    text-shadow: 1px 1px 2px white;
+    letter-spacing: .2rem;
+    word-spacing: .2rem;
+  }
 }

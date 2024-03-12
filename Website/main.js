@@ -25,11 +25,11 @@ function toggleFavourite(user_id, recipe_id, isFavourite) {
             var favouriteIcon = document.getElementById("favouriteIcon");
             var favouriteText = document.getElementById("favouritesText");
             if (action === 'add') {
-                favouriteIcon.src = "images/heart.png";
+                favouriteIcon.src = "images/icons/heart.png";
                 favouriteText.innerText = "Remove from favourites";
                 isFavourite = true; // Update the isFavourite status to true
             } else {
-                favouriteIcon.src = "images/whiteheart.png";
+                favouriteIcon.src = "images/icons/whiteheart.png";
                 favouriteText.innerText = "Add to favourites";
                 isFavourite = false; // Update the isFavourite status to false
             }
@@ -84,9 +84,9 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateUserRatingVisuals(rating) {
         document.querySelectorAll('.rating-box .star').forEach((s, idx) => {
             if (idx < rating) {
-                s.src = 'images/star.png';
+                s.src = 'images/icons/star.png';
             } else {
-                s.src = 'images/emptystar.png';
+                s.src = 'images/icons/emptystar.png';
             }
         });
     }

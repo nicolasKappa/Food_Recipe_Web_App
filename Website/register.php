@@ -66,8 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
 	<div class="simpleSearch">
-		<form action="/register.php" role="search">
-			<input type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search";>
+		<form id="search-form" action="search_results.php" role="search">
+			<input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search";>
 			<button type="submit">Go</button>
 		</form>
 	</div>
@@ -116,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </section>
 
 <section class= "landing-image">
-  <img src="images/landing-dishes.png" alt="a neatly served table"  srcset="images/landing-dishes.png 2x, images/landing-dishes.png 3x"
+  <img src="images//landing-images/landing-dishes.png" alt="a neatly served table"  srcset="images/landing-images/landing-dishes.png 2x, images/landing-dishes.png 3x"
 		class="image-main-landing">
 </section>
 </div>

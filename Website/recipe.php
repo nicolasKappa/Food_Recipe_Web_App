@@ -170,12 +170,12 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
   <header>
 
     <div id="logo">
-      <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo">></a>
+      <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
     </div>
 
     <div class="simpleSearch">
-      <form action="search_results.php" method="get">
-        <input type="text" placeholder="What do you want to eat today?" name="search">
+    <form id="search-form" action="search_results.php" role="search">
+			<input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search";>
         <button type="submit">Go</button>
       </form>
     </div>
@@ -204,7 +204,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
       <div class="main">
 
         <div class="recipe-image">
-            <figure class="image-link" src="<?php echo $base_url .
+            <img class="image-link" src="<?php echo $base_url .
                 htmlspecialchars($recipeDetails["picture_url"]); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
 
         </div>
@@ -213,7 +213,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
                 $recipeDetails["title"] ?? "Recipe Title"
             ); ?></h2>
             <div class="favourites" id="favouritesDiv">
-                <img src="images/icons<?php echo $isFavourite ? 'heart' : 'whiteheart'; ?>.png" alt="heart icon" id="favouriteIcon" data-user-id="<?php echo $_SESSION['user_id']; ?>" data-recipe-id="<?php echo $recipeId; ?>" style="cursor:pointer;">
+                <img src="images/icons/<?php echo $isFavourite ? 'heart' : 'whiteheart'; ?>.png" alt="heart icon" id="favouriteIcon" data-user-id="<?php echo $_SESSION['user_id']; ?>" data-recipe-id="<?php echo $recipeId; ?>" style="cursor:pointer;">
                 <p id="favouritesText"><?php echo $isFavourite ? 'Remove from favourites' : 'Add to favourites'; ?></p>
             </div>
             <h5 class="description"><?php echo htmlspecialchars(
@@ -320,6 +320,9 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
         <section class="tips">
             <h2>Tips</h2>
+            <?php if (empty($tips)): ?>
+          <p>There are no tips to display!</p>
+           <?php else: ?>
             <ul>
                 <?php foreach ($tips as $tip): ?>
                     <li><?php echo htmlspecialchars(
@@ -327,6 +330,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
                     ); ?></li>
                 <?php endforeach; ?>
             </ul>
+            <?php endif; ?>
                   </section>
       </div>
       <footer class="landing-footer">

@@ -167,12 +167,13 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
     <link rel="stylesheet" href="StylesheetRecipeRegisterLogin.css">
    </head>
 <body data-user-id="<?= $user_id ?>" data-recipe-id="<?= $recipeId ?>">
+<!--header element-->
   <header>
-
     <div id="logo">
       <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
     </div>
 
+    <!--search bar in header-->
     <div class="simpleSearch">
     <form id="search-form" action="search_results.php" role="search">
 			<input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search";>
@@ -180,7 +181,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
       </form>
     </div>
 
-    <nav>
+    <nav>    <!--logic to show different items on the dropdown menu depending on whether the user is logged in-->
       <ul>
         <?php if (isset($_SESSION['user_id'])): ?>
             <li><a href="search_results.php">All Recipes</a></li>
@@ -202,7 +203,6 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
       </header>
   <div class="container">
       <div class="main">
-
         <div class="recipe-image">
             <img class="image-link" src="<?php echo $base_url .
                 htmlspecialchars($recipeDetails["picture_url"]); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
@@ -320,6 +320,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
         <section class="tips">
             <h2>Tips</h2>
+            <!-- If there are not tips to display, the following message will be displayed: -->
             <?php if (empty($tips)): ?>
           <p>There are no tips to display!</p>
            <?php else: ?>

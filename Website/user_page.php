@@ -7,6 +7,14 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+// Initialize session variables for search and sorting if not set
+if (!isset($_SESSION['sort_by'])) {
+    $_SESSION['sort_by'] = ""; 
+}
+if (!isset($_SESSION['selected_category_id'])) {
+    $_SESSION['selected_category_id'] = 0; // Default category ID, "All Categories"
+}
+
 require_once "../config/dbconfig.php";
 $conn = getConnection();
 $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
@@ -132,5 +140,10 @@ $conn->close();
             Footer
         </div>
     </footer>
+     <script>
+        window.onload = function() {
+            document.getElementById('search-input').focus();
+        };
+    </script>
 </body>
 </html>

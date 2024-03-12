@@ -158,5 +158,10 @@ $conn->close();
         <div class="container-fluid">Footer</div>
     </footer>
     <script src="main.js"></script>
+    <script>
+        window.onload = function() {
+            document.getElementById('search-input').focus();
+        };
+    </script>
 </body>
 </html>

@@ -55,12 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <div id="logo">
         <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
     </div>
-    <div class="simpleSearch">
-        <form id="search-form" action="search_results.php" method="get" role="search">
-            <input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search">
-            <button type="submit">Go</button>
-        </form>
-    </div>
     <nav>
         <ul>
             <li><a href="#">All Recipes</a></li>

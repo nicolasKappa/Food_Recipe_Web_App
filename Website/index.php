@@ -1,11 +1,11 @@
 <?php
-<!-- Start or continue user session once logged in -->
+// Start or continue user session once logged in
 session_start();
 
-<!-- Import the database connection settings -->
+// Import the database connection settings
 require_once "../config/dbconfig.php";
 
-<!-- Check if the user is logged in, using the session variable set during login -->
+// Check if the user is logged in, using the session variable set during login
 if(isset($_SESSION['user_id'])) {
     // Retrieve user ID from the session
     $user_id = $_SESSION['user_id'];

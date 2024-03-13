@@ -1,11 +1,11 @@
 <?php
-// Start or continue user session once logged in
+<!-- Start or continue user session once logged in -->
 session_start();
 
-// Import the database connection settings
+<!-- Import the database connection settings -->
 require_once "../config/dbconfig.php";
 
-// Check if the user is logged in, using the session variable set during login
+<!-- Check if the user is logged in, using the session variable set during login -->
 if(isset($_SESSION['user_id'])) {
     // Retrieve user ID from the session
     $user_id = $_SESSION['user_id'];
@@ -29,7 +29,7 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
 		@import url("landing_page.css");
 </style>
 
-// Includes logo, login and registration links
+<!-- Includes logo, login and registration links -->
     <header>
       <div id="logo">
         <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>

@@ -21,6 +21,7 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Best recipes ever</title>
+	<link rel="favicon icon" type="image/png" href="images/icons/favicon.png">
 </head>
 
 <body>
@@ -28,7 +29,7 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
 		@import url("landing_page.css");
 	</style>
 
-
+// Includes logo, login and registration links
     <header>
       <div id="logo">
         <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
@@ -54,6 +55,7 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
       </nav>
     </header>
     <main>
+// Info about the website
     <section class="landing-main-block" >
       <h1>WELCOME TO FLAVOURFINDS</h1>
       <p class="landing-text">Welcome to FlavourFinds, your ultimate destination for discovering delicious recipes! Whether you're a seasoned chef or a curious beginner, our app is designed to inspire your culinary journey. Dive into a world of flavours with thousands of recipes at your fingertips. Search by meal type, meal description or category to find the perfect dish for any occasion. From quick weeknight dinners to sumptuous feasts, FlavourFinds is here to guide you through every step of your cooking adventure. Let's embark on a flavourful journey together!
@@ -61,7 +63,7 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
 
     </section>
   </main>
-
+// Just a visual highlighting of the page end
 <footer class="landing-footer">
 
 </footer>

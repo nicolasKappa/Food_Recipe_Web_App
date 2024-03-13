@@ -1,3 +1,4 @@
+/* Includes logo, login and registration links */
 header {
 	margin-top: 0;
 	padding: 3em 1 em 2 em 1 em;
@@ -145,6 +146,10 @@ main {
   line-height: 2em;
 }
 
+.landing-text {
+    color: #424242;
+}
+
 #logo {
     vertical-align: middle;
     font-size: 30px;
@@ -158,8 +163,6 @@ main {
     vertical-align: middle;
     margin-right: 10px;
 }
-
-
 
 body {
 		font-size: 100%;
@@ -182,6 +185,7 @@ body {
 	position: absolute;
 } */
 
+/* Green line at the bottom of the whole page */
 .landing-footer {
   padding: 10px 0;
   height: 5%;

@@ -46,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Best recipes ever</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <style>
         @import url("StylesheetRecipeRegisterLogin.css");
     </style>

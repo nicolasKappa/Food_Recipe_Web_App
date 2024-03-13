@@ -21,13 +21,13 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Best recipes ever</title>
-	<link rel="favicon icon" type="image/png" href="images/icons/favicon.png">
+	<link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 
 <body>
 <style>
 		@import url("landing_page.css");
-	</style>
+</style>
 
 // Includes logo, login and registration links
     <header>

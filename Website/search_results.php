@@ -70,7 +70,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search page</title>
-    <link rel="stylesheet" href="user_page_search_results.css">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
 </head>
 <body>
   <header class="header">

@@ -161,6 +161,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe App</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <!--link to style sheet-->
     <link rel="stylesheet" href="StylesheetRecipeRegisterLogin.css">
    </head>

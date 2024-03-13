@@ -21,7 +21,7 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Best recipes ever</title>
-	<link rel="icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
 </head>
 
 <body>

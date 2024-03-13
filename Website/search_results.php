@@ -84,12 +84,14 @@ $conn->close();
                 <nav>
                     <ul class="header-nav">
                         <li class="header-nav-item">
+// Redirect to the common page with all recipes
                             <a href="search_results.php">All recipes</a>
                         </li>
                         <li class="header-nav-item dropdown">
                             <a href="javascript:void(0)" class="dropbtn" onclick="myFunction()">
                                 <img src="images/icons/auth-icon.png" alt="User Profile" width="30">
                             </a>
+// Dropdown menu allowing user to redirect to the profile page or log out
                             <div class="dropdown-content" id="myDropdown" aria-label="user search">
                                 <a href="user_page.php">Your Profile</a>
                                 <a href="logout.php">Log Out</a>
@@ -106,14 +108,14 @@ $conn->close();
             <section class="catalog">
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="get" class="header-form">
                     <input type="search" name="search" placeholder="What do you want to eat today?" id="search-input" value="<?php echo htmlspecialchars($searchTerm); ?>">
-
+// Select recipe by category
                     <select name="category_id" id="category-filter">
                         <option value="0" <?php echo $selectedCategoryId == 0 ? "selected" : ""; ?>>All Categories</option>
                         <?php echo isset($category_options) ? $category_options : ''; ?>
                     </select>
 
                     <button type="submit">Search</button>
-
+// Sort recipes
                    <select name="sort_by" id="sort-by">
                         <option value="">Sort By</option>
                         <option value="title_asc" <?php echo $sortBy == "title_asc" ? "selected" : ""; ?>>Title (ASC)</option>
@@ -125,7 +127,7 @@ $conn->close();
                     </select>
                 </form>
                 <br/>
-
+// Found recipes are displayed here
                 <div class="catalog-content">
                     <ul class="goods-list">
                         <?php foreach ($recipes as $recipe): ?>
@@ -137,7 +139,7 @@ $conn->close();
 
                                 <div class="product-content">
                                     <a href="recipe.php?id=<?php echo $recipe['recipe_id']; ?>" class="product-title"><?php echo htmlspecialchars($recipe['title']); ?></a>
-
+// Recipe's rating
                                     <div class="product-btns">
                                         <div class="product-rating">
                                             <span><?php echo htmlspecialchars(round($recipe['average_rating'] * 2) / 2); ?></span>

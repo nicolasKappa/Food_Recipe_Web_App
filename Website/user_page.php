@@ -83,7 +83,7 @@ $conn->close();
                 <nav>
                     <ul class="header-nav">
                         <li class="header-nav-item">
-// Link to redirect to the general page with recipes
+// Link to redirect to the common page with recipes
                             <a href="search_results.php">All recipes</a>
                         </li>
                         <li class="header-nav-item dropdown">

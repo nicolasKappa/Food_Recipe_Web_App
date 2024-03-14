@@ -11,6 +11,8 @@ INSERT INTO lkp_categories (name) VALUES
 ('vegan'), -- 5
 ('vegetarian'); -- 6
 
+-- Create methods for ingredients
+
 INSERT INTO lkp_method (description) VALUES
 ('for frying'), -- 1
 ('plus extra for drizzling'), -- 2
@@ -36,6 +38,8 @@ INSERT INTO lkp_method (description) VALUES
 ('crushed'), -- 22
 ('or to taste'); -- 23
 
+-- Create Unit of Measure to be used with ingredients
+
 INSERT INTO lkp_unit_of_measure (name) VALUES
 ('tbsp'), -- 1
 ('tsp'), -- 2
@@ -60,7 +64,7 @@ INSERT INTO lkp_unit_of_measure (name) VALUES
 ('large pinch'), -- 21
 ('ml'); -- 22
 
-
+-- Create Ingredient items
 
 INSERT INTO lkp_ingredients (name) VALUES
 ('self-raising brown flour'), -- 1
@@ -131,7 +135,9 @@ INSERT INTO recipes (title, description, preparation_time, cooking_time, nr_serv
 SET @recipe_id = (SELECT MAX(recipe_id) FROM recipes);
 
 INSERT INTO recipe_category (recipe_id, category_id) VALUES
-(@recipe_id, 6);
+(@recipe_id, 1), -- lunch
+(@recipe_id, 2), -- dinner
+(@recipe_id, 6); -- For vegetarian 
 
 -- Insert for base ingredients
 INSERT INTO recipe_ingredient (recipe_id, ingredient_id, quantity, uom_id, method_id, section) VALUES
@@ -349,6 +355,7 @@ INSERT INTO recipe_steps (recipe_id, step_nr, description, minutes_needed) VALUE
 INSERT INTO recipe_tips (recipe_id, tip_nr, description) VALUES
 (@recipe_id, 1, 'Couscous salads are great to make ahead for easy entertaining or weekday lunches. It will keep well for a few days in the fridge.');
 
+-- *********************
 
 -- Create Sample Users
 CALL `sp_register_user`('John Doe', 'Password1', 'john.doe@example.com');

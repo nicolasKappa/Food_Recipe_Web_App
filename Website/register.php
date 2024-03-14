@@ -1,49 +1,51 @@
 <?php
-// Start or continue user session once logged in
-session_start();
 
-// Import the database connection settings
+// Include the database configuration file to utilize the database connection settings
 require_once "../config/dbconfig.php";
 
-// Check if the user is logged in, using the session variable set during login
-if(isset($_SESSION['user_id'])) {
-    // Retrieve user ID from the session
-    $user_id = $_SESSION['user_id'];
-}
-
+// Check if the request method is POST which indicates that form data has been sent
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Sanitize and collect input data to prevent XSS and other vulnerabilities
     $name = filter_input(INPUT_POST, "name", FILTER_SANITIZE_STRING);
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, "psw", FILTER_SANITIZE_STRING);
 
+    // Establish a database connection
     $conn = getConnection();
 
+    // Prepare a SQL statement to call the stored procedure for user registration
     if ($stmt = $conn->prepare("CALL sp_register_user(?, ?, ?)")) {
+        // Bind user input parameters to the prepared SQL statement
         $stmt->bind_param("sss", $name, $password, $email);
+        // Execute the prepared statement
         $stmt->execute();
+        // Retrieve the result set from the stored procedure
         $result = $stmt->get_result();
 
-
+        // Check if there's any result returned from the stored procedure
         if ($result && $result->num_rows > 0) {
+            // Fetch the associative array from the result
             $user = $result->fetch_assoc();
-            if (isset($user['ErrorMessage'])) { // Stored procedure will check if the user exists and return an error message.
+            // Check if the stored procedure returned an error message indicating the user exists
+            if (isset($user['ErrorMessage'])) {
+                // Alert the user that the account already exists and keep on the registration page to try again
                 echo "<script>alert('User already exists. Please try again or Log In'); window.location.href='register.php';</script>";
-            } else {
-                $_SESSION["user_id"] = mysqli_insert_id($conn);
-                $_SESSION["email"] = $email;
-                header("Location: search_results.php");
-                exit;
             }
         } else {
+            // If no result is returned, registration was successful but without an immediate login
             echo "<script>alert('Successfully registered. Please login.'); window.location.href='login.php';</script>";
         }
+        // Close the statement 
         $stmt->close();
     } else {
+        // If the SQL statement fails to prepare, alert the user
         echo "<script>alert('Failed to prepare the registration statement.');</script>";
     }
+    // Close the database connection
     $conn->close();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

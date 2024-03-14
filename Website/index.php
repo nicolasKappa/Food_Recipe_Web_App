@@ -1,18 +1,18 @@
 <?php
-// Start or continue user session once logged in
+// Begin the session or resume an existing one
 session_start();
 
-// Import the database connection settings
+// Include the database configuration file
 require_once "../config/dbconfig.php";
 
-// Check if the user is logged in, using the session variable set during login
+// Check if a user session exists indicating a logged-in user
 if(isset($_SESSION['user_id'])) {
-    // Retrieve user ID from the session
+    // Assign the user ID from the session to a variable for later use
     $user_id = $_SESSION['user_id'];
 }
 
-$userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, used to control header data
-
+// Determine if the user is logged in by checking the presence of the user ID in the session
+$userLoggedIn = isset($_SESSION['user_id']); 
 
 ?>
 <!DOCTYPE html>

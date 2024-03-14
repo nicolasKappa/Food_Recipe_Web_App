@@ -1,68 +1,89 @@
 ﻿<?php
+// Start session to manage user state
 session_start();
 
-// Import the database connection settings
+// Include database configuration for connection
 require_once "../config/dbconfig.php";
-// Import categories for dropdown
+// Include script to fetch categories for dropdown menu
 require_once "get_categories.php";
 
-// Redirect user to login page if not logged in
+// Check if user is logged in, redirect to login page if not
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
 
+// Establish database connection
 $conn = getConnection();
+
+// Compute current script path for URL construction
 $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+
+// Determine protocol (HTTP or HTTPS) for URL construction
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+
+// Construct base URL for resource paths
 $base_url = $protocol . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
 
-// Get search term and other filtering parameters from GET request
+// Sanitize and assign search term and category ID from GET request
 $searchTerm = filter_input(INPUT_GET, "search", FILTER_SANITIZE_STRING);
 $categoryId = filter_input(INPUT_GET, "category_id", FILTER_SANITIZE_NUMBER_INT);
 
-// Store the last sort by after searching
+// Store 'sort_by' parameter from GET request in session for persistence across pages
 if (isset($_GET['sort_by'])) {
     $_SESSION['sort_by'] = $_GET['sort_by'];
 }
 
-// Get the sort option from the session
+// Retrieve 'sort_by' option from session or default to null if not set
 $sortBy = isset($_SESSION['sort_by']) ? $_SESSION['sort_by'] : null;
 
-
-//Get last selected values for dropdowns after searching
+// Determine last selected category for dropdown persistence, default to session value or 0
 $selectedCategoryId = isset($_GET["category_id"]) ? filter_input(INPUT_GET, "category_id", FILTER_SANITIZE_NUMBER_INT) : (isset($_SESSION['selected_category_id']) ? $_SESSION['selected_category_id'] : 0);
 
-// Store the last selected category ID in the session
+// Update session with last selected category ID for persistence
 $_SESSION['selected_category_id'] = $selectedCategoryId;
 
-// Check if categories were retrieved successfully
+// Prepare category options HTML, dynamically marking the selected option based on the last search
+$category_options = ""; // Initialize HTML string to hold category options
+// Check if categories array is set and not empty
 if (isset($categories) && !empty($categories)) {
-   $category_options = "";
-   foreach ($categories as $category) {
-       // Check if category from foreach loop should be marked as selected from last search
-       $selectedAttr = ($category['category_id'] == $selectedCategoryId) ? "selected" : "";
-       $category_options .= "<option value='" . $category['category_id'] . "' " . $selectedAttr . ">" . htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8') . "</option>";
-   }
+    // Iterate through each category to build the option elements
+    foreach ($categories as $category) {
+        // Determine if the current category should be marked as selected after last search
+        $selectedAttr = ($category['category_id'] == $selectedCategoryId) ? "selected" : "";
+        // Append the option element to the category_options string, ensuring the category name is properly escaped
+        $category_options .= "<option value='" . $category['category_id'] . "' " . $selectedAttr . ">" . htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8') . "</option>";
+    }
 } else {
-   $category_options = "<option value=''>No categories available</option>";
+    // Provide a default option in case there are no categories available
+    $category_options = "<option value=''>No categories available</option>";
 }
 
-// Get all recipes
-$recipes = [];
+// Fetch and prepare recipes data, including processing of picture URLs
+$recipes = []; // Initialize array to store recipe details
+// Prepare a database statement to execute the stored procedure for fetching recipes
 if ($stmt = $conn->prepare("CALL sp_get_recipes(?, ?, ?)")) {
-  $stmt->bind_param("sss", $searchTerm, $categoryId, $sortBy);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  while ($row = $result->fetch_assoc()) {
-        // Append the relative path prefix to the picture URL
+    // Bind the input parameters (search term, category ID, and sort option) to the prepared statement
+    $stmt->bind_param("sss", $searchTerm, $categoryId, $sortBy);
+    // Execute the prepared statement
+    $stmt->execute();
+    // Retrieve the result set from the executed statement
+    $result = $stmt->get_result();
+    // Iterate through each row in the result set
+    while ($row = $result->fetch_assoc()) {
+        // Modify the picture URL to include the full path, using the base URL as prefix
         $row['picture_url'] = $base_url . ltrim($row['picture_url'], '/');
+        // Add the modified recipe row to the recipes array
         $recipes[] = $row;
     }
+    // Close the statement 
     $stmt->close();
 }
+
+// Close the database connection to ensure resources are released
 $conn->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="ru">

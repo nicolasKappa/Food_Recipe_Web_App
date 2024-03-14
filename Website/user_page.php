@@ -1,56 +1,82 @@
 ﻿<?php
+// Start or resume a session
 session_start();
 
-// Redirect user to login page if not logged in
+// Check if user is not logged in, redirect to login page
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
 
-// Initialize session variables for search and sorting if not set
+// Initialize 'sort_by' session variable if not already set 
 if (!isset($_SESSION['sort_by'])) {
     $_SESSION['sort_by'] = ""; 
 }
+
+// Initialize 'selected_category_id' session variable if not already set, defaulting to 0 (All Categories)
 if (!isset($_SESSION['selected_category_id'])) {
-    $_SESSION['selected_category_id'] = 0; // Default category ID, "All Categories"
+    $_SESSION['selected_category_id'] = 0;
 }
 
+// Include database configuration and establish a connection
 require_once "../config/dbconfig.php";
 $conn = getConnection();
+
+// Determine the current script's directory path for URL construction
 $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+// Determine the protocol (HTTP or HTTPS) for URL construction
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+// Construct the base URL by combining protocol, host, and script path
 $base_url = $protocol . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
 
-// Get user's favorite recipes
+// Retrieve user ID from session to use in database queries
 $user_id = $_SESSION['user_id'];
+
+// Initialize an array to store the user's favorite recipes
 $favoriteRecipes = [];
+
+// Prepare a statement to call the stored procedure for fetching the user's favorite recipes
 if ($stmt = $conn->prepare("CALL sp_get_user_favourite_recipes(?)")) {
+    // Bind the user ID as a parameter to the statement
     $stmt->bind_param("i", $user_id);
+    // Execute the prepared statement
     $stmt->execute();
+    // Retrieve the result set from the statement
     $result = $stmt->get_result();
+    // Fetch each row from the result set
     while ($row = $result->fetch_assoc()) {
-        // Round the average rating to the nearest whole number
+        // Round the average rating of each recipe to the nearest whole number
         $row['average_rating'] = round($row['average_rating']);
-        // Prepend the relative path prefix to the picture URL
+        // Modify the picture URL to include the full path by prepending the base URL
         $row['picture_url'] = $base_url . ltrim($row['picture_url'], '/');
+        // Add the modified row to the array of favorite recipes
         $favoriteRecipes[] = $row;
     }
+    // Close the statement 
     $stmt->close();
 }
 
-$userFullName = ''; // Initialize variable to store user's full name
+// Initialize variable to store user's full name, to be fetched from the database, to show on screen
+$userFullName = '';
 
-// Get user's full name
+// Prepare a statement to call the stored procedure for fetching the user's full name
 if ($stmt = $conn->prepare("CALL sp_get_user_full_name(?)")) {
+    // Bind the user ID as a parameter to the statement
     $stmt->bind_param("i", $user_id);
+    // Execute the prepared statement
     $stmt->execute();
+    // Retrieve the result set from the statement
     $result = $stmt->get_result();
+    // Fetch the row from the result set
     if ($row = $result->fetch_assoc()) {
+        // Assign the full name from the row to the userFullName variable
         $userFullName = $row['full_name'];
     }
+    // Close the statement 
     $stmt->close();
 }
 
+// Close the database connection to free up resources
 $conn->close();
 ?>
 

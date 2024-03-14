@@ -40,7 +40,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     $base_url = $protocol . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
 
     // Execute a query to fetch the recipe's detailed information
-    if ($stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_recipe_details`(?)")) {
+    if ($stmt = $conn->prepare("CALL sp_get_recipe_details(?)")) {
         // Bind the recipe ID as a parameter to the query
         $stmt->bind_param("i", $recipeId);
         // Execute the query
@@ -54,7 +54,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     }
 
     // Retrieve recipe ingredients using a stored procedure
-    if ($stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_recipe_ingredients`(?)")) {
+    if ($stmt = $conn->prepare("CALL sp_get_recipe_ingredients(?)")) {
         // Bind the recipe ID as an integer parameter to the query
         $stmt->bind_param("i", $recipeId);
         // Execute the prepared statement
@@ -71,7 +71,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     }
 
     // Retrieve cooking steps for the recipe
-    if ($stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_recipe_steps`(?)")) {
+    if ($stmt = $conn->prepare("CALL sp_get_recipe_steps(?)")) {
         // Bind the recipe ID to the prepared statement
         $stmt->bind_param("i", $recipeId);
         // Execute the statement
@@ -88,7 +88,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     }
 
     // Retrieve tips related to the recipe
-    if ($stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_recipe_tips`(?)")) {
+    if ($stmt = $conn->prepare("CALL sp_get_recipe_tips(?)")) {
         // Bind the recipe ID to the statement
         $stmt->bind_param("i", $recipeId);
         // Execute the statement
@@ -109,7 +109,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     // Only proceed if both user ID and recipe ID are valid
     if ($user_id && $recipeId) {
         // Prepare the stored procedure call
-        if ($stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_user_favourite_recipe`(?, ?)")) {
+        if ($stmt = $conn->prepare("CALL sp_get_user_favourite_recipe(?, ?)")) {
             // Bind user ID and recipe ID to the statement
             $stmt->bind_param("ii", $user_id, $recipeId);
             // Execute the statement
@@ -128,7 +128,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
 
     // Calculate the average rating for the recipe
     $averageRating = 0;
-    if ($stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_average_rating`(?)")) {
+    if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
         // Bind the recipe ID to the statement
         $stmt->bind_param("i", $recipeId);
         // Execute the query
@@ -151,7 +151,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     // Check if user ID and recipe ID are valid
     if ($user_id && $recipeId) {
         // Prepare the statement to retrieve the user's rating for the recipe
-        if ($stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_user_rating`(?, ?)")) {
+        if ($stmt = $conn->prepare("CALL sp_get_user_rating(?, ?)")) {
             // Bind user ID and recipe ID to the statement
             $stmt->bind_param("ii", $user_id, $recipeId);
             // Execute the statement

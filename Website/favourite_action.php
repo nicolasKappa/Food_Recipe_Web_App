@@ -18,10 +18,10 @@ if(isset($_POST['user_id'], $_POST['recipe_id'], $_POST['action'])) {
     // Determine the action to take: add to favorites or remove from favorites
     if($action == 'add') {
         // Prepare the SQL statement for adding a recipe to favorites
-        $stmt = $conn->prepare("CALL `flavour_finds`.`sp_add_to_favourites`(?, ?)");
+        $stmt = $conn->prepare("CALL sp_add_to_favourites(?, ?)");
     } else {
         // Prepare the SQL statement for removing a recipe from favorites
-        $stmt = $conn->prepare("CALL `flavour_finds`.`sp_remove_from_favourites`(?, ?)");
+        $stmt = $conn->prepare("CALL sp_remove_from_favourites(?, ?)");
     }
 
     // Bind the user ID and recipe ID as parameters to the SQL statement

@@ -14,7 +14,7 @@ if(isset($_POST['recipeId'])) {
     $response = ['success' => false, 'averageRating' => 0];
 
     // Prepare the SQL call procedure statement
-    if($stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_average_rating`(?)")) {
+    if($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
         // Bind the recipe ID parameter to the SQL statement
         $stmt->bind_param("i", $recipeId);
         // Execute the prepared statement

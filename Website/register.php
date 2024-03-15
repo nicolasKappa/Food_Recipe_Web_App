@@ -109,8 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </section>
 
 <section class= "landing-image">
-  <img src="images/landing-images/landing-dishes.png" alt="a neatly served table"  srcset="images/landing-images/landing-dishes.png 2x, images/landing-dishes.png 3x"
-		class="image-main-landing">
+  <img src="images/landing-images/landing-dishes.png" alt="a neatly served table"  class="image-main-landing">
 </section>
 </div>
 </div>

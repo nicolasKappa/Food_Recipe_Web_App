@@ -385,14 +385,15 @@ p, ul, ol, li{
 
   }
 
-  #search-bar {
-    display: none;
-  }
+    #search-bar {
+        margin-left: -40px;
+        width: 100px;
+    }
 
-  #search-bar-mobile {
-    display: inline-block;
-    width: 100px;
-  }
+    #search-bar-mobile {
+        display: inline-block;
+        width: 100px;
+    }
 
 
 

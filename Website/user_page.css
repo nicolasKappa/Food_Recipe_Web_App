@@ -334,9 +334,10 @@ select {
 
 @media (max-width: 1142px) {
 
-	#search-bar {
-		width: 300px;
-	}
+  #search-bar {
+    width: 100px;
+    margin-left: -48px;
+  }
 }
 
 
@@ -364,8 +365,8 @@ select {
   }
 
 	#search-bar {
-		margin-left: -50px;
-		width: 100px;
+		margin-left: -45px;
+		width: 80px;
 	}
 
   #search-bar-mobile {

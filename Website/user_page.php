@@ -86,45 +86,37 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User page</title>
-    <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 </head>
 <body>
 <style>
-    @import url("user_page_search_results.css");
+    @import url("user_page.css");
 </style>
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="header-logo">
-                    <a href="./index.php" class="logo">
-                        <img src="images/logo/logo.png" width="50" height="50" alt="logo">
-                    </a>
-                </div>
-<!-- Search bar: user can search recipes here -->
-                <form action="search_results.php" method="get" class="header-form">
+
+	<header>
+      <div id="logo">
+        <a href="index.php"><img src="images/logo.png" width="50" height="50" alt="FF logo"></a>
+      </div>
+      <nav>
+        <ul>
+          <?php if (isset($_SESSION['user_id'])): ?>
+		  <div class="simpleSearch">
+		  <form action="search_results.php" method="get" class="header-form">
                     <input type="search" name="search" placeholder="What do you want to eat today?" id="search-input">
                     <button type="submit">Search</button>
                 </form>
-
-                <nav>
-                    <ul class="header-nav">
-                        <li class="header-nav-item">
-<!-- Link to redirect to the common page with recipes -->
-                            <a href="search_results.php">All recipes</a>
-                        </li>
-                        <li class="header-nav-item dropdown">
-                            <a href="javascript:void(0)" class="dropbtn" onclick="myFunction()">
-                                <img src="images/icons/auth-icon.png" alt="User Profile" width="30">
-                            </a>
-<!-- Dropdown menu button for logout -->
-                            <div class="dropdown-content" id="myDropdown" aria label="user search">
-                                <a href="logout.php">Log Out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+			</div>
+            <li><a href="search_results.php">All Recipes</a></li>
+            <li class="dropdown">
+              <a href="javascript:void(0)" class="dropbtn">
+                <img src="images/auth-icon.png" alt="authorization icon" width="30">
+              </a>
+              <div class="dropdown-content" id="myDropdown" aria-label="User Menu">
+                <a href="logout.php">Log Out</a>
+              </div>
+            </li>
+        </ul>
+      </nav>
     </header>
 
 
@@ -155,7 +147,26 @@ $conn->close();
                                     <div class="product-btns">
                                         <div class="product-rating">
                                             <span><?php echo htmlspecialchars(round($recipe['average_rating'])); ?></span>
-                                            <img src="images/user-page/star-icon.svg" alt="Rating">
+                                            <img src="images/star-icon.svg" alt="Rating">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+						<li class="goods-item">
+                            <div class="product">
+<!-- Photo of the dish -->
+                                <div class="product-header">
+                                    <img src="<?php echo htmlspecialchars($recipe['picture_url']); ?>" alt="<?php echo htmlspecialchars($recipe['title']); ?>">
+                                </div>
+
+                                <div class="product-content">
+                                    <a href="recipe.php?id=<?php echo $recipe['recipe_id']; ?>" class="product-title"><?php echo htmlspecialchars($recipe['title']); ?></a>
+<!-- Recipe's rating is displayed here -->
+                                    <div class="product-btns">
+                                        <div class="product-rating">
+                                            <span><?php echo htmlspecialchars(round($recipe['average_rating'])); ?></span>
+                                            <img src="images/star-icon.svg" alt="Rating">
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +180,6 @@ $conn->close();
     </main>
 
     <footer class="footer">
-        <div class="container-fluid">
 
         </div>
     </footer>

@@ -1,52 +1,39 @@
 <?php
-// Start or continue user session (assuming user needs to be logged in to see categories)
-session_start();
-
-// Import the database connection settings
+// Include the database configuration script for database connection
 require_once "../config/dbconfig.php";
 
-// Check if the user is logged in, using the session variable set during login
-if(isset($_SESSION['category_id'])) {
-    // Retrieve cateogry ID from the session
-    $category_id = $_SESSION['category_id'];
-}
-
-// Check if the request method is GET
+// Check if the current request uses the GET method 
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
-    // Sanitize input data
-    $name = filter_input(INPUT_GET, "name", FILTER_SANITIZE_STRING);
-    $category_id = filter_input(INPUT_GET, "category_id", FILTER_SANITIZE_NUMBER_INT);
+  // Establish a connection to the database
+  $conn = getConnection();
 
-    // Connect to the database
-    $conn = getConnection();
+  // Prepare the SQL statement for execution, calling the dedicated stored procedure
+  if ($stmt = $conn->prepare("CALL sp_get_categories()")) {
+    // Execute the prepared statement
+    $stmt->execute();
+    // Store the result set returned by the stored procedure
+    $result = $stmt->get_result();
 
-    // Prepare the statement to retrieve categories
-    if ($stmt = $conn->prepare("CALL sp_get_categories(?, ?)")) {
-        $stmt->bind_param("is", $category_id, $name);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        
-
-        // Check if categories were retrieved successfully
-        if ($result && $result->num_rows > 0) {
-            // Fetch the categories
-            $categories = $result->fetch_all(MYSQLI_ASSOC);
-            if (!isset($categories['ErrorMessage'])) { // Stored procedure will check if the category doesnt exist and return an error message.
-                echo "<script>alert('Category does not exists. Please try again'); window.location.href='register.php';</script>";
-            } else {
-                $_SESSION["category_id"] = mysqli_insert_id($conn);
-                $_SESSION["name"] = $name;
-                header("Location: search_results.php");
-                exit;
-            }
-        } else {
-            echo "<script>alert('Please Insert Valid Category.'); window.location.href='login.php';</script>";
-        }
-        $stmt->close();
+    // Verify if any categories are returned
+    if ($result && $result->num_rows > 0) {
+      // Initialize an array to hold category data for the recipes
+      $categories = [];
+      // Fetch each row of category data as an associative array
+      while ($row = $result->fetch_assoc()) {
+        // Add the category data to the categories array
+        $categories[] = $row;
+      }
     } else {
-        echo "<script>alert('Category Found.');</script>";
+      // Alert the user if no categories are found in the database and using generic message should the database be empty
+      echo "<script>alert('No Data found.');</script>";
     }
-    $conn->close()
+    // Close the prepared statement
+    $stmt->close();
+  } else {
+    // Alert the user if there is an error preparing the SQL statement
+    echo "<script>alert('Error preparing statement.');</script>";
+  }
+  // Close the database connection
+  $conn->close();
 }
 ?>

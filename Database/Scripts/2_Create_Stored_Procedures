@@ -4,6 +4,7 @@ USE flavour_finds;
 -- Drop existing stored procedures if they exist
 DROP PROCEDURE IF EXISTS sp_login;
 DROP PROCEDURE IF EXISTS sp_register_user;
+DROP PROCEDURE IF EXISTS sp_get_user_full_name;
 DROP PROCEDURE IF EXISTS sp_add_to_favourites;
 DROP PROCEDURE IF EXISTS sp_remove_from_favourites;
 DROP PROCEDURE IF EXISTS sp_add_rating;
@@ -54,6 +55,20 @@ BEGIN
 END //
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE sp_get_user_full_name(
+    IN p_user_id INT
+)
+BEGIN
+    SELECT full_name FROM users 
+    WHERE user_id = p_user_id
+    LIMIT 1;
+END //
+
+DELIMITER ;
+
 
 -- Add recipe to user's favourites
 
@@ -136,23 +151,82 @@ DELIMITER ;
 
 DELIMITER //
 
-CREATE PROCEDURE sp_get_recipes()
+DELIMITER //
+
+CREATE PROCEDURE sp_get_recipes(
+    IN p_search_keyword VARCHAR(255),
+    IN p_category_id INT,
+    IN p_sort_by VARCHAR(255)
+)
 BEGIN
-    SELECT 
-        r.recipe_id, 
-        r.title, 
-        r.description, 
-        r.preparation_time, 
-        r.cooking_time, 
-        r.nr_served, 
-        r.picture_url,
-        COALESCE(AVG(ur.rating), 0) AS average_rating
-    FROM recipes r
-    LEFT JOIN user_rating ur ON r.recipe_id = ur.recipe_id
-    GROUP BY r.recipe_id;
+    SET @sql = CONCAT('SELECT 
+                        r.recipe_id, 
+                        r.title, 
+                        r.description, 
+                        r.preparation_time, 
+                        r.cooking_time, 
+                        r.nr_served, 
+                        r.picture_url,
+                        COALESCE(AVG(ur.rating), 0) AS average_rating
+                      FROM recipes r
+                      LEFT JOIN user_rating ur ON r.recipe_id = ur.recipe_id ');
+
+    -- Search keyword filter
+    IF p_search_keyword IS NOT NULL AND TRIM(p_search_keyword) != '' THEN
+        SET @sql = CONCAT(@sql, ' WHERE r.title LIKE CONCAT("%", ? , "%") 
+                                  OR r.description LIKE CONCAT("%", ? , "%")');
+    END IF;
+
+    -- Group by before joining categories for accurate averaging
+    SET @sql = CONCAT(@sql, ' GROUP BY r.recipe_id ');
+
+    -- Category filter
+    IF p_category_id IS NOT NULL AND p_category_id != 0 THEN
+        SET @sql = CONCAT(@sql, ' HAVING r.recipe_id IN (
+                                  SELECT rc.recipe_id
+                                  FROM recipe_category rc
+                                  WHERE rc.category_id = ?) ');
+    END IF;
+
+    -- Sorting
+    SET @sql = CONCAT(@sql, ' ORDER BY ');
+    CASE p_sort_by
+        WHEN 'title_asc' THEN SET @sql = CONCAT(@sql, ' r.title ASC ');
+        WHEN 'title_desc' THEN SET @sql = CONCAT(@sql, ' r.title DESC ');
+        WHEN 'nr_served_asc' THEN SET @sql = CONCAT(@sql, ' r.nr_served ASC'); 
+        WHEN 'nr_served_desc' THEN SET @sql = CONCAT(@sql, ' r.nr_served DESC'); 
+        WHEN 'average_rating_asc' THEN SET @sql = CONCAT(@sql, ' average_rating ASC ');
+        WHEN 'average_rating_desc' THEN SET @sql = CONCAT(@sql, ' average_rating DESC ');
+        ELSE SET @sql = CONCAT(@sql, ' r.recipe_id ASC '); -- Default sorting
+    END CASE;
+
+    PREPARE stmt FROM @sql;
+    
+    IF p_search_keyword IS NOT NULL AND TRIM(p_search_keyword) != '' THEN
+        IF p_category_id IS NOT NULL AND p_category_id != 0 THEN
+            SET @search_keyword1 = p_search_keyword;
+            SET @search_keyword2 = p_search_keyword;
+            SET @category_id = p_category_id;
+            EXECUTE stmt USING @search_keyword1, @search_keyword2, @category_id;
+        ELSE
+            SET @search_keyword1 = p_search_keyword;
+            SET @search_keyword2 = p_search_keyword;
+            EXECUTE stmt USING @search_keyword1, @search_keyword2;
+        END IF;
+    ELSE
+        IF p_category_id IS NOT NULL AND p_category_id != 0 THEN
+            SET @category_id = p_category_id;
+            EXECUTE stmt USING @category_id;
+        ELSE
+            EXECUTE stmt;
+        END IF;
+    END IF;
+    
+    DEALLOCATE PREPARE stmt;
 END //
 
 DELIMITER ;
+
 
 
 -- Get Recipe Details for a specific recipe

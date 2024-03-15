@@ -1,34 +1,82 @@
 ﻿<?php
+// Start or resume a session
 session_start();
 
-// Redirect user to login page if not logged in
+// Check if user is not logged in, redirect to login page
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
 
+// Initialize 'sort_by' session variable if not already set 
+if (!isset($_SESSION['sort_by'])) {
+    $_SESSION['sort_by'] = ""; 
+}
+
+// Initialize 'selected_category_id' session variable if not already set, defaulting to 0 (All Categories)
+if (!isset($_SESSION['selected_category_id'])) {
+    $_SESSION['selected_category_id'] = 0;
+}
+
+// Include database configuration and establish a connection
 require_once "../config/dbconfig.php";
 $conn = getConnection();
+
+// Determine the current script's directory path for URL construction
 $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+// Determine the protocol (HTTP or HTTPS) for URL construction
 $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+// Construct the base URL by combining protocol, host, and script path
 $base_url = $protocol . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
 
-// Get user's favorite recipes
+// Retrieve user ID from session to use in database queries
 $user_id = $_SESSION['user_id'];
+
+// Initialize an array to store the user's favorite recipes
 $favoriteRecipes = [];
+
+// Prepare a statement to call the stored procedure for fetching the user's favorite recipes
 if ($stmt = $conn->prepare("CALL sp_get_user_favourite_recipes(?)")) {
+    // Bind the user ID as a parameter to the statement
     $stmt->bind_param("i", $user_id);
+    // Execute the prepared statement
     $stmt->execute();
+    // Retrieve the result set from the statement
     $result = $stmt->get_result();
+    // Fetch each row from the result set
     while ($row = $result->fetch_assoc()) {
-        // Round the average rating to the nearest whole number
+        // Round the average rating of each recipe to the nearest whole number
         $row['average_rating'] = round($row['average_rating']);
-        // Prepend the relative path prefix to the picture URL
+        // Modify the picture URL to include the full path by prepending the base URL
         $row['picture_url'] = $base_url . ltrim($row['picture_url'], '/');
+        // Add the modified row to the array of favorite recipes
         $favoriteRecipes[] = $row;
     }
+    // Close the statement 
     $stmt->close();
 }
+
+// Initialize variable to store user's full name, to be fetched from the database, to show on screen
+$userFullName = '';
+
+// Prepare a statement to call the stored procedure for fetching the user's full name
+if ($stmt = $conn->prepare("CALL sp_get_user_full_name(?)")) {
+    // Bind the user ID as a parameter to the statement
+    $stmt->bind_param("i", $user_id);
+    // Execute the prepared statement
+    $stmt->execute();
+    // Retrieve the result set from the statement
+    $result = $stmt->get_result();
+    // Fetch the row from the result set
+    if ($row = $result->fetch_assoc()) {
+        // Assign the full name from the row to the userFullName variable
+        $userFullName = $row['full_name'];
+    }
+    // Close the statement 
+    $stmt->close();
+}
+
+// Close the database connection to free up resources
 $conn->close();
 ?>
 
@@ -38,65 +86,65 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User page</title>
-    <link rel="stylesheet" href="user_page_search_results.css">
+    <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
 </head>
 <body>
-    <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="header-logo">
-                    <a href="./index.php" class="logo">
-                        <img src="images/logo/logo.png" width="50" height="50" alt="logo">
-                    </a>
-                </div>
+<style>
+    @import url("user_page.css");
+</style>
 
-                <form action="search_results.php" method="get" class="header-form">
+	<header>
+      <div id="logo">
+        <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
+      </div>
+      <nav>
+        <ul>
+          <?php if (isset($_SESSION['user_id'])): ?>
+		  <div class="simpleSearch">
+		  <form action="search_results.php" method="get" class="header-form">
                     <input type="search" name="search" placeholder="What do you want to eat today?" id="search-input">
                     <button type="submit">Search</button>
                 </form>
-
-                <nav>
-                    <ul class="header-nav">
-                        <li class="header-nav-item">
-                            <a href="search_results.php">All recipes</a>
-                        </li>
-                        <li class="header-nav-item dropdown">
-                            <a href="javascript:void(0)" class="dropbtn" onclick="myFunction()">
-                                <img src="images/icons/auth-icon.png" alt="User Profile" width="30">
-                            </a>
-                            <div class="dropdown-content" id="myDropdown" aria label="user search">
-                                <a href="logout.php">Log Out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+			</div>
+            <li><a href="search_results.php">All Recipes</a></li>
+            <li class="dropdown">
+              <a href="javascript:void(0)" class="dropbtn">
+                <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
+              </a>
+              <div class="dropdown-content" id="myDropdown" aria-label="User Menu">
+                <a href="logout.php">Log Out</a>
+              </div>
+            </li>
+           <?php endif; ?>
+        </ul>
+      </nav>
     </header>
 
 
     <main>
         <div class="container">
             <section class="catalog">
+<!-- User's name is displayed ensuring the user is logged in in their profile -->
                 <header class="catalog-header">
                     <div class="catalog-title">
-                        <h1>Hi, <?php echo htmlspecialchars($_SESSION['email']); ?>!</h1>
+                        <h1>Hi, <?php echo htmlspecialchars($userFullName); ?>!</h1>
                         <h2>Your favorite recipes</h2>
                     </div>
                 </header>
-
+<!-- Here cards with chosen recipes are displayed -->
                 <div class="catalog-content">
                     <ul class="goods-list">
                         <?php foreach ($favoriteRecipes as $recipe): ?>
                         <li class="goods-item">
                             <div class="product">
+<!-- Photo of the dish -->
                                 <div class="product-header">
                                     <img src="<?php echo htmlspecialchars($recipe['picture_url']); ?>" alt="<?php echo htmlspecialchars($recipe['title']); ?>">
                                 </div>
 
                                 <div class="product-content">
                                     <a href="recipe.php?id=<?php echo $recipe['recipe_id']; ?>" class="product-title"><?php echo htmlspecialchars($recipe['title']); ?></a>
-
+<!-- Recipe's rating is displayed here -->
                                     <div class="product-btns">
                                         <div class="product-rating">
                                             <span><?php echo htmlspecialchars(round($recipe['average_rating'])); ?></span>
@@ -114,9 +162,14 @@ $conn->close();
     </main>
 
     <footer class="footer">
-        <div class="container-fluid">
-            Footer
+
+        </div>
         </div>
     </footer>
+     <script>
+        window.onload = function() {
+            document.getElementById('search-input').focus();
+        };
+    </script>
 </body>
 </html>

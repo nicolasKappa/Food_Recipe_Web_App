@@ -1,18 +1,18 @@
 <?php
-// Start or continue user session once logged in
+// Begin the session or resume an existing one
 session_start();
 
-// Import the database connection settings
+// Include the database configuration file
 require_once "../config/dbconfig.php";
 
-// Check if the user is logged in, using the session variable set during login
+// Check if a user session exists indicating a logged-in user
 if(isset($_SESSION['user_id'])) {
-    // Retrieve user ID from the session
+    // Assign the user ID from the session to a variable for later use
     $user_id = $_SESSION['user_id'];
 }
 
-$userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, used to control header data
-
+// Determine if the user is logged in by checking the presence of the user ID in the session
+$userLoggedIn = isset($_SESSION['user_id']); 
 
 ?>
 <!DOCTYPE html>
@@ -21,14 +21,15 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Best recipes ever</title>
+	<link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
 </head>
 
 <body>
 <style>
 		@import url("landing_page.css");
-	</style>
+</style>
 
-
+<!-- Includes logo, login and registration links -->
     <header>
       <div id="logo">
         <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
@@ -54,14 +55,15 @@ $userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, u
       </nav>
     </header>
     <main>
+<!-- Info about the website -->
     <section class="landing-main-block" >
       <h1>WELCOME TO FLAVOURFINDS</h1>
-      <p class="landing-text">Welcome to FlavourFinds, your ultimate destination for discovering delicious recipes! Whether you're a seasoned chef or a curious beginner, our app is designed to inspire your culinary journey. Dive into a world of flavours with thousands of recipes at your fingertips. Search by ingredients or meal type to find the perfect dish for any occasion. From quick weeknight dinners to sumptuous feasts, FlavourFinds is here to guide you through every step of your cooking adventure. Let's embark on a flavourful journey together!
+      <p class="landing-text">Welcome to FlavourFinds, your ultimate destination for discovering delicious recipes! Whether you're a seasoned chef or a curious beginner, our app is designed to inspire your culinary journey. Dive into a world of flavours with thousands of recipes at your fingertips. Search by meal type, meal description or category to find the perfect dish for any occasion. From quick weeknight dinners to sumptuous feasts, FlavourFinds is here to guide you through every step of your cooking adventure. Let's embark on a flavourful journey together!
       </p>
 
     </section>
   </main>
-
+<!-- Just a visual highlighting of the page end -->
 <footer class="landing-footer">
 
 </footer>

@@ -1,159 +1,181 @@
 <?php
-// Start or continue user session once logged in
+// Start or resume the session, crucial for tracking logged-in users
 session_start();
 
-// Import the database connection settings
+// Include the database configuration file for database connection setup
 require_once "../config/dbconfig.php";
 
-// Check if the user is logged in, using the session variable set during login
+// Check if the user is already logged in by looking for a user ID in the session
 if(isset($_SESSION['user_id'])) {
-    // Retrieve user ID from the session
+    // If logged in, retrieve the user's ID from the session
     $user_id = $_SESSION['user_id'];
 } else {
-    // If the session variable is not set, redirect to the login page
+    // If not logged in, redirect the user to the login page
     header('Location: login.php');
     exit;
 }
 
-$userLoggedIn = isset($_SESSION['user_id']); //check for if user is logged in, used to control header data
+// Check if the user is logged in by verifying the presence of a user ID in the session
+$userLoggedIn = isset($_SESSION['user_id']);
 
-// Initialize an empty array to hold recipe details
+// Initialize arrays to store details, ingredients, steps, and tips of a recipe
 $recipeDetails = [];
 $ingredients = [];
 $steps = [];
 $tips = [];
 
-// Check if 'id' is present in the query string and is a number
+// Check if the recipe ID is present in the URL query string and is a valid number
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
+    // Convert the recipe ID from the query string into an integer
     $recipeId = intval($_GET["id"]);
 
-    // Create a new database connection
+    // Establish a connection to the database
     $conn = getConnection();
-$current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+
+    // Calculate the current script's directory path for URL construction
+    $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+    // Determine the protocol (HTTP or HTTPS) for the base URL
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+    // Construct the base URL using the protocol, host, and script path
     $base_url = $protocol . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
 
-    // Verify that the database connection was successfully established
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
-    }
-
-    // Prepare SQL statement for execution to call the stored procedure for recipe details
-    if (
-        $stmt = $conn->prepare(
-            "CALL `flavour_finds`.`sp_get_recipe_details`(?)"
-        )
-    ) {
-        // Bind the parameter to the SQL statement
+    // Execute a query to fetch the recipe's detailed information
+    if ($stmt = $conn->prepare("CALL sp_get_recipe_details(?)")) {
+        // Bind the recipe ID as a parameter to the query
         $stmt->bind_param("i", $recipeId);
-        // Execute statements and retrieve the result
+        // Execute the query
         $stmt->execute();
+        // Retrieve the query results
         $result = $stmt->get_result();
+        // Fetch the recipe details as an associative array
         $recipeDetails = $result->fetch_assoc();
+        // Close the statement
         $stmt->close();
     }
 
-    // For ingredients
-    if (
-        $stmt = $conn->prepare(
-            "CALL `flavour_finds`.`sp_get_recipe_ingredients`(?)"
-        )
-    ) {
+    // Retrieve recipe ingredients using a stored procedure
+    if ($stmt = $conn->prepare("CALL sp_get_recipe_ingredients(?)")) {
+        // Bind the recipe ID as an integer parameter to the query
         $stmt->bind_param("i", $recipeId);
+        // Execute the prepared statement
         $stmt->execute();
+        // Fetch the result set from the statement
         $result = $stmt->get_result();
+        // Loop through each row of the result set
         while ($row = $result->fetch_assoc()) {
+            // Add each ingredient to the ingredients array
             $ingredients[] = $row;
         }
+        // Close the prepared statement
         $stmt->close();
     }
 
-    // For steps
-    if (
-        $stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_recipe_steps`(?)")
-    ) {
+    // Retrieve cooking steps for the recipe
+    if ($stmt = $conn->prepare("CALL sp_get_recipe_steps(?)")) {
+        // Bind the recipe ID to the prepared statement
         $stmt->bind_param("i", $recipeId);
+        // Execute the statement
         $stmt->execute();
+        // Get the result set
         $result = $stmt->get_result();
+        // Iterate over each row in the result set
         while ($row = $result->fetch_assoc()) {
+            // Add each step to the steps array
             $steps[] = $row;
         }
+        // Close the statement to free up resources
         $stmt->close();
     }
 
-    // For tips
-    if (
-        $stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_recipe_tips`(?)")
-    ) {
+    // Retrieve tips related to the recipe
+    if ($stmt = $conn->prepare("CALL sp_get_recipe_tips(?)")) {
+        // Bind the recipe ID to the statement
         $stmt->bind_param("i", $recipeId);
+        // Execute the statement
         $stmt->execute();
+        // Collect the result set
         $result = $stmt->get_result();
+        // Loop through each row in the result set
         while ($row = $result->fetch_assoc()) {
+            // Append each tip to the tips array
             $tips[] = $row;
         }
+        // Close the prepared statement
         $stmt->close();
     }
 
-    // Prepare the statement for the stored procedure call
+    // Determine if the recipe is a user's favourite
     $isFavourite = false;
-
+    // Only proceed if both user ID and recipe ID are valid
     if ($user_id && $recipeId) {
-        if (
-            $stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_user_favourite_recipe`(?, ?)")
-        ) {
+        // Prepare the stored procedure call
+        if ($stmt = $conn->prepare("CALL sp_get_user_favourite_recipe(?, ?)")) {
+            // Bind user ID and recipe ID to the statement
             $stmt->bind_param("ii", $user_id, $recipeId);
+            // Execute the statement
             $stmt->execute();
+            // Get the result set
             $result = $stmt->get_result();
+            // Check if any rows are returned
             if ($result->num_rows > 0) {
+                // If yes, the recipe is a favourite
                 $isFavourite = true;
             }
+            // Close the statement
             $stmt->close();
         }
     }
 
-    // For Recipe Average Rating
-    // Initialize variable to hold average rating
+    // Calculate the average rating for the recipe
     $averageRating = 0;
-
-    // SQL statement for execution to call the stored procedure for average rating
-    if (
-        $stmt = $conn->prepare(
-            "CALL `flavour_finds`.`sp_get_average_rating`(?)"
-        )
-    ) {
-        // Bind the parameter to the SQL statement
+    if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
+        // Bind the recipe ID to the statement
         $stmt->bind_param("i", $recipeId);
-        // Execute the statement and retrieve the average rating
+        // Execute the query
         $stmt->execute();
+        // Retrieve the result set
         $result = $stmt->get_result();
+        // Check if a row is returned
         if ($row = $result->fetch_assoc()) {
+            // Update the average rating based on the fetched value
             $averageRating = $row["average_rating"];
         }
+        // Close the statement
         $stmt->close();
     }
-    // Convert average to nearest half for star rating display
+    // Round the average rating to the nearest half for display
     $averageRating = round($averageRating * 2) / 2;
 
-
-    $currentRating = 0; // Default to 0, meaning no rating for current user
+    // Initialize the variable to store the current user's rating
+    $currentRating = 0;
+    // Check if user ID and recipe ID are valid
     if ($user_id && $recipeId) {
-        if ($stmt = $conn->prepare("CALL `flavour_finds`.`sp_get_user_rating`(?, ?)")) {
+        // Prepare the statement to retrieve the user's rating for the recipe
+        if ($stmt = $conn->prepare("CALL sp_get_user_rating(?, ?)")) {
+            // Bind user ID and recipe ID to the statement
             $stmt->bind_param("ii", $user_id, $recipeId);
+            // Execute the statement
             $stmt->execute();
+            // Retrieve the result
             $result = $stmt->get_result();
+            // If a row is returned, update the current rating
             if ($row = $result->fetch_assoc()) {
                 $currentRating = $row['rating'];
             }
+            // Close the statement
             $stmt->close();
         }
     }
-    // Close database connection
+    // Close the database connection to free up resources
     $conn->close();
 } else {
+    // Inform the user if the recipe ID is not valid or missing
     echo "Invalid recipe ID.";
-    exit(); // Exit if the Recipe ID is not valid
+    // Exit the script to prevent further execution
+    exit();
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -161,6 +183,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe App</title>
+    <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
     <!--link to style sheet-->
     <link rel="stylesheet" href="StylesheetRecipeRegisterLogin.css">
    </head>
@@ -175,8 +198,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
     <div class="simpleSearch">
     <form id="search-form" action="search_results.php" role="search">
 			<input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search">
-      <input id="search-bar-mobile" type="text" placeholder="Search" name="search" aria-label="Search";>
-        <button type="submit">Go</button>
+            <button type="submit">Search</button>
       </form>
     </div>
 
@@ -338,6 +360,11 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
       </footer>
   </div>
 
-  <script src="main.js"></script>
+  <script src="main.js"/></script>
+   <script>
+        window.onload = function() {
+            document.getElementById('search-bar').focus();
+        };
+   </script>
 </body>
 </html>

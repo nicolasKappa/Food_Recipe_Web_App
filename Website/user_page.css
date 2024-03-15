@@ -365,8 +365,8 @@ select {
   }
 
 	#search-bar {
-		margin-left: -50px;
-		width: 90px;
+		margin-left: -48px;
+		width: 80px;
 	}
 
   #search-bar-mobile {
@@ -386,4 +386,3 @@ select {
     margin-left: -40px;
   }
 }
->>>>>>> 3a5122eb36593177821224319b5c673245ef8661

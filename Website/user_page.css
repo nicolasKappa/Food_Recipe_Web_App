@@ -71,8 +71,13 @@ nav ul {
 }
 
 body {
-  font-family: 'Trebuchet MS';
-  background-color: white;
+	font-family: 'Trebuchet MS';
+	background-color: white;
+	padding: 1em;
+	margin: 0;
+	height: 100%;
+	font-size: 100%;
+	font-style: normal;
 }
 /* Dropdown Button */
 .dropbtn {
@@ -154,6 +159,7 @@ main {
   /* justify-content: center; */
   align-items: center;
   height: 100vh; /* Viewport height */
+  padding: 1em;
 }
 
 input,

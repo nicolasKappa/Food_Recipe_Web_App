@@ -333,7 +333,8 @@ select {
 @media (max-width: 1142px) {
 
   #search-bar {
-    width: 300px;
+    width: 200px;
+    margin-left: -40px;
   }
 }
 
@@ -361,14 +362,15 @@ select {
       font-size: 18px;
   }
 
-	#search-bar {
+	/* #search-bar {
 		margin-left: -40px;
 		width: 100px;
-	}
+	} */
 
   #search-bar-mobile {
-    display: inline-block;
+    /* display: inline-block; */
     width: 100px;
+    margin-left: -40px;
   }
 }
 
@@ -378,7 +380,7 @@ select {
 	}
 
   #search-bar-mobile {
-    width: 80px;
+    width: 70px;
     margin-left: -40px;
   }
 }

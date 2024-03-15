@@ -144,20 +144,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Function to update search text box based on screen width
-    function updateSearchPlaceholder() {
-        const searchBar = document.getElementById('search-bar');
-        if (window.innerWidth <= 768) { 
-            searchBar.placeholder = "Search";
-        } else {
-            searchBar.placeholder = "What do you want to eat today?";
-        }
-    }
-
-    updateSearchPlaceholder();
-    window.addEventListener('resize', updateSearchPlaceholder);
-
-
     // Function to make AJAX call to rating_action.php for updating the user's rating
     function updateUserRating(userId, recipeId, rating) {
         // Perform an AJAX request using the Fetch API to submit the user's rating

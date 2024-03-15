@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Function to update placeholder based on screen width
+    // Function to update search text box based on screen width
     function updateSearchPlaceholder() {
         const searchBar = document.getElementById('search-bar');
         if (window.innerWidth <= 768) { 

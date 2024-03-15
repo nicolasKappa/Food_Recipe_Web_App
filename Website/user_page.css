@@ -362,13 +362,13 @@ select {
   }
 
 	#search-bar {
-		margin-left: -40px;
-		width: 100px;
+		margin-left: -10px;
+		width: 90px;
 	}
 
   #search-bar-mobile {
     display: inline-block;
-    width: 100px;
+    width: 90px;
   }
 }
 

@@ -319,7 +319,7 @@ $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
 
         <section class="tips">
             <h2>Tips</h2>
-            <!-- If there are not tips to display, the following message will be displayed: -->
+            <!-- If there are no tips to display, the following message will be displayed: -->
             <?php if (empty($tips)): ?>
           <p>There are no tips to display!</p>
            <?php else: ?>

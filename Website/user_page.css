@@ -354,8 +354,9 @@ select {
   }
 
   #search-bar {
-    display: none;
-  }
+		display: inline-block;
+		width: 80px;
+	}
 
   #search-bar-mobile {
     display: inline-block;

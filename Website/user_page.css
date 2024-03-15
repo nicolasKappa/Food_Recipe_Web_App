@@ -362,6 +362,7 @@ select {
   }
 
 	#search-bar {
+		margin-left: -60px;
 		width: 90px;
 	}
 

@@ -335,7 +335,7 @@ select {
 @media (max-width: 1142px) {
 
   #search-bar {
-    width: 100px;
+    width: 300px;
   }
 
   .goods-list {
@@ -369,7 +369,7 @@ select {
 
 	#search-bar {
 		margin-left: -45px;
-		width: 80px;
+		width: 70px;
 	}
 
   #search-bar-mobile {

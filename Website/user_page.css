@@ -335,8 +335,7 @@ select {
 @media (max-width: 1142px) {
 
   #search-bar {
-    width: 100px;
-    margin-left: -48px;
+    width: 300px;
   }
 }
 

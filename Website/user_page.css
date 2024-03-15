@@ -4,16 +4,6 @@
   box-sizing: border-box;
 }
 
-/* header {
-	margin-top: 0;
-	padding: 3em 1 em 2 em 1 em;
-	border-bottom: 2px solid black;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	max-width: 100%;
-	gap: 20px;
-} */
 header {
 	margin-top: 0;
 	border-bottom: 2px solid black;
@@ -74,6 +64,15 @@ nav ul {
 		width: 300px;
 	}
 
+}
+
+  #search-bar {
+    width: 500px;
+  }
+
+#search-button {
+width: 70px;
+height: 35px;
 }
 
 #search-bar-mobile {
@@ -330,6 +329,15 @@ select {
 .footer p {
   margin-left: 10px;
 }
+
+@media (max-width: 1142px) {
+
+  #search-bar {
+    width: 300px;
+  }
+}
+
+
 
 @media (max-width: 925px) {
 	.goods-item {

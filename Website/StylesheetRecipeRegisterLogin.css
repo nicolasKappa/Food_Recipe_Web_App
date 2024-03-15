@@ -449,7 +449,7 @@ p, ul, ol, li{
 }
 
 .footer {
-	position: fixed;
+	position:  fixed;
 	left: 0;
 	bottom: 0;
 	width: 100%;
@@ -460,6 +460,7 @@ p, ul, ol, li{
 	margin-top: auto;
 	text-align: center;
   align-items: center;
+  /* margin-bottom: -50px; */
 }
 
 .footer p {

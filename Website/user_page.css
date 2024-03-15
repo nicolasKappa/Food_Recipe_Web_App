@@ -369,8 +369,7 @@ select {
 	}
 
   #search-bar-mobile {
-    /* display: inline-block; */
-    width: 100px;
+    display: inline-block; 
     margin-left: -40px;
   }
 }

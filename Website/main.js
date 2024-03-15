@@ -131,6 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
+
     // Visually update the star icons based on the user's rating
     function updateUserRatingVisuals(rating) {
         document.querySelectorAll('.rating-box .star').forEach((s, idx) => {
@@ -142,6 +143,20 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     }
+
+    // Function to update placeholder based on screen width
+    function updateSearchPlaceholder() {
+        const searchBar = document.getElementById('search-bar');
+        if (window.innerWidth <= 768) { 
+            searchBar.placeholder = "Search";
+        } else {
+            searchBar.placeholder = "What do you want to eat today?";
+        }
+    }
+
+    updateSearchPlaceholder();
+    window.addEventListener('resize', updateSearchPlaceholder);
+
 
     // Function to make AJAX call to rating_action.php for updating the user's rating
     function updateUserRating(userId, recipeId, rating) {

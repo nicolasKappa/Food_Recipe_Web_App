@@ -197,7 +197,7 @@ select {
 
 .goods-list {
     display: flex;
-    justify-content: space-between; 
+    justify-content: left; 
     flex-wrap: wrap;
     gap: 20px;
     list-style: none;

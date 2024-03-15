@@ -164,6 +164,7 @@ $conn->close();
     <footer class="footer">
 
         </div>
+        </div>
     </footer>
      <script>
         window.onload = function() {

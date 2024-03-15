@@ -115,6 +115,7 @@ $conn->close();
                 <a href="logout.php">Log Out</a>
               </div>
             </li>
+           <?php endif; ?>
         </ul>
       </nav>
     </header>

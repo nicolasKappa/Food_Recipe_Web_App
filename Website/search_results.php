@@ -76,7 +76,7 @@ if ($stmt = $conn->prepare("CALL sp_get_recipes(?, ?, ?)")) {
         // Add the modified recipe row to the recipes array
         $recipes[] = $row;
     }
-    // Close the statement 
+    // Close the statement
     $stmt->close();
 }
 
@@ -97,35 +97,39 @@ $conn->close();
 <style>
     @import url("search_results.css");
 </style>
-  <header class="header">
-        <div class="container">
-            <div class="header-content">
-                <div class="header-logo">
-                    <a href="./index.php" class="logo">
-                        <img src="images/logo/logo.png" width="50" height="50" alt="logo">
-                    </a>
-                </div>
-                <nav>
-                    <ul class="header-nav">
-                        <li class="header-nav-item">
-<!-- Redirect to the common page with all recipes -->
-                            <a href="search_results.php">All recipes</a>
-                        </li>
-                        <li class="header-nav-item dropdown">
-                            <a href="javascript:void(0)" class="dropbtn" onclick="myFunction()">
-                                <img src="images/icons/auth-icon.png" alt="User Profile" width="30">
-                            </a>
-<!-- Dropdown menu allowing user to redirect to the profile page or log out -->
-                            <div class="dropdown-content" id="myDropdown" aria-label="user search">
-                                <a href="user_page.php">Your Profile</a>
-                                <a href="logout.php">Log Out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
+<header>
+    <div id="logo">
+      <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
+    </div>
+
+    <!--search bar in header-->
+    <!-- <div class="simpleSearch">
+    <form id="search-form" action="search_results.php" role="search">
+			<input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search">
+      <button type="submit">Search</button>
+      </form>
+    </div> -->
+
+    <nav>    <!--logic to show different items on the dropdown menu depending on whether the user is logged in-->
+      <ul>
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <li><a href="search_results.php">All Recipes</a></li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">
+                <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
+            </a>
+            <div class="dropdown-content" id="myDropdown" aria-label="User Menu">
+                <a href="user_page.php">Your Profile</a>
+                <a href="logout.php">Log Out</a>
             </div>
-        </div>
-    </header>
+        </li>
+<?php else: ?>
+            <li><a href="login.php">Log in</a></li>
+            <li><a href="register.php">Register</a></li>
+          <?php endif; ?>
+    </ul>
+    </nav>
+      </header>
 
 	<main>
         <div class="container">

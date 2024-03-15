@@ -447,3 +447,16 @@ p, ul, ol, li{
   font-weight: bold;
   cursor: pointer;
 }
+
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	padding: 10px 0;
+	height: 4%;
+	background-color: #709a2e;
+	color: #ffffff;
+	margin-top: auto;
+	text-align: center;
+}

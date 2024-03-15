@@ -26,17 +26,17 @@ $tips = [];
 
 // Check if the recipe ID is present in the URL query string and is a valid number
 if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
-    // Convert the recipe ID from the query string into an integer
+// Convert the recipe ID from the query string into an integer
     $recipeId = intval($_GET["id"]);
 
     // Establish a connection to the database
     $conn = getConnection();
 
     // Calculate the current script's directory path for URL construction
-    $current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
-    // Determine the protocol (HTTP or HTTPS) for the base URL
+$current_script_path = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_DIRNAME);
+// Determine the protocol (HTTP or HTTPS) for the base URL
     $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
-    // Construct the base URL using the protocol, host, and script path
+// Construct the base URL using the protocol, host, and script path
     $base_url = $protocol . $_SERVER['HTTP_HOST'] . $current_script_path . '/';
 
     // Execute a query to fetch the recipe's detailed information
@@ -45,131 +45,131 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
         $stmt->bind_param("i", $recipeId);
         // Execute the query
         $stmt->execute();
-        // Retrieve the query results
+// Retrieve the query results
         $result = $stmt->get_result();
-        // Fetch the recipe details as an associative array
+// Fetch the recipe details as an associative array
         $recipeDetails = $result->fetch_assoc();
-        // Close the statement
+// Close the statement
         $stmt->close();
     }
 
     // Retrieve recipe ingredients using a stored procedure
     if ($stmt = $conn->prepare("CALL sp_get_recipe_ingredients(?)")) {
-        // Bind the recipe ID as an integer parameter to the query
+// Bind the recipe ID as an integer parameter to the query
         $stmt->bind_param("i", $recipeId);
-        // Execute the prepared statement
+// Execute the prepared statement
         $stmt->execute();
-        // Fetch the result set from the statement
+// Fetch the result set from the statement
         $result = $stmt->get_result();
-        // Loop through each row of the result set
+// Loop through each row of the result set
         while ($row = $result->fetch_assoc()) {
-            // Add each ingredient to the ingredients array
+// Add each ingredient to the ingredients array
             $ingredients[] = $row;
         }
-        // Close the prepared statement
+// Close the prepared statement
         $stmt->close();
     }
 
     // Retrieve cooking steps for the recipe
     if ($stmt = $conn->prepare("CALL sp_get_recipe_steps(?)")) {
-        // Bind the recipe ID to the prepared statement
+// Bind the recipe ID to the prepared statement
         $stmt->bind_param("i", $recipeId);
-        // Execute the statement
+// Execute the statement
         $stmt->execute();
-        // Get the result set
+// Get the result set
         $result = $stmt->get_result();
-        // Iterate over each row in the result set
+// Iterate over each row in the result set
         while ($row = $result->fetch_assoc()) {
-            // Add each step to the steps array
+// Add each step to the steps array
             $steps[] = $row;
         }
-        // Close the statement to free up resources
+// Close the statement to free up resources
         $stmt->close();
     }
 
     // Retrieve tips related to the recipe
     if ($stmt = $conn->prepare("CALL sp_get_recipe_tips(?)")) {
-        // Bind the recipe ID to the statement
+// Bind the recipe ID to the statement
         $stmt->bind_param("i", $recipeId);
-        // Execute the statement
+// Execute the statement
         $stmt->execute();
-        // Collect the result set
+// Collect the result set
         $result = $stmt->get_result();
-        // Loop through each row in the result set
+// Loop through each row in the result set
         while ($row = $result->fetch_assoc()) {
-            // Append each tip to the tips array
+// Append each tip to the tips array
             $tips[] = $row;
         }
-        // Close the prepared statement
+// Close the prepared statement
         $stmt->close();
     }
 
     // Determine if the recipe is a user's favourite
     $isFavourite = false;
-    // Only proceed if both user ID and recipe ID are valid
+// Only proceed if both user ID and recipe ID are valid
     if ($user_id && $recipeId) {
         // Prepare the stored procedure call
         if ($stmt = $conn->prepare("CALL sp_get_user_favourite_recipe(?, ?)")) {
-            // Bind user ID and recipe ID to the statement
+// Bind user ID and recipe ID to the statement
             $stmt->bind_param("ii", $user_id, $recipeId);
-            // Execute the statement
+// Execute the statement
             $stmt->execute();
-            // Get the result set
+// Get the result set
             $result = $stmt->get_result();
-            // Check if any rows are returned
+// Check if any rows are returned
             if ($result->num_rows > 0) {
-                // If yes, the recipe is a favourite
+// If yes, the recipe is a favourite
                 $isFavourite = true;
             }
-            // Close the statement
+// Close the statement
             $stmt->close();
         }
     }
 
     // Calculate the average rating for the recipe
     $averageRating = 0;
-    if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
+if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
         // Bind the recipe ID to the statement
         $stmt->bind_param("i", $recipeId);
         // Execute the query
         $stmt->execute();
-        // Retrieve the result set
+// Retrieve the result set
         $result = $stmt->get_result();
-        // Check if a row is returned
+// Check if a row is returned
         if ($row = $result->fetch_assoc()) {
-            // Update the average rating based on the fetched value
+// Update the average rating based on the fetched value
             $averageRating = $row["average_rating"];
         }
-        // Close the statement
+// Close the statement
         $stmt->close();
     }
     // Round the average rating to the nearest half for display
     $averageRating = round($averageRating * 2) / 2;
 
-    // Initialize the variable to store the current user's rating
+// Initialize the variable to store the current user's rating
     $currentRating = 0;
     // Check if user ID and recipe ID are valid
     if ($user_id && $recipeId) {
         // Prepare the statement to retrieve the user's rating for the recipe
         if ($stmt = $conn->prepare("CALL sp_get_user_rating(?, ?)")) {
-            // Bind user ID and recipe ID to the statement
+// Bind user ID and recipe ID to the statement
             $stmt->bind_param("ii", $user_id, $recipeId);
-            // Execute the statement
+// Execute the statement
             $stmt->execute();
-            // Retrieve the result
+// Retrieve the result
             $result = $stmt->get_result();
-            // If a row is returned, update the current rating
+// If a row is returned, update the current rating
             if ($row = $result->fetch_assoc()) {
                 $currentRating = $row['rating'];
             }
-            // Close the statement
+// Close the statement
             $stmt->close();
         }
     }
     // Close the database connection to free up resources
     $conn->close();
 } else {
-    // Inform the user if the recipe ID is not valid or missing
+// Inform the user if the recipe ID is not valid or missing
     echo "Invalid recipe ID.";
     // Exit the script to prevent further execution
     exit();
@@ -183,7 +183,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe App</title>
-    <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
+<link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
     <!--link to style sheet-->
     <link rel="stylesheet" href="StylesheetRecipeRegisterLogin.css">
    </head>
@@ -198,7 +198,7 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
     <div class="simpleSearch">
     <form id="search-form" action="search_results.php" role="search">
 			<input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search">
-            <button type="submit">Search</button>
+      <button type="submit">Search</button>
       </form>
     </div>
 
@@ -355,13 +355,13 @@ if (isset($_GET["id"]) && is_numeric($_GET["id"])) {
             <?php endif; ?>
                   </section>
       </div>
-      <footer class="landing-footer">
+      <footer class="footer">
 
       </footer>
   </div>
 
   <script src="main.js"/></script>
-   <script>
+<script>
         window.onload = function() {
             document.getElementById('search-bar').focus();
         };

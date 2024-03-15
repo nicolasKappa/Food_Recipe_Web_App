@@ -181,7 +181,7 @@ $conn->close();
     </main>
 
     <footer class="footer">
-        <div class="container-fluid">Footer</div>
+        <div class="container-fluid"></div>
     </footer>
     <script src="main.js"></script>
     <script>

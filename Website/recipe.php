@@ -357,10 +357,11 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
       </div>
       <footer class="footer">
 
-      </footer>
+        <p>© 2024 Flavour Finds</p>
+    </footer>
   </div>
 
-  <script src="main.js"/></script>
+  <script src="main.js"></script>
 <script>
         window.onload = function() {
             document.getElementById('search-bar').focus();

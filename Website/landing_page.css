@@ -186,11 +186,22 @@ body {
 } */
 
 /* Green line at the bottom of the whole page */
-.landing-footer {
-  padding: 10px 0;
-  height: 5%;
-  background-color: #709a2e;
-  color: #ffffff;
+.footer {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	padding: 10px 0;
+	height: 50px;
+	background-color: #709a2e;
+	color: #ffffff;
+	margin-top: auto;
+	text-align: left;
+  align-items: center;
+}
+
+.footer p {
+  margin-left: 10px;
 }
 .banner-image {
   width: 100%;

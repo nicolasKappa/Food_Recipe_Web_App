@@ -12,7 +12,7 @@ if(isset($_SESSION['user_id'])) {
 }
 
 // Determine if the user is logged in by checking the presence of the user ID in the session
-$userLoggedIn = isset($_SESSION['user_id']); 
+$userLoggedIn = isset($_SESSION['user_id']);
 
 ?>
 <!DOCTYPE html>
@@ -64,9 +64,10 @@ $userLoggedIn = isset($_SESSION['user_id']);
     </section>
   </main>
 <!-- Just a visual highlighting of the page end -->
-<footer class="landing-footer">
+<footer class="footer">
 
-</footer>
+        <p>© 2024 Flavour Finds</p>
+    </footer>
 
 <script src="main.js"></script>
 </body>

@@ -115,9 +115,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 </div>
 
-<footer class="landing-footer">
+<footer class="footer">
 
-</footer>
+        <p>© 2024 Flavour Finds</p>
+    </footer>
 
 <script src="main.js"></script>
 </body>

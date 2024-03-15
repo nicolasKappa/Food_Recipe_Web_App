@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // If no result is returned, registration was successful but without an immediate login
             echo "<script>alert('Successfully registered. Please login.'); window.location.href='login.php';</script>";
         }
-        // Close the statement 
+        // Close the statement
         $stmt->close();
     } else {
         // If the SQL statement fails to prepare, alert the user
@@ -115,9 +115,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </div>
 </div>
 
-<footer class="landing-footer">
+<footer class="footer">
 
-</footer>
+        <p>© 2024 Flavour Finds</p>
+    </footer>
 
 <script src="main.js"></script>
 </body>

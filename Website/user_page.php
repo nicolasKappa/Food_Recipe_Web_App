@@ -8,9 +8,9 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-// Initialize 'sort_by' session variable if not already set 
+// Initialize 'sort_by' session variable if not already set
 if (!isset($_SESSION['sort_by'])) {
-    $_SESSION['sort_by'] = ""; 
+    $_SESSION['sort_by'] = "";
 }
 
 // Initialize 'selected_category_id' session variable if not already set, defaulting to 0 (All Categories)
@@ -52,7 +52,7 @@ if ($stmt = $conn->prepare("CALL sp_get_user_favourite_recipes(?)")) {
         // Add the modified row to the array of favorite recipes
         $favoriteRecipes[] = $row;
     }
-    // Close the statement 
+    // Close the statement
     $stmt->close();
 }
 
@@ -72,7 +72,7 @@ if ($stmt = $conn->prepare("CALL sp_get_user_full_name(?)")) {
         // Assign the full name from the row to the userFullName variable
         $userFullName = $row['full_name'];
     }
-    // Close the statement 
+    // Close the statement
     $stmt->close();
 }
 
@@ -163,8 +163,7 @@ $conn->close();
 
     <footer class="footer">
 
-        </div>
-        </div>
+        <p>© 2024 Flavour Finds</p>
     </footer>
      <script>
         window.onload = function() {

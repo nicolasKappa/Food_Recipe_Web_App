@@ -307,11 +307,16 @@ select {
 	bottom: 0;
 	width: 100%;
 	padding: 10px 0;
-	height: 4%;
+	height: 50px;
 	background-color: #709a2e;
 	color: #ffffff;
 	margin-top: auto;
-	text-align: center;
+	text-align: left;
+  align-items: center;
+}
+
+.footer p {
+  margin-left: 10px;
 }
 
 @media (max-width: 925px) {

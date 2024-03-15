@@ -134,15 +134,19 @@ $conn->close();
 	<main>
         <div class="container">
             <section class="catalog">
+
                     <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="get" class="header-form">
                     <input type="search" name="search" placeholder="What do you want to eat today?" id="search-input" value="<?php echo htmlspecialchars($searchTerm); ?>">
 <!-- Select recipe by category -->
-                    <select name="category_id" id="category-filter">
-                        <option value="0" <?php echo $selectedCategoryId == 0 ? "selected" : ""; ?>>All Categories</option>
-                        <?php echo isset($category_options) ? $category_options : ''; ?>
-                    </select>
+                  <div class="search-filter">
+                    <div class="search-submit">
+                      <select name="category_id" id="category-filter">
+                          <option value="0" <?php echo $selectedCategoryId == 0 ? "selected" : ""; ?>>All Categories</option>
+                          <?php echo isset($category_options) ? $category_options : ''; ?>
+                      </select>
 
-                    <button type="submit">Search</button>
+                      <button id="search-button" type="submit">Search</button>
+                    </div>
 <!-- Sort recipes -->
                    <select name="sort_by" id="sort-by">
                         <option value="">Sort By</option>
@@ -153,7 +157,8 @@ $conn->close();
                         <option value="average_rating_asc" <?php echo $sortBy == "average_rating_asc" ? "selected" : ""; ?>>Average Rating (ASC)</option>
                         <option value="average_rating_desc" <?php echo $sortBy == "average_rating_desc" ? "selected" : ""; ?>>Average Rating (DESC)</option>
                     </select>
-                </form>
+                 </form>
+                </div>
                 <br/>
 <!-- Found recipes are displayed here -->
                 <div class="catalog-content">
@@ -186,6 +191,7 @@ $conn->close();
 
     <footer class="footer">
         <div class="container-fluid"></div>
+        <p>© 2024 Flavour Finds</p>
     </footer>
     <script src="main.js"></script>
     <script>

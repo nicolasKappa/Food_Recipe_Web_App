@@ -102,7 +102,7 @@ $conn->close();
           <?php if (isset($_SESSION['user_id'])): ?>
 		  <div class="simpleSearch">
 		  <form action="search_results.php" method="get" class="header-form">
-      <input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search">
+      <input id="search-bar" type="text" placeholder="Search..." name="search" aria-label="Search">
      <!-- <input id="search-bar-mobile" type="text" placeholder="Search" name="search" aria-label="Search"> -->
                     <button type="submit">Search</button>
                 </form>

@@ -86,7 +86,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User page</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
 </head>
 <body>
 <style>
@@ -95,7 +95,7 @@ $conn->close();
 
 	<header>
       <div id="logo">
-        <a href="index.php"><img src="images/logo.png" width="50" height="50" alt="FF logo"></a>
+        <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
       </div>
       <nav>
         <ul>
@@ -109,7 +109,7 @@ $conn->close();
             <li><a href="search_results.php">All Recipes</a></li>
             <li class="dropdown">
               <a href="javascript:void(0)" class="dropbtn">
-                <img src="images/auth-icon.png" alt="authorization icon" width="30">
+                <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
               </a>
               <div class="dropdown-content" id="myDropdown" aria-label="User Menu">
                 <a href="logout.php">Log Out</a>
@@ -147,7 +147,7 @@ $conn->close();
                                     <div class="product-btns">
                                         <div class="product-rating">
                                             <span><?php echo htmlspecialchars(round($recipe['average_rating'])); ?></span>
-                                            <img src="images/star-icon.svg" alt="Rating">
+                                            <img src="images/user-page/star-icon.svg" alt="Rating">
                                         </div>
                                     </div>
                                 </div>
@@ -166,7 +166,7 @@ $conn->close();
                                     <div class="product-btns">
                                         <div class="product-rating">
                                             <span><?php echo htmlspecialchars(round($recipe['average_rating'])); ?></span>
-                                            <img src="images/star-icon.svg" alt="Rating">
+                                            <img src="images/user-page/star-icon.svg" alt="Rating">
                                         </div>
                                     </div>
                                 </div>

@@ -353,7 +353,8 @@ select {
       font-size: 18px;
   }
 
-  #search-bar {
+	#search-bar {
+		margin-left: -40px;
 		width: 100px;
 	}
 

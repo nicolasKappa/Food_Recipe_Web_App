@@ -154,25 +154,6 @@ $conn->close();
                                 </div>
                             </div>
                         </li>
-						<li class="goods-item">
-                            <div class="product">
-<!-- Photo of the dish -->
-                                <div class="product-header">
-                                    <img src="<?php echo htmlspecialchars($recipe['picture_url']); ?>" alt="<?php echo htmlspecialchars($recipe['title']); ?>">
-                                </div>
-
-                                <div class="product-content">
-                                    <a href="recipe.php?id=<?php echo $recipe['recipe_id']; ?>" class="product-title"><?php echo htmlspecialchars($recipe['title']); ?></a>
-<!-- Recipe's rating is displayed here -->
-                                    <div class="product-btns">
-                                        <div class="product-rating">
-                                            <span><?php echo htmlspecialchars(round($recipe['average_rating'])); ?></span>
-                                            <img src="images/user-page/star-icon.svg" alt="Rating">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
                         <?php endforeach; ?>
                     </ul>
                 </div>

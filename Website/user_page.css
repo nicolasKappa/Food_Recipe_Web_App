@@ -28,6 +28,7 @@ nav {
 	font-family: 'Trebuchet MS', sans-serif;
 	list-style-type: none;
 	flex-grow: 1;
+  align-items: center;
 
 	ul {
 		margin: 0;
@@ -64,7 +65,7 @@ nav ul {
 	width: 40%;
 	height: 23px;
 	padding: 0 0 0 3px;
-	overflow: hidden;
+	/* overflow: hidden; */
 	display: flex;
 	vertical-align: middle;
 	align-items: center;
@@ -362,14 +363,13 @@ select {
   }
 }
 
-@media (max-width: 600px) {
-	header {
-    width:100%;
-  }
-}
-
-@media (max-width: 300px) {
+@media (max-width: 410px) {
 	input {
 		width: 150px;
 	}
+
+  #search-bar-mobile {
+    width: 80px;
+    margin-left: -40px;
+  }
 }

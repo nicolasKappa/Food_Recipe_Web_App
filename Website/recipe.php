@@ -195,6 +195,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
     </div>
 
     <!--search bar in header-->
+    <?php if (isset($_SESSION['user_id'])): ?>
     <div class="simpleSearch">
     <form id="search-form" action="search_results.php" role="search">
 			<input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search">
@@ -205,7 +206,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
 
     <nav>    <!--logic to show different items on the dropdown menu depending on whether the user is logged in-->
       <ul>
-        <?php if (isset($_SESSION['user_id'])): ?>
+
             <li><a href="search_results.php">All Recipes</a></li>
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">
@@ -216,7 +217,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
                 <a href="logout.php">Log Out</a>
             </div>
         </li>
-<?php else: ?>
+  <?php else: ?>
             <li><a href="login.php">Log in</a></li>
             <li><a href="register.php">Register</a></li>
           <?php endif; ?>

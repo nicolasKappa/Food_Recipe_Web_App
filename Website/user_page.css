@@ -354,8 +354,7 @@ select {
   }
 
   #search-bar {
-		display: inline-block;
-		width: 80px;
+		width: 100px;
 	}
 
   #search-bar-mobile {

@@ -95,7 +95,7 @@ $conn->close();
 </head>
 <body>
 <style>
-    @import url("user_page_search_results.css");
+    @import url("search_results.css");
 </style>
   <header class="header">
         <div class="container">

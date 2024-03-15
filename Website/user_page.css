@@ -248,7 +248,7 @@ select {
 	flex-wrap: wrap;
 	gap: 20px;
 	list-style: none;
-  margin-top:60px;
+  margin-top:200px;
 }
 
 .goods-item {
@@ -320,7 +320,7 @@ select {
 	bottom: 0;
 	width: 100%;
 	padding: 10px 0;
-	height: 50px;
+	height: 40px;
 	background-color: #709a2e;
 	color: #ffffff;
 	margin-top: auto;
@@ -337,6 +337,10 @@ select {
   #search-bar {
     width: 300px;
   }
+
+  .goods-list {
+    margin-top: 200px;;
+  }
 }
 
 
@@ -351,9 +355,9 @@ select {
       font-size: 14px;
   }
 
-  /* .header-form {
-      flex-direction: column;
-  } */
+  .goods-list {
+    margin-top: 100px;;
+  }
 
   .catalog-title h1 {
       font-size: 24px;
@@ -369,7 +373,7 @@ select {
 	}
 
   #search-bar-mobile {
-    display: inline-block; 
+    display: inline-block;
     margin-left: -40px;
   }
 }

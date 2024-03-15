@@ -190,7 +190,7 @@ $conn->close();
     </main>
 
     <footer class="footer">
-        <div class="container-fluid"></div>
+        
         <p>© 2024 Flavour Finds</p>
     </footer>
     <script src="main.js"></script>

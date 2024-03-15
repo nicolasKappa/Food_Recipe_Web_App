@@ -198,7 +198,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
     <div class="simpleSearch">
     <form id="search-form" action="search_results.php" role="search">
 			<input id="search-bar" type="text" placeholder="What do you want to eat today?" name="search" aria-label="Search">
-      <input id="search-bar-mobile" type="text" placeholder="Search" name="search" aria-label="Search">
+           <!-- <input id="search-bar-mobile" type="text" placeholder="Search" name="search" aria-label="Search"> -->
       <button type="submit">Search</button>
       </form>
     </div>

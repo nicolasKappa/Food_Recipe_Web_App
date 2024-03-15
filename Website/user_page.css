@@ -354,7 +354,8 @@ select {
   }
 
   #search-bar {
-    display: none;
+    display: inline-block;
+    width: 100px;
   }
 
   #search-bar-mobile {
@@ -368,8 +369,8 @@ select {
 		width: 150px;
 	}
 
-  #search-bar-mobile {
-    width: 80px;
-    margin-left: -40px;
-  }
+   #search-bar-mobile {
+		display: inline-block;
+		width: 100px;
+	}
 }

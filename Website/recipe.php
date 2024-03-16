@@ -183,6 +183,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recipe App</title>
+    <!--link to show favicon int the browser url box-->
 <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
     <!--link to style sheet-->
     <link rel="stylesheet" href="StylesheetRecipeRegisterLogin.css">
@@ -190,23 +191,27 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
 <body data-user-id="<?= $user_id ?>" data-recipe-id="<?= $recipeId ?>">
 <!--header element-->
   <header>
+    <!--logo element-->
     <div id="logo">
+      <!--link to logo image with alt text for screen readers-->
       <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
     </div>
 
     <!--search bar in header-->
     <?php if (isset($_SESSION['user_id'])): ?>
     <div class="simpleSearch">
+      <!--header search bar with aria label for accessibility-->
     <form id="search-form" action="search_results.php" role="search">
 			<input id="search-bar" type="text" placeholder="Search..." name="search" aria-label="Search">
-           <!-- <input id="search-bar-mobile" type="text" placeholder="Search" name="search" aria-label="Search"> -->
+
       <button type="submit">Search</button>
       </form>
     </div>
 
     <nav>    <!--logic to show different items on the dropdown menu depending on whether the user is logged in-->
+    <!--nav items organised as an unordered list-->
       <ul>
-
+          <!-- list items with links to other pages-->
             <li><a href="search_results.php">All Recipes</a></li>
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">
@@ -224,44 +229,52 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
     </ul>
     </nav>
       </header>
+      <!-- Sets a container for the main content -->
   <div class="container">
+    <!-- The main content of the page -->
       <div class="main">
+        <!-- The recipe image: -->
         <div class="recipe-image">
+
             <img class="image-link" src="<?php echo $base_url .
                 htmlspecialchars($recipeDetails["picture_url"]); ?>" alt="<?php echo htmlspecialchars($recipeDetails["title"]); ?>">
 
         </div>
+        <!-- The recipe info rating: -->
          <section class="recipe-info">
             <h2 class="title"><?php echo htmlspecialchars(
                 $recipeDetails["title"] ?? "Recipe Title"
             ); ?></h2>
             <div class="favourites" id="favouritesDiv">
+              <!-- heart icon -->
                 <img src="images/icons/<?php echo $isFavourite ? 'heart' : 'whiteheart'; ?>.png" alt="heart icon" id="favouriteIcon" data-user-id="<?php echo $_SESSION['user_id']; ?>" data-recipe-id="<?php echo $recipeId; ?>" data-is-favourite="<?php echo $isFavourite ? 'true' : 'false'; ?>" style="cursor:pointer;">
                 <p id="favouritesText"><?php echo $isFavourite ? 'Remove from favourites' : 'Add to favourites'; ?></p>
             </div>
+            <!-- in case no data is found, a messsage saying no data is avaialble -->
             <h5 class="description"><?php echo htmlspecialchars(
                 $recipeDetails["description"] ??
                     "Recipe description not available."
             ); ?></h5>
-
+            <!-- categories -->
             <h5 class="categories"><?php echo htmlspecialchars(
                 implode(", ", $recipeDetails["categories"] ?? [])
             ); ?></h5>
             <div class="time-people">
                 <div class="time">
-                    <img src="images/icons/clock.png" alt="clock icon">
+                    <img src="images/icons/clock.png" alt="clock icon"> <!-- clock icon -->
                     <p class="num-minutes"><?php echo htmlspecialchars(
                         $recipeDetails["preparation_time"] ?? "0"
                     ); ?> </p>
                 </div>
                 <div class="people">
-                    <img src="images/icons/man.png" alt="man icon">
+                    <img src="images/icons/man.png" alt="man icon"><!-- person icon -->
                     <p class="num-people"><?php echo htmlspecialchars(
                         $recipeDetails["nr_served"] ?? "N/A"
                     ); ?> people</p>
                 </div>
               </div>
 
+                    <!-- The average rating: -->
               <div class="average-rating">
                   <h2>Average Rating</h2>
                   <p class="star-rating">
@@ -283,6 +296,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
                   </p>
               </div>
                       </section>
+                      <!-- The ingredients section: -->
             <section class="ingredients">
             <h2>Ingredients</h2>
             <?php
@@ -311,7 +325,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
         </section>
 
 
-
+            <!-- The method section: -->
          <section class="method">
             <h2>Method</h2>
             <ol class="steps">
@@ -332,6 +346,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
             </ol>
                           </section>
 
+    <!-- The rating section: -->
     <section class="rating-box">
               <h2>Rate this recipe!</h2>
               <p class="star-rating" id="userRating">
@@ -357,12 +372,14 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
             <?php endif; ?>
                   </section>
       </div>
+
+      <!-- footer - same on each page -->
       <footer class="footer">
 
         <p>© 2024 Flavour Finds</p>
     </footer>
   </div>
-
+<!-- link to javascript page -->
   <script src="main.js"></script>
 <script>
         window.onload = function() {

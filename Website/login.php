@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = filter_input(INPUT_POST, "psw", FILTER_SANITIZE_STRING);
 
     // Encrypt the provided password
-    $encrypted_password = encryptPassword($password);
+    $encrypted_password = password_hash($password);
 
     // Establish a database connection
     $conn = getConnection();

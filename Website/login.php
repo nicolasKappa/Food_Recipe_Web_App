@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Prepare SQL statement for execution
     if ($stmt = $conn->prepare("CALL sp_login(?, ?)")) {
         // Bind parameters to the SQL statement
-        $stmt->bind_param("ss", $email, $hashed_password);
+        $stmt->bind_param("ss", $email, $password);
         // Execute the prepared statement
         $stmt->execute();
         // Get the result of the statement

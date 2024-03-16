@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 if (!empty($password)) {
     // Encrypt the password
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
   } else {
     // Handle the case where the password is empty or null
     echo "<script>alert('Password cannot be empty.'); window.location.href='register.php';</script>";

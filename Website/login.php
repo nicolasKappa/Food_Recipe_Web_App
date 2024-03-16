@@ -8,7 +8,7 @@ require_once "../config/dbconfig.php";
 // Check if the user is already logged in
 if (isset($_SESSION["user_id"])) {
     // Redirect to search results page
-    header("Location: search_result.php");
+    header("Location: search_results.php");
     exit;
 }
 

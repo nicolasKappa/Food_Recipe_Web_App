@@ -10,13 +10,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, "psw", FILTER_SANITIZE_STRING);
 
+    // Encrypt the password
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
     // Establish a database connection
     $conn = getConnection();
 
     // Prepare a SQL statement to call the stored procedure for user registration
     if ($stmt = $conn->prepare("CALL sp_register_user(?, ?, ?)")) {
         // Bind user input parameters to the prepared SQL statement
-        $stmt->bind_param("sss", $name, $password, $email);
+        $stmt->bind_param("sss", $name, $hashed_password, $email);
         // Execute the prepared statement
         $stmt->execute();
         // Retrieve the result set from the stored procedure

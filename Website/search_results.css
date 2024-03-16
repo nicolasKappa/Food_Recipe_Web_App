@@ -10,8 +10,8 @@ body {
 }
 
 header {
-  margin-top: 10px;
-  margin-bottom: 20px;
+  margin-top: 10px; /* reset margin */
+  margin-bottom: 20px; /* add border to the bottom of the header */
   margin-left: 10px;
   margin-right: 10px;
   border-bottom: 2px solid black; /* a black line at the bottom of the header */

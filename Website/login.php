@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and retrieve email and password from POST data
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, "psw", FILTER_SANITIZE_STRING);
-    
+
     // Encrypt the provided password
     $encrypted_password = encryptPassword($password);
 

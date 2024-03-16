@@ -384,3 +384,15 @@ select {  /* style the select */
     margin-left: -40px;
   }
 }
+
+
+@media (max-width: 390px) { /* media query for max width 410px */
+	input {
+		width: 150px;
+	}
+
+  #search-bar-mobile {
+    width: 70px;
+    margin-left: -60px;
+  }
+}

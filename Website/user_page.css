@@ -3,15 +3,15 @@
 * { /* reset all padding and margin */
   margin: 0;  /* reset margin */
   padding: 0; /* reset padding */
-  box-sizing: border-box;
+  box-sizing: border-box; /* The width and height properties includes content, padding and border */
 }
 
 header {
 	margin-top: 0;  /* reset margin */
 	border-bottom: 2px solid black; /* add border to the bottom of the header */
-  display: flex; /* items will display next to eachother using flexbox */
+    display: flex; /* items will display next to eachother using flexbox */
 	align-items: center; /* items will be aligned in the center on the cross axis */
-  height: 55px; /* set height of header */
+    height: 55px; /* set height of header */
 }
 nav { /* style the navigation bar */
 	margin: 0;

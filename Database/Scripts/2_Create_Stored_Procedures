@@ -34,16 +34,27 @@ BEGIN
     -- Check if a user with the provided email and password exists
     SELECT user_id INTO user_id 
     FROM users 
-    WHERE email = p_email AND password = SHA2(p_password, 256) 
+    WHERE email = p_email 
     LIMIT 1;
 
     -- Return the user ID if found, otherwise return NULL
     IF user_id IS NOT NULL THEN
-        SELECT user_id;
+    DECLARE hashed_password VARCHAR(255);
+    SELECT password INTO hashed_password
+    FROM users 
+    WHERE email = p_email
+    LIMIT 1;
+
+    IF (password_verify(p_password, hashed_password)) THEN
+        SELECT user_id AS UserId;
     ELSE
-        SELECT NULL;
+        SELECT NULL AS UserId;
     END IF;
-END //
+    ELSE // User not found
+        SELECT NULL AS UserId;
+    END IF;
+    ELSE 
+        
 
 DELIMITER ;
 
@@ -58,7 +69,7 @@ BEGIN
     DECLARE hashed_password VARCHAR(255);
 
     -- Hash the password
-    SET hashed_password = PASSWORD(p_password);
+    SET hashed_password = password_hash(p_password, PASSWORD_DEFAULT);
 
     -- Check if the user already exists
     IF NOT EXISTS (SELECT email FROM users WHERE email = p_email) THEN

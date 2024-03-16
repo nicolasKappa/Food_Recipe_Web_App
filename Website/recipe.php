@@ -325,7 +325,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
         </section>
 
 
-            <!-- The method section: -->
+            <!-- The method section, steps taken from the database via a php script -->
          <section class="method">
             <h2>Method</h2>
             <ol class="steps">
@@ -351,6 +351,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
               <h2>Rate this recipe!</h2>
               <p class="star-rating" id="userRating">
           <?php for($i = 1; $i <= 5; $i++): ?>
+            <!-- user clicks on the amount of stars they would like to rate the recipe-->
           <img src="images/icons/<?= $i <= $currentRating ? 'star' : 'emptystar'; ?>.png" class="star" data-star="<?= $i ?>" alt="<?= $i ?> Star" style="cursor:pointer;">
                 <?php endfor; ?>
             </p>
@@ -363,6 +364,7 @@ if ($stmt = $conn->prepare("CALL sp_get_average_rating(?)")) {
           <p>There are no tips to display!</p>
            <?php else: ?>
             <ul>
+               <!-- Tips are drawn from the database via a php script -->
                 <?php foreach ($tips as $tip): ?>
                     <li><?php echo htmlspecialchars(
                         $tip["tip_description"]

@@ -81,11 +81,14 @@ $conn->close();
 ?>
 
 <!DOCTYPE html>
+<!-- User page -->
 <html lang="en">
+  <!-- Head section -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User page</title>
+    <!--link to show favicon int the browser url box-->
     <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
 </head>
 <body>
@@ -101,12 +104,15 @@ $conn->close();
         <ul>
           <?php if (isset($_SESSION['user_id'])): ?>
 		  <div class="simpleSearch">
+        <!-- Search bar in header with aria labels for accessibility-->
 		  <form action="search_results.php" method="get" class="header-form">
       <input id="search-bar" type="text" placeholder="Search..." name="search" aria-label="Search">
-     <!-- <input id="search-bar-mobile" type="text" placeholder="Search" name="search" aria-label="Search"> -->
+
                     <button id="search-button" type="submit">Search</button>
                 </form>
 			</div>
+      <!--logic to show different items on the dropdown menu depending on whether the user is logged in-->
+      <!-- list items with links to other pages-->
             <li><a href="search_results.php">All Recipes</a></li>
             <li class="dropdown">
               <a href="javascript:void(0)" class="dropbtn">
@@ -161,7 +167,7 @@ $conn->close();
             </section>
         </div>
     </main>
-
+                          <!-- Footer section -->
     <footer class="footer">
 
         <p>© 2024 Flavour Finds</p>

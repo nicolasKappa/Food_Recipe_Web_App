@@ -21,27 +21,33 @@ $userLoggedIn = isset($_SESSION['user_id']);
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Best recipes ever</title>
+  <!--link to show favicon int the browser url box-->
 	<link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
 </head>
 
 <body>
+  <!--link to style sheet-->
 <style>
 		@import url("landing_page.css");
 </style>
 
 <!-- Includes logo, login and registration links -->
+
     <header>
       <div id="logo">
+
         <a href="index.php"><img src="images/logo/logo.png" width="50" height="50" alt="FF logo"></a>
       </div>
       <nav>
         <ul>
+        <!-- list items with links to other pages and aria labels for accessibility-->
           <?php if (isset($_SESSION['user_id'])): ?>
             <li><a href="search_results.php">All Recipes</a></li>
             <li class="dropdown">
               <a href="javascript:void(0)" class="dropbtn">
                 <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
               </a>
+              <!--logic to show different items on the dropdown menu depending on whether the user is logged in-->
               <div class="dropdown-content" id="myDropdown" aria-label="User Menu">
                 <a href="user_page.php">Your Profile</a>
                 <a href="logout.php">Log Out</a>
@@ -68,7 +74,7 @@ $userLoggedIn = isset($_SESSION['user_id']);
 
         <p>© 2024 Flavour Finds</p>
     </footer>
-
+        <!-- link to javascript script -->
 <script src="main.js"></script>
 </body>
 

@@ -10,8 +10,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, "psw", FILTER_SANITIZE_STRING);
 
+if (!empty($password)) {
     // Encrypt the password
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+  } else {
+    // Handle the case where the password is empty or null
+    echo "<script>alert('Password cannot be empty.'); window.location.href='register.php';</script>";
+    exit; // Exit the script to prevent further execution
+}
+
 
     // Establish a database connection
     $conn = getConnection();

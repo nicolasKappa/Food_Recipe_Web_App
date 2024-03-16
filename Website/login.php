@@ -8,7 +8,7 @@ require_once "../config/dbconfig.php";
 // Check if the user is already logged in
 if (isset($_SESSION["user_id"])) {
     // Redirect to search results page
-    header("Location: search_result.php");
+    header("Location: search_results.php");
     exit;
 }
 
@@ -20,9 +20,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Sanitize and retrieve email and password from POST data
     $email = filter_input(INPUT_POST, "email", FILTER_SANITIZE_EMAIL);
     $password = filter_input(INPUT_POST, "psw", FILTER_SANITIZE_STRING);
-    
-    // Encrypt the provided password
-    $encrypted_password = encryptPassword($password)
 
     // Establish a database connection
     $conn = getConnection();
@@ -35,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Prepare SQL statement for execution
     if ($stmt = $conn->prepare("CALL sp_login(?, ?)")) {
         // Bind parameters to the SQL statement
-        $stmt->bind_param("ss", $email, $encrypted_password);
+        $stmt->bind_param("ss", $email, $hashed_password);
         // Execute the prepared statement
         $stmt->execute();
         // Get the result of the statement

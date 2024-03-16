@@ -118,6 +118,7 @@ $conn->close();
             <a href="javascript:void(0)" class="dropbtn">
                 <img src="images/icons/auth-icon.png" alt="authorization icon" width="30">
             </a>
+<!-- Dropdown menu items -->
             <div class="dropdown-content" id="myDropdown" aria-label="User Menu">
                 <a href="user_page.php">Your Profile</a>
                 <a href="logout.php">Log Out</a>
@@ -144,7 +145,7 @@ $conn->close();
                           <option value="0" <?php echo $selectedCategoryId == 0 ? "selected" : ""; ?>>All Categories</option>
                           <?php echo isset($category_options) ? $category_options : ''; ?>
                       </select>
-
+<!-- Search button to submit search -->
                       <button id="search-button" type="submit">Search</button>
                     </div>
 <!-- Sort recipes -->

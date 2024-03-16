@@ -205,13 +205,13 @@ body {  /* style the body */
 		max-width: 90%; /* Ensure they don't overflow on smaller screens */
 	}
 
-  .landing-main-block h1 {
-    margin: 10 0 20px 0;
-    font-size: 2em;
-    font-family: 'Trebuchet MS', sans-serif;
-    color: black;
-    text-shadow: 1px 1px 2px white;
-    letter-spacing: .2rem;
-    word-spacing: .2rem;
+  .landing-main-block h1 {  /* style the heading */
+    margin: 10 0 20px 0;  /* Set margin */
+    font-size: 2em; /* Set font size */
+    font-family: 'Trebuchet MS', sans-serif;  /* Set font family */
+    color: black; /* Set text color */
+    text-shadow: 1px 1px 2px white; /* Set text shadow */
+    letter-spacing: .2rem;  /* Set letter spacing */
+    word-spacing: .2rem;  /* Set word spacing */
   }
 }

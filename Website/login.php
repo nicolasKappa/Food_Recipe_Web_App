@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- Login form with email and password fields -->
             <form class="login-register-form" method="post">
                 <label class="label" for="email"><b>Email</b></label>
-                <input class="input" type="text" placeholder="Enter email" name="email" required>
+                <input class="input" type="email" placeholder="Enter email" name="email" required>
                 <label for="psw"><b>Password</b></label>
                 <input class="input" type="password" placeholder="Enter Password" name="psw" required>
                 <button type="submit">Login</button>

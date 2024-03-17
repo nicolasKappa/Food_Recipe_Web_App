@@ -105,7 +105,7 @@ if (!empty($password)) {
       <input class="input" type="text" placeholder="Enter name" name="name" required> <!-- Field for name input -->
 
       <label for="email"><b>Email</b></label>
-      <input class="input" type="text" placeholder="Enter email" name="email" required> <!-- Field for email input -->
+      <input class="input" type="email" placeholder="Enter email" name="email" required> <!-- Field for email input -->
 
       <label for="psw"><b>Password</b></label>
       <input class="input" type="password" placeholder="Enter Password" name="psw" required> <!-- Field for password input -->

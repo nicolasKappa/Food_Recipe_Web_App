@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Check if the result set is valid and a row can be fetched
         if ($result && ($row = $result->fetch_assoc())) {
-            // Use password_verify to compare the input password with the hashed password from the database
+            // password_verify to compare the input password with the hashed password from the database
             if (password_verify($password, $row['password'])) {
                 // Set session variables for user ID and email upon successful login
                 $_SESSION["user_id"] = $row["user_id"];

@@ -26,16 +26,16 @@ DROP PROCEDURE IF EXISTS sp_get_user_rating;
 DELIMITER //
 
 CREATE PROCEDURE sp_login(
-	IN p_email VARCHAR(100), 
-    IN p_password VARCHAR(100)
+    IN p_email VARCHAR(100)
 )
 BEGIN
-    SELECT user_id FROM users 
-    WHERE email = p_email AND password = p_password
+    SELECT user_id, password FROM users 
+    WHERE email = p_email
     LIMIT 1;
 END //
 
 DELIMITER ;
+
 
 -- User Registration and check if the user already registered
 DELIMITER //

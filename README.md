@@ -28,9 +28,11 @@ recommendations and is in a responsive design.
 
 # Usage
 
-## 1. index.php
-- Upon opening the web app, users will land on the homepage where they can browse through a variety of recipes.
-- Users can use the search bar to find specific recipes.
+## 1. Landing page
+- Upon opening the web app, users will land on the homepage where they can log in and browse through a variety of recipes.
+- Users can search based on title or words in the description of a recipe and/or using specific categories.  
+- Users can sort by recipe title, amount of people served or average rating. 
+- Users can use the search bar in each page to find specific recipes, as available in the search_results.php, user_page.php and recipe.php pages. 
 
 ## 2. Viewing Recipe Details
 - Clicking on a recipe title will take the user to the recipe details page.

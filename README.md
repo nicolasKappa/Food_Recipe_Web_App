@@ -6,7 +6,7 @@
 * It stores and accesses data in a MySQL relational database with server-side and client-side validation. The web application follows the latest accessibility 
 recommendations and is in a responsive design. 
 * Users are able to register, login, search, add/delete favorite recipes and rate recipes.
-* Visit the [Recipe Web App]((https://flavourfinds.naiva.co.za)) to explore our collection of recipes and start cooking today!
+* Visit the [Recipe Web App]((https://flavour.naiva.co.za)) to explore our collection of recipes and start cooking today!
 
 
 # Table of Contents
@@ -21,26 +21,26 @@ recommendations and is in a responsive design.
 1. Download and Install XAMPP https://www.apachefriends.org/
 2. Clone GitHub Repo from https://github.com/THarmse/End_of_Module_Assignment_Recipe_Web_App.git and place it here C:\xampp\htdocs\flavourfinds
 3. Run Database/Scripts 1_Create_Database, 2_Create_Stored_Procedures, 3_Insert_Sample_Data, 4_Create_ServiceAccount
-4. Create new User Account for testing via DB or use Testing user: John Doe with Email john.doe@example.com and Password = Password1
-5. Start the Apache server via XAMPP control panel
-6. http://localhost/flavourfinds/website/login.php
+4. Start the Apache server via XAMPP control panel
+5. Navigate to http://localhost/flavourfinds/website/login.php
+6. Register a new account on the Website or log in using an existing Testing user: John Doe with Email john.doe@example.com and Password = Password1
 
 
 # Usage
 
-## 1. Landing_page
+## 1. index.php
 - Upon opening the web app, users will land on the homepage where they can browse through a variety of recipes.
 - Users can use the search bar to find specific recipes.
 
 ## 2. Viewing Recipe Details
 - Clicking on a recipe title will take the user to the recipe details page.
-- Here, users can view detailed information about the recipe, including ingredients, instructions, cooking time, serving size, and nutritional information if available.
+- Here, users can view detailed information about the recipe, including ingredients, instructions, cooking time, serving size, and tip if available.
 
 ## 3. Interacting with Recipes
   - Users can interact with recipes in various ways:
-  - They can save recipes to their profile for later reference.
-  - They can rate and review recipes based on their experience.
-  - Users can also share recipes via URL.
+    - They can save recipes to their profile for later reference.
+    - They can rate recipes based on their experience.
+    - Users can also share recipes via URL once on the selected recipe.
 
 ## 4. Accessibility and Responsive Design
 - The web app is designed to be accessible to users of all abilities, with features such as keyboard navigation, alt text for images, and semantic HTML markup.
@@ -52,8 +52,8 @@ recommendations and is in a responsive design.
 ## 6. Possile future features:
    
     Creating and Editing Recipes (for registered users)
-    - To create a recipe, users can navigate to their profile page and access the "Create Recipe" feature.
-    - Users can add ingredients, instructions, cooking tips, and images to their recipes.
+    - To create a recipe with minimal to no typing, users can navigate to their profile page and access the "Create Recipe" feature.
+    - Users can add new ingredients, instructions, cooking tips, and images to their recipes.
     - After creating a recipe, users can edit or delete it as needed.
     - Registered users have the ability to create and share their own recipes with the community.
 
@@ -64,6 +64,12 @@ recommendations and is in a responsive design.
     Troubleshooting and Support
     - If users encounter any issues while using the web app or have suggestions for improvement, they can contact our support team via email or          through the provided feedback form.
     - Common troubleshooting tips and FAQs are also available in the Help section of the web app.
+
+# 7. Hosted Version of the Web App:
+- The Web app is hosted and accessible from: https://flavour.naiva.co.za/
+    -This Allows for accessing the site from anywhere
+    -Enables the accessibility on tablets and mobile phones
+    -Enables for the ability to verify the carbon footprint and accessibility with tools on the web
 
 # Contributing
 We welcome contributions from the community. To contribute to this project:

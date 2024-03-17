@@ -53,17 +53,17 @@ recommendations and is in a responsive design.
 
 ## 6. Possile future features:
    
-    Creating and Editing Recipes (for registered users)
+   Creating and Editing Recipes (for registered users)
     - To create a recipe with minimal to no typing, users can navigate to their profile page and access the "Create Recipe" feature.
     - Users can add new ingredients, instructions, cooking tips, and images to their recipes.
     - After creating a recipe, users can edit or delete it as needed.
     - Registered users have the ability to create and share their own recipes with the community.
 
-    Managing Profile and Preferences
+   Managing Profile and Preferences
     - Users can create a profile to access additional features such as saving favorite recipes and viewing their recipe history.
     - Within their profile, users can update their personal information, change preferences (e.g., dietary restrictions), and manage saved recipes.
 
-    Troubleshooting and Support
+   Troubleshooting and Support
     - If users encounter any issues while using the web app or have suggestions for improvement, they can contact our support team via email or          through the provided feedback form.
     - Common troubleshooting tips and FAQs are also available in the Help section of the web app.
 

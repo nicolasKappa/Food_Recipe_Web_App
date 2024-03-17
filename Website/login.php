@@ -29,33 +29,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Connection failed: " . $conn->connect_error);
     }
 
-    // Prepare SQL statement for execution
-    if ($stmt = $conn->prepare("CALL sp_login(?, ?)")) {
-        // Bind parameters to the SQL statement
-        $stmt->bind_param("ss", $email, $password);
-        // Execute the prepared statement
+    // Check if a prepared statement can be made with the SQL procedure call
+    if ($stmt = $conn->prepare("CALL sp_login(?)")) {
+        // Bind the input email to the prepared statement as a string parameter
+        $stmt->bind_param("s", $email);
+        // Execute the prepared SQL statement
         $stmt->execute();
-        // Get the result of the statement
+        // Get the result set from the executed statement
         $result = $stmt->get_result();
 
-        // Check if a row is fetched
+        // Check if the result set is valid and a row can be fetched
         if ($result && ($row = $result->fetch_assoc())) {
-            // Set session variables
-            $_SESSION["user_id"] = $row["user_id"];
-            $_SESSION["email"] = $email;
-            // Redirect to search results page
-            header("Location: search_results.php");
-            exit;
+            // Use password_verify to compare the input password with the hashed password from the database
+            if (password_verify($password, $row['password'])) {
+                // Set session variables for user ID and email upon successful login
+                $_SESSION["user_id"] = $row["user_id"];
+                $_SESSION["email"] = $email;
+                // Redirect the user to the search results page
+                header("Location: search_results.php");
+                exit; // Ensure script execution ends after redirect
+            } else {
+                // Set an error message if the password does not match
+                $error = "Login failed. Email or password is incorrect.";
+            }
         } else {
-            // Set error message for incorrect login
+            // Set an error message if no matching row was found
             $error = "Login failed. Email or password is incorrect.";
         }
-        // Close the statement
+        // Close the prepared statement
         $stmt->close();
     } else {
-        // Set error message for statement preparation failure
+        // Set an error message if the SQL statement fails to prepare
         $error = "Failed to prepare the login statement.";
     }
+
     // Close the connection
     $conn->close();
 }

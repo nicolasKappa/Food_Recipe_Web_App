@@ -22,69 +22,39 @@ DROP PROCEDURE IF EXISTS sp_get_average_rating;
 DROP PROCEDURE IF EXISTS sp_get_user_rating;
 
 
+-- Login
 DELIMITER //
 
 CREATE PROCEDURE sp_login(
-    IN p_email VARCHAR(100), 
+	IN p_email VARCHAR(100), 
     IN p_password VARCHAR(100)
 )
 BEGIN
-    DECLARE user_id INT;
-
-    -- Check if a user with the provided email and password exists
-    SELECT user_id INTO user_id 
-    FROM users 
-    WHERE email = p_email 
+    SELECT user_id FROM users 
+    WHERE email = p_email AND password = p_password
     LIMIT 1;
-
-    -- Return the user ID if found, otherwise return NULL
-    IF user_id IS NOT NULL THEN
-    DECLARE hashed_password VARCHAR(255);
-    SELECT password INTO hashed_password
-    FROM users 
-    WHERE email = p_email
-    LIMIT 1;
-
-    IF (password_verify(p_password, hashed_password)) THEN
-        SELECT user_id AS UserId;
-    ELSE
-        SELECT NULL AS UserId;
-    END IF;
-    ELSE // User not found
-        SELECT NULL AS UserId;
-    END IF;
-    ELSE 
-        
+END //
 
 DELIMITER ;
 
+-- User Registration and check if the user already registered
 DELIMITER //
 
 CREATE PROCEDURE sp_register_user(
-    IN p_full_name VARCHAR(50), 
-    IN p_password VARCHAR(255), 
+	IN p_full_name VARCHAR(50), 
+	IN p_password VARCHAR(100), 
     IN p_email VARCHAR(100)
 )
 BEGIN
-    DECLARE hashed_password VARCHAR(255);
-
-    -- Hash the password
-    SET hashed_password = password_hash(p_password, PASSWORD_DEFAULT);
-
-    -- Check if the user already exists
     IF NOT EXISTS (SELECT email FROM users WHERE email = p_email) THEN
-        -- Insert the new user
         INSERT INTO users (full_name, password, email) 
-        VALUES (p_full_name, hashed_password, p_email);
+        VALUES (p_full_name, p_password, p_email);
     ELSE
-        -- Return an error message
         SELECT 'User already exists' AS ErrorMessage;
     END IF;
 END //
 
 DELIMITER ;
-
-
 
 DELIMITER //
 

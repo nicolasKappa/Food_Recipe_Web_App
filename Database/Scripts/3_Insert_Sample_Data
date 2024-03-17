@@ -358,16 +358,16 @@ INSERT INTO recipe_tips (recipe_id, tip_nr, description) VALUES
 -- *********************
 
 -- Create Sample Users
-CALL `sp_register_user`('John Doe', 'Password1', 'john.doe@example.com');
-CALL `sp_register_user`('Jane Smith', 'Password2', 'jane.smith@example.com');
-CALL `sp_register_user`('Emily Johnson', 'Password3', 'emily.johnson@example.com');
-CALL `sp_register_user`('Michael Brown', 'Password4', 'michael.brown@example.com');
-CALL `sp_register_user`('Jessica Williams', 'Password5', 'jessica.williams@example.com');
-CALL `sp_register_user`('Daniel Miller', 'Password6', 'daniel.miller@example.com');
-CALL `sp_register_user`('Karen Wilson', 'Password7', 'karen.wilson@example.com');
-CALL `sp_register_user`('Brian Moore', 'Password8', 'brian.moore@example.com');
-CALL `sp_register_user`('Sophia Taylor', 'Password9', 'sophia.taylor@example.com');
-CALL `sp_register_user`('Edward Anderson', 'Password10', 'edward.anderson@example.com');
+CALL `sp_register_user`('John Doe', '$2y$10$PopIXQtOm1/kSeFBkRe8fe8T0bd2VHg.78U66NCnr62n65SIAAGmK', 'john.doe@example.com');
+CALL `sp_register_user`('Jane Smith', '$2y$10$PopIXQtOm1/kSeFBkRe8fe8T0bd2VHg.78U66NCnr62n65SIAAGmK', 'jane.smith@example.com');
+CALL `sp_register_user`('Emily Johnson', '$2y$10$PopIXQtOm1/kSeFBkRe8fe8T0bd2VHg.78U66NCnr62n65SIAAGmK', 'emily.johnson@example.com');
+CALL `sp_register_user`('Michael Brown', '$2y$10$PopIXQtOm1/kSeFBkRe8fe8T0bd2VHg.78U66NCnr62n65SIAAGmK', 'michael.brown@example.com');
+CALL `sp_register_user`('Jessica Williams', '$2y$10$PopIXQtOm1/kSeFBkRe8fe8T0bd2VHg.78U66NCnr62n65SIAAGmK', 'jessica.williams@example.com');
+CALL `sp_register_user`('Daniel Miller', '$2y$10$PopIXQtOm1/kSeFBkRe8fe8T0bd2VHg.78U66NCnr62n65SIAAGmK', 'daniel.miller@example.com');
+CALL `sp_register_user`('Karen Wilson', '$2y$10$PopIXQtOm1/kSeFBkRe8fe8T0bd2VHg.78U66NCnr62n65SIAAGmK', 'karen.wilson@example.com');
+CALL `sp_register_user`('Brian Moore', '$2y$10$PopIXQtOm1/kSeFBkRe8fe8T0bd2VHg.78U66NCnr62n65SIAAGmK', 'brian.moore@example.com');
+CALL `sp_register_user`('Sophia Taylor', '$2y$10$PopIXQtOm1/kSeFBkRe8fe8T0bd2VHg.78U66NCnr62n65SIAAGmK', 'sophia.taylor@example.com');
+CALL `sp_register_user`('Edward Anderson', '$2y$10$PopIXQtOm1/kSeFBkRe8fe8T0bd2VHg.78U66NCnr62n65SIAAGmK', 'edward.anderson@example.com');
 
 -- Associate random ratings based on the sample users
 CALL `sp_add_rating`(1, 1, ROUND(1 + RAND() * 4));

@@ -84,5 +84,5 @@ We welcome contributions from the community. To contribute to this project:
 * Create a new Pull Request.
 
 # License
-
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 * This project is licensed under the MIT License - see the LICENSE file for details.
